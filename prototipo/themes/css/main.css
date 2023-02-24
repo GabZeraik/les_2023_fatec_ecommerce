@@ -177,6 +177,24 @@ iframe {
     border-bottom: 2px solid #eee;
 }
 
+.card {
+    border: 1px #333 solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card:hover,
+.card:focus {
+    border: 2px #eb4800 solid;
+}
+
+.card .thumbnails.small img {
+    vertical-align: inherit !important;
+}
+
 
 /* end common */
 
