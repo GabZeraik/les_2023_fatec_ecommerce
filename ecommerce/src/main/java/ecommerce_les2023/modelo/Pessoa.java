@@ -1,12 +1,15 @@
 package ecommerce_les2023.modelo;
 
+import java.util.List;
+
 public abstract class Pessoa extends EntidadeDominio {
 
 	protected String nome;
 	protected String cpf;
 	protected String email;
-	protected Endereco endereco;
-	
+	protected String genero;
+	protected List<Endereco> endereco;
+
 	public String getNome() {
 		return nome;
 	}
@@ -25,10 +28,20 @@ public abstract class Pessoa extends EntidadeDominio {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Endereco getEndereco() {
+
+	public List<Endereco> getEndereco() {
 		return endereco;
 	}
-	public void setEndereco(Endereco endereco) {
+	
+	public void setEndereco(List<Endereco> endereco) {
 		this.endereco = endereco;
 	}
+	
+	public String getGenero() {
+		return genero;
+	}
+	
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}	
 }

@@ -257,7 +257,7 @@ public class ProfessorDAO extends AbstractDAO {
 					pro.setCpf(rs.getString("pro_cpf"));
 					pro.setEmail(rs.getString("pro_email"));
 					pro.setRegistro_professor(rs.getString("pro_registro"));
-					pro.setEndereco(new Endereco(rs.getString("pro_logradouro"), rs.getString("pro_bairro"), rs.getString("pro_cep"), new Cidade(rs.getString("pro_cidade"), new Estado(rs.getString("pro_estado")))));
+					//pro.setEndereco(new Endereco(rs.getString("pro_logradouro"), rs.getString("pro_bairro"), rs.getString("pro_cep"), new Cidade(rs.getString("pro_cidade"), new Estado(rs.getString("pro_estado")))));
 					pro.setCursos(cursos);
 					pro.setDta_cadastro(rs.getTimestamp("pro_dta_cad").getTime());
 					

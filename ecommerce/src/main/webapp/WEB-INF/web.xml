@@ -24,72 +24,7 @@
   
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
-    <url-pattern>/CadastrarCurso</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/AlterarCurso</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/ConsultarCurso</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/ExcluirCurso</url-pattern>
+    <url-pattern>/CadastrarCliente</url-pattern>
   </servlet-mapping>
     
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/CadastrarAluno</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/ConsultarAluno</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/ExcluirAluno</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/AlterarAluno</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/ConsultarCursosAlunos</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/CadastrarProfessor</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/ConsultarProfessor</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/ExcluirProfessor</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/AlterarProfessor</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/ConsultarCursosProfessores</url-pattern>
-  </servlet-mapping>
-  
 </web-app>

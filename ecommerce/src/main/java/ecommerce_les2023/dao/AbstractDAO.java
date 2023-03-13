@@ -13,6 +13,7 @@ public abstract class AbstractDAO implements IDAO {
 	protected Connection conexao;
 	protected String tabela;
 	protected String idTabela;
+	protected boolean ctrlTransaction=true;
 	
 	public AbstractDAO(Connection conexao, String tabela, String idTabela){
 		this.tabela = tabela;

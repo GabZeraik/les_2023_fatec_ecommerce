@@ -10,47 +10,48 @@ import java.util.List;
 
 import ecommerce_les2023.modelo.Aluno;
 import ecommerce_les2023.modelo.Cidade;
+import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Curso;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Estado;
 import ecommerce_les2023.utils.Log;
 
-public class AlunoDAO extends AbstractDAO {
+public class ClienteDAO extends AbstractDAO {
 	
-	public AlunoDAO() {
-		super("alunos", "alu_id");
+	public ClienteDAO() {
+		super("clientes", "cli_id");
 	}
 
 	@Override
 	public void salvar(EntidadeDominio entidade) {
 		openConnection();
 		PreparedStatement comandoSQL = null;
-		Aluno aluno = (Aluno) entidade;
-		
+		Cliente cliente = (Cliente) entidade;
+				
 		try {
 			this.conexao.setAutoCommit(false);
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("INSERT INTO ");
 			sb.append(this.tabela);
-			sb.append("(alu_nome, alu_cpf, alu_email, alu_dta_nasc, alu_registro, alu_logradouro, alu_bairro, alu_cep, alu_cidade, alu_estado, alu_dta_cad, curso_id)");
-			sb.append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+			sb.append("(cli_codigo, cli_usuario, cli_senha, cli_situacao, cli_nome_completo, cli_genero, cli_data_nascimento, cli_cpf, cli_email, cli_ddd_telefone, cli_numero_telefone, cli_tipo_telefone, cli_ranking)");
+			sb.append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			
-			Timestamp ts = Timestamp.from(aluno.getDta_cadastro().toInstant());
 			comandoSQL = this.conexao.prepareStatement(sb.toString(), Statement.RETURN_GENERATED_KEYS);
-			comandoSQL.setString(1, aluno.getNome());
-			comandoSQL.setString(2, aluno.getCpf());
-			comandoSQL.setString(3, aluno.getEmail());
-			comandoSQL.setString(4, aluno.getDta_nascimento());
-			comandoSQL.setString(5, aluno.getRegistro_aluno());
-			comandoSQL.setString(6, aluno.getEndereco().getLogradouro());
-			comandoSQL.setString(7, aluno.getEndereco().getBairro());
-			comandoSQL.setString(8, aluno.getEndereco().getCep());
-			comandoSQL.setString(9, aluno.getEndereco().getCidade().getNome_cidade());
-			comandoSQL.setString(10, aluno.getEndereco().getCidade().getEstado().getSigla());
-			comandoSQL.setTimestamp(11, ts, aluno.getDta_cadastro());
-			comandoSQL.setInt(12, aluno.getCurso().getId());
+			comandoSQL.setString(1, cliente.getCodigo());
+			comandoSQL.setString(2, cliente.getUsuario());
+			comandoSQL.setString(3, cliente.getSenha());
+			comandoSQL.setString(4, cliente.getSituacao());
+			comandoSQL.setString(5, cliente.getNome());
+			comandoSQL.setString(6, cliente.getGenero());
+			comandoSQL.setString(7, cliente.getDta_nascimento());
+			comandoSQL.setString(8, cliente.getCpf());
+			comandoSQL.setString(9, cliente.getEmail());
+			comandoSQL.setString(10, cliente.getTelefone().getDdd());
+			comandoSQL.setString(11, cliente.getTelefone().getNumero());
+			comandoSQL.setString(12, cliente.getTelefone().getTipo());
+			comandoSQL.setString(13, cliente.getRanking());
 			
 			comandoSQL.executeUpdate();
 			
@@ -60,9 +61,17 @@ public class AlunoDAO extends AbstractDAO {
 			int id = 0;
 			if(keysTabela.next())
 				id = keysTabela.getInt(1);
-			aluno.setId(id);
+			cliente.setId(id);
 			
-			System.out.println(new Log().gerarLog(aluno, "Cadastro"));
+			List<Endereco> endereco = cliente.getEndereco();
+			for (Endereco end : endereco) {
+				end.setCliente_id(cliente.getId());
+				EnderecoDAO enderecoDAO = new EnderecoDAO(conexao);
+				enderecoDAO.ctrlTransaction = false;
+				enderecoDAO.salvar(end);
+			}
+			
+			System.out.println(new Log().gerarLog(cliente, "Cadastro"));
 			
 		} catch (SQLException e) {
 			try {
@@ -84,6 +93,18 @@ public class AlunoDAO extends AbstractDAO {
 	}
 
 	@Override
+	public void alterar(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*@Override
 	public void alterar(EntidadeDominio entidade) {
 		openConnection();
 		PreparedStatement comandoSQL = null;
@@ -137,7 +158,8 @@ public class AlunoDAO extends AbstractDAO {
 		}
 		
 	}
-
+	*/
+	/*
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		openConnection();
@@ -177,11 +199,11 @@ public class AlunoDAO extends AbstractDAO {
 				
 				sb.append(" INNER JOIN cursos ON alunos.curso_id = cursos.cur_id ");
 				
-				/*Pesquisa por id do aluno ou
-				 * pelo cpf ou
-				 * pelo curso ou
-				 * pelo nome ou pelo email
-				 */
+					//Pesquisa por id do aluno ou
+					//pelo cpf ou
+					//pelo curso ou
+					//pelo nome ou pelo email
+				 
 				
 				if(entidade != null) {
 					if(aluno.getId() != 0) {
@@ -262,5 +284,5 @@ public class AlunoDAO extends AbstractDAO {
 			}
 		}
 		return alunos;
-	}
+	}*/
 }

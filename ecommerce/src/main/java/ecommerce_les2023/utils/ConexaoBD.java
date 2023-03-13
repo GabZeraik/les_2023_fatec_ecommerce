@@ -28,7 +28,7 @@ public class ConexaoBD {
 
 	public static Connection getConnectionPostgres() throws ClassNotFoundException, SQLException {
 		driver = "org.postgresql.Driver";
-		url = "jdbc:postgresql://localhost:5432/gestao_academica_2022";
+		url = "jdbc:postgresql://localhost:5432/ecommerce_les";
 		user = "postgres";
 		password = "admin";
 		Class.forName(driver);

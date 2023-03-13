@@ -6,22 +6,25 @@ import java.util.List;
 import java.util.Map;
 
 import ecommerce_les2023.dao.AlunoDAO;
+import ecommerce_les2023.dao.ClienteDAO;
 import ecommerce_les2023.dao.CursoDAO;
 import ecommerce_les2023.dao.IDAO;
 import ecommerce_les2023.dao.ProfessorDAO;
 import ecommerce_les2023.modelo.Aluno;
+import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Curso;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Professor;
 import ecommerce_les2023.negocio.IStrategy;
-import ecommerce_les2023.negocio.ValidadorDigitosCpfStrategy;
+import ecommerce_les2023.negocio.VerificadorDigitosCpfStrategy;
 import ecommerce_les2023.negocio.VerificadorCpfAlunoStrategy;
-import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosAlunoStrategy;
+import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosClienteStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosCursoStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosProfessorStrategy;
 import ecommerce_les2023.negocio.VerificadorExistenciaCursoStrategy;
 import ecommerce_les2023.negocio.VerificadorRaAlunoStrategy;
 import ecommerce_les2023.negocio.VerificadorRfProfessorStrategy;
+import ecommerce_les2023.negocio.VerificadorSenhaForte;
 import ecommerce_les2023.utils.Resultado;
 
 public class Fachada implements IFachada {
@@ -35,19 +38,19 @@ public class Fachada implements IFachada {
 	}
 	
 	//Cria os mapas de chave/valor para as respectivas classes, linkando a classe com suas regras de negócio
-	//Exemplo: classe Aluno/ Regra de negócio 01
+	//Exemplo: classe cliente/ Regra de negócio 01
 	private void criarMapStrategies() {
-		List<IStrategy> alunoStrategies = new ArrayList<IStrategy>();
-		List<IStrategy> cursoStrategies = new ArrayList<IStrategy>();
-		List<IStrategy> professorStrategies = new ArrayList<IStrategy>();
+		List<IStrategy> clienteStrategy = new ArrayList<IStrategy>();
 		
-		//Aplicar regras de negócio para manter alunos
-		alunoStrategies.add(new VerificadorDadosObrigatoriosAlunoStrategy());
-		alunoStrategies.add(new ValidadorDigitosCpfStrategy());
-		alunoStrategies.add(new VerificadorCpfAlunoStrategy());
-		alunoStrategies.add(new VerificadorExistenciaCursoStrategy());
+		//Aplicar regras de negócio para manter clientes
+		clienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
+		clienteStrategy.add(new VerificadorDigitosCpfStrategy());
+		clienteStrategy.add(new VerificadorSenhaForte());
 		
-		//Aplicar regras de negócio para manter cursos
+		this.mapStrategies = new HashMap<String, List<IStrategy>>();
+		this.mapStrategies.put(Cliente.class.getName(), clienteStrategy);
+		
+		/*//Aplicar regras de negócio para manter cursos
 		cursoStrategies.add(new VerificadorDadosObrigatoriosCursoStrategy());
 		cursoStrategies.add(new VerificadorExistenciaCursoStrategy());
 		
@@ -57,23 +60,22 @@ public class Fachada implements IFachada {
 		professorStrategies.add(new VerificadorRfProfessorStrategy());
 		
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
-		this.mapStrategies.put(Aluno.class.getName(), alunoStrategies);
+		this.mapStrategies.put(Aluno.class.getName(), clienteStrategy);
 		this.mapStrategies.put(Curso.class.getName(), cursoStrategies);
-		this.mapStrategies.put(Professor.class.getName(), professorStrategies);
+		this.mapStrategies.put(Professor.class.getName(), professorStrategies);*/
 	}
 
 	//Cria os mapas de chave/valor para as respectivas classes, linkando a classe com seu DAO. Exemplo: classe Aluno/ AlunoDAO
 	private void criarMapDaos() {
 		this.mapDaos = new HashMap<String, IDAO>();
-		this.mapDaos.put(Aluno.class.getName(), new AlunoDAO());
-		this.mapDaos.put(Professor.class.getName(), new ProfessorDAO());
-		this.mapDaos.put(Curso.class.getName(), new CursoDAO());
+		this.mapDaos.put(Cliente.class.getName(), new ClienteDAO());
 	}
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
-		resultado.setNomeEntidade(entidade.getClass().getName().substring(35));
+		System.out.println(entidade.getClass().getName());
+		resultado.setNomeEntidade(entidade.getClass().getName().substring(25));
 		resultado.setOperacao("CADASTRAR");
 		
 		String retornoStrategies = this.executarStrategies(entidade);

@@ -33,25 +33,12 @@ public class Controller extends HttpServlet{
 		
 		//Instancia e cria todos os commands no atributo Map para chamar posteriormente através da url
 		mapViewHelpers = new HashMap<String, IViewHelper>();
-		mapViewHelpers.put("/gestao_academica/CadastrarCurso", new CursoViewHelper());
-		mapViewHelpers.put("/gestao_academica/ConsultarCurso", new CursoViewHelper());
-		mapViewHelpers.put("/gestao_academica/ExcluirCurso", new CursoViewHelper());
-		mapViewHelpers.put("/gestao_academica/AlterarCurso", new CursoViewHelper());
-		
-		mapViewHelpers.put("/gestao_academica/CadastrarAluno", new AlunoViewHelper());
-		mapViewHelpers.put("/gestao_academica/ConsultarAluno", new AlunoViewHelper());
-		mapViewHelpers.put("/gestao_academica/AlterarAluno", new AlunoViewHelper());
-		mapViewHelpers.put("/gestao_academica/ExcluirAluno", new AlunoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/CadastrarCliente", new ClienteViewHelper());
+		mapViewHelpers.put("/ecommerce_les/ConsultarAluno", new AlunoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/AlterarAluno", new AlunoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/ExcluirAluno", new AlunoViewHelper());
 		//View helper para obter lista de todos os cursos e aplicar na view alunos
-		mapViewHelpers.put("/gestao_academica/ConsultarCursosAlunos", new CursosAlunosViewHelper());
-		
-		mapViewHelpers.put("/gestao_academica/CadastrarProfessor", new ProfessorViewHelper());
-		mapViewHelpers.put("/gestao_academica/ConsultarProfessor", new ProfessorViewHelper());
-		mapViewHelpers.put("/gestao_academica/AlterarProfessor", new ProfessorViewHelper());
-		mapViewHelpers.put("/gestao_academica/ExcluirProfessor", new ProfessorViewHelper());
-		//View helper para obter lista de todos os cursos e aplicar na view professores
-		mapViewHelpers.put("/gestao_academica/ConsultarCursosProfessores", new CursosProfessoresViewHelper());
-		
+		mapViewHelpers.put("/ecommerce_les/ConsultarCursosAlunos", new CursosAlunosViewHelper());
 	}
 	
 	@Override
