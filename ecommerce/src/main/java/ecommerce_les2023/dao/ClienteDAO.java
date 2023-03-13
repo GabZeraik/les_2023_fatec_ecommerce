@@ -54,7 +54,7 @@ public class ClienteDAO extends AbstractDAO {
 			comandoSQL.setString(11, cliente.getTelefone().getNumero());
 			comandoSQL.setString(12, cliente.getTelefone().getTipo());
 			comandoSQL.setString(13, cliente.getRanking());
-			
+						
 			comandoSQL.executeUpdate();
 			
 			conexao.commit();
@@ -403,7 +403,7 @@ public class ClienteDAO extends AbstractDAO {
 	private Cliente criaClienteResultSet(ResultSet rs) throws SQLException {
 		Cliente cli = new Cliente();
 		cli.setId(rs.getInt("cli_id"));
-		cli.setNome(rs.getString("cli_nome"));
+		cli.setNome(rs.getString("cli_nome_completo"));
 		cli.setCpf(rs.getString("cli_cpf"));
 		cli.setEmail(rs.getString("cli_email"));
 		cli.setDta_nascimento(rs.getString("cli_data_nascimento"));
@@ -412,6 +412,7 @@ public class ClienteDAO extends AbstractDAO {
 		cli.setRanking(rs.getString("cli_ranking"));
 		cli.setSituacao(rs.getString("cli_situacao"));
 		cli.setTelefone(new Telefone(rs.getString("cli_ddd_telefone"), rs.getString("cli_numero_telefone"), rs.getString("cli_tipo_telefone")));
+		cli.setJustificativa(rs.getString("cli_justificativa"));
 		return cli;
 	}
 }

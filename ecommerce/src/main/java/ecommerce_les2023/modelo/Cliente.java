@@ -11,6 +11,7 @@ public class Cliente extends Pessoa {
 	private String ranking;
 	private String usuario;
 	private String senha;
+	private String justificativa;
 	private Cartao cartao;
 	private Telefone telefone;
 	private Cupom cupom;
@@ -31,7 +32,6 @@ public class Cliente extends Pessoa {
 		this.cartao = cartao;
 		this.telefone = telefone;
 		this.cupom = cupom;
-		System.out.println(gerarCodigoUnico());
 		this.codigo = gerarCodigoUnico();
 	}
 	
@@ -91,6 +91,14 @@ public class Cliente extends Pessoa {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getJustificativa() {
+		return justificativa;
+	}
+
+	public void setJustificativa(String justificativa) {
+		this.justificativa = justificativa;
 	}
 
 	public Cartao getCartao() {

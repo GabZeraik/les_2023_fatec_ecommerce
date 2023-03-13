@@ -3,7 +3,6 @@
     <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
         <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
             <head>
                 <meta charset="utf-8">
                 <title>Projeto LES 2023 - E-Commerce</title>
@@ -33,27 +32,26 @@
             <body>
                 <div id="top-bar" class="container">
                     <div class="row">
-                        <div class="span4">
-                            <a href="index.jsp" class="logo pull-left"><img src="static/themes/images/logo_horizontal.png" class="site_logo" alt=""></a>
-                            <form method="POST" class="search_form">
-                                <input type="text" class="input-block-level search-query" placeholder="Pesquisar cliente">
-                            </form>
-                        </div>
-                        <div class="span5 col">
-                            <h4 class="title">Filtros</h4>
-                            <ul style="list-style-type:circle">
-                                <li><input type="checkbox">Status</li>
-                                <li><input type="checkbox">Usuário</li>
-                                <li><input type="checkbox">Nome completo</li>
-                                <li><input type="checkbox">Data de nascimento</li>
-                                <li><input type="checkbox">Gênero</li>
-                                <li><input type="checkbox">CPF</li>
-                                <li><input type="checkbox">Email</li>
-                                <li><input type="checkbox">Telefone</li>
-                                <li><input type="checkbox">Endereço</li>
-                                <li><input type="checkbox">Ranking</li>
-                            </ul>
-                        </div>
+                        <form action="ConsultarCliente" method="POST" id="formConsultarCliente">
+                            <div class="span4">
+                                <a href="index.jsp" class="logo pull-left"><img src="static/themes/images/logo_horizontal.png" class="site_logo" alt=""></a>
+                            </div>
+                            <div class="span6 col">
+                                <h4 class="title">Filtros</h4>
+                                <ul>
+                                    <li>Status<input type="text" name="situacao_cliente" class="input-block-level search-query"></li>
+                                    <li>Usuário<input type="text" name="usuario_cliente" class="input-block-level search-query"></li>
+                                    <li>Nome completo<input type="text" name="nome_cliente" class="input-block-level search-query"></li>
+                                    <li>Data de nascimento<input type="text" name="data_nascimento_cliente" class="input-block-level search-query"></li>
+                                    <li>Gênero<input type="text" name="genero_cliente" class="input-block-level search-query"></li>
+                                    <li>CPF<input type="text" name="cpf_cliente" class="input-block-level search-query"></li>
+                                    <li>Email<input type="text" name="email_cliente" class="input-block-level search-query"></li>
+                                    <li>Telefone<input type="text" name="telefone_ddd_cliente" class="input-block-level search-query"></li>
+                                    <li>Ranking<input type="text" name="ranking_cliente" class="input-block-level search-query"></li>
+                                </ul>
+                                <div class="actions" style="float: right"><input class="btn btn-inverse large" form="formConsultarCliente" type="submit" name="operacao" value="CONSULTAR"></div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div id="wrapper" class="container">
@@ -79,101 +77,37 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Ativo</td>
-                                            <td>123456</td>
-                                            <td>João Maria</td>
-                                            <td>10/10/1988</td>
-                                            <td>Masculino</td>
-                                            <td>152.152.135-99</td>
-                                            <td>abcdefg@gmail.com</td>
-                                            <td>11999889988</td>
-                                            <td><a>Casa1</a>, <a>Trabalho</a></td>
-                                            <td>3</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><button onclick="editHandler(this)">Editar</button></td>
-                                            <td><button>Excluir</button></td>
-                                            <td><button onclick="statusHandler(this)">Inativar</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ativo</td>
-                                            <td>
-                                                123456
-                                            </td>
-                                            <td>João Maria</td>
-                                            <td>10/10/1988</td>
-                                            <td>Masculino</td>
-                                            <td>152.152.135-99</td>
-                                            <td>abcdefg@gmail.com</td>
-                                            <td>11999889988</td>
-                                            <td><a>Casa1</a>, <a>Trabalho</a></td>
-                                            <td>3</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><button onclick="editHandler(this)">Editar</button></td>
-                                            <td><button>Excluir</button></td>
-                                            <td><button onclick="statusHandler(this)">Inativar</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ativo</td>
-                                            <td>
-                                                123456
-                                            </td>
-                                            <td>João Maria</td>
-                                            <td>10/10/1988</td>
-                                            <td>Masculino</td>
-                                            <td>152.152.135-99</td>
-                                            <td>abcdefg@gmail.com</td>
-                                            <td>11999889988</td>
-                                            <td><a href="#">Casa1</a>,
-                                                <a href="#">Trabalho</a>
-                                            </td>
-                                            <td>3</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><button onclick="editHandler(this)">Editar</button></td>
-                                            <td><button>Excluir</button></td>
-                                            <td><button onclick="statusHandler(this)">Inativar</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Inativo</td>
-                                            <td>
-                                                123456
-                                            </td>
-                                            <td>João Maria</td>
-                                            <td>10/10/1988</td>
-                                            <td>Masculino</td>
-                                            <td>152.152.135-99</td>
-                                            <td>abcdefg@gmail.com</td>
-                                            <td>11999889988</td>
-                                            <td><a>Casa1</a>, <a>Trabalho</a></td>
-                                            <td>3</td>
-                                            <td>Informações de cobrança incorretas</td>
-                                            <td></td>
-                                            <td><button onclick="editHandler(this)">Editar</button></td>
-                                            <td><button>Excluir</button></td>
-                                            <td><button onclick="statusHandler(this)">Ativar</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Inativo</td>
-                                            <td>
-                                                123456
-                                            </td>
-                                            <td>João Maria</td>
-                                            <td>10/10/1988</td>
-                                            <td>Masculino</td>
-                                            <td>152.152.135-99</td>
-                                            <td>abcdefg@gmail.com</td>
-                                            <td>11999889988</td>
-                                            <td><a>Casa1</a>, <a>Trabalho</a></td>
-                                            <td>3</td>
-                                            <td>Informações de cobrança incorretas</td>
-                                            <td></td>
-                                            <td><button onclick="editHandler(this)">Editar</button></td>
-                                            <td><button>Excluir</button></td>
-                                            <td><button onclick="statusHandler(this)">Ativar</button></td>
-                                        </tr>
+                                        <c:choose>
+                                            <c:when test="${clientes != null && clientes.operacao == 'CONSULTAR'}">
+                                                <c:choose>
+                                                    <c:when test="${clientes.dados.size() > 0}">
+                                                        <c:forEach items="${clientes.dados}" var="item">
+                                                            <tr>
+                                                                <td>${item.situacao}</td>
+                                                                <td>${item.codigo}</td>
+                                                                <td>${item.nome}</td>
+                                                                <td>${item.dta_nascimento}</td>
+                                                                <td>${item.genero}</td>
+                                                                <td>${item.cpf}</td>
+                                                                <td>${item.email}</td>
+                                                                <td>(${item.telefone.ddd})${item.telefone.numero} - ${item.telefone.tipo}</td>
+                                                                <td>
+                                                                    <c:forEach items="${item.endereco}" var="item_endereco">
+                                                                        <a href="#" target="_blank">${item_endereco.frase}</a>,
+                                                                    </c:forEach>
+                                                                </td>
+                                                                <td>${item.ranking}</td>
+                                                                <td>${item.justificativa}</td>
+                                                                <td></td>
+                                                                <td><button onclick="editHandler(this)">Editar</button></td>
+                                                                <td><button>Excluir</button></td>
+                                                                <td><button onclick="statusHandler(this)">Inativar</button></td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                </c:choose>
+                                            </c:when>
+                                        </c:choose>
                                     </tbody>
                                 </table>
                             </div>

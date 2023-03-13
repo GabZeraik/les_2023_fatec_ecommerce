@@ -45,7 +45,8 @@ CREATE TABLE clientes (
     cli_ddd_telefone    VARCHAR(3),
     cli_numero_telefone VARCHAR(10),
     cli_tipo_telefone 	VARCHAR(30),
-    cli_ranking         VARCHAR(10)
+    cli_ranking         VARCHAR(10),
+    cli_justificativa	VARCHAR(350)
 );
 
 ALTER TABLE clientes ADD CONSTRAINT clientes_pk PRIMARY KEY ( cli_id );
@@ -139,7 +140,7 @@ ALTER TABLE cartoes
 
 ALTER TABLE cartoes
     ADD CONSTRAINT cartoes_clientes_fk FOREIGN KEY ( clientes_cli_id )
-        REFERENCES clientes ( cli_id );
+        REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
 
 ALTER TABLE categorias
     ADD CONSTRAINT categorias_produtos_fk FOREIGN KEY ( produtos_pro_id )
@@ -147,11 +148,11 @@ ALTER TABLE categorias
 
 ALTER TABLE cupons
     ADD CONSTRAINT cupons_clientes_fk FOREIGN KEY ( clientes_cli_id )
-        REFERENCES clientes ( cli_id );
+        REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
 
 ALTER TABLE enderecos
     ADD CONSTRAINT enderecos_clientes_fk FOREIGN KEY ( clientes_cli_id )
-        REFERENCES clientes ( cli_id );
+        REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
 
 ALTER TABLE itens_estoque
     ADD CONSTRAINT itens_estoque_produtos_fk FOREIGN KEY ( produtos_pro_id )
@@ -163,7 +164,7 @@ ALTER TABLE itens
 
 ALTER TABLE pedidos
     ADD CONSTRAINT pedidos_clientes_fk FOREIGN KEY ( clientes_cli_id )
-        REFERENCES clientes ( cli_id );
+        REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
 
 ALTER TABLE produtos
     ADD CONSTRAINT produtos_itens_fk FOREIGN KEY ( itens_item_id )

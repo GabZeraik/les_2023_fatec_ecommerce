@@ -113,9 +113,9 @@ public class ClienteViewHelper implements IViewHelper {
 			}
 		} else {
 			req.getSession().setAttribute("clientes", resultado);
-			//Encaminha novamente a alunos
+			//Encaminha à página clientes
 			try {
-				req.getRequestDispatcher("register.jsp").forward(req, resp);
+				req.getRequestDispatcher("admin_clientes.jsp").forward(req, resp);
 			} catch (ServletException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
