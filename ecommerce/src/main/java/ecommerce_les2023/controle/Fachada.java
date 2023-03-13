@@ -96,7 +96,7 @@ public class Fachada implements IFachada {
 	@Override
 	public Resultado excluir(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
-		resultado.setNomeEntidade(entidade.getClass().getName().substring(35));
+		resultado.setNomeEntidade(entidade.getClass().getName().substring(25));
 		resultado.setOperacao("EXCLUIR");
 		mapDaos.get(entidade.getClass().getName()).deletar(entidade);
 		List<EntidadeDominio> lista = new ArrayList<>();
@@ -111,7 +111,7 @@ public class Fachada implements IFachada {
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
-		resultado.setNomeEntidade(entidade.getClass().getName().substring(35));
+		resultado.setNomeEntidade(entidade.getClass().getName().substring(25));
 		resultado.setOperacao("ALTERAR");
 		
 		String retornoStrategies = this.executarStrategies(entidade);

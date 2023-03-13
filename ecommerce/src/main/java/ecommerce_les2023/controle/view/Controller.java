@@ -35,10 +35,9 @@ public class Controller extends HttpServlet{
 		mapViewHelpers = new HashMap<String, IViewHelper>();
 		mapViewHelpers.put("/ecommerce_les/CadastrarCliente", new ClienteViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ConsultarCliente", new ClienteViewHelper());
-		mapViewHelpers.put("/ecommerce_les/AlterarAluno", new AlunoViewHelper());
-		mapViewHelpers.put("/ecommerce_les/ExcluirAluno", new AlunoViewHelper());
-		//View helper para obter lista de todos os cursos e aplicar na view alunos
-		mapViewHelpers.put("/ecommerce_les/ConsultarCursosAlunos", new CursosAlunosViewHelper());
+		mapViewHelpers.put("/ecommerce_les/AlterarCliente", new ClienteViewHelper());
+		mapViewHelpers.put("/ecommerce_les/ExcluirCliente", new ClienteViewHelper());
+		
 	}
 	
 	@Override

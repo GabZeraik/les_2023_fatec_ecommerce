@@ -78,6 +78,20 @@
                 </div>
                 <div id="wrapper" class="container">
                     <section class="navbar main-menu">
+                        <div id="site-container">
+                            <c:choose>
+                                <c:when test="${resultado.sucesso == true && resultado != null}">
+                                    <div class="alert alert-success" role="alert">
+                                        <p>${resultado.mensagem}</p>
+                                    </div>
+                                </c:when>
+                                <c:when test="${resultado.sucesso == false && resultado != null}">
+                                    <div class="alert alert-danger" role="alert">
+                                        <p>${resultado.mensagem}</p>
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                        </div>
                         <div class="navbar-inner main-menu">
                             <nav id="menu" class="pull-right">
                                 <ul>

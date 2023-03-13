@@ -74,6 +74,7 @@ CREATE TABLE enderecos (
     end_observacao  VARCHAR(350),
     end_tipo  		VARCHAR(30),
     end_residencia	VARCHAR(30),
+    end_tipo_logradouro VARCHAR(30),
     clientes_cli_id INTEGER NOT NULL
 );
 

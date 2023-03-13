@@ -70,6 +70,7 @@ public class ClienteViewHelper implements IViewHelper {
 		endereco_entrega.setTipo("ENTREGA");
 		
 		//endereco cobranca
+		String endereco_cobranca_frase_cliente = req.getParameter("endereco_cobranca_frase_cliente");
 		String endereco_cobranca_tipo_residencia_cliente = req.getParameter("endereco_cobranca_tipo_residencia_cliente");
 		String endereco_cobranca_cep_cliente = req.getParameter("endereco_cobranca_cep_cliente");
 		String endereco_cobranca_tipo_logradouro_cliente = req.getParameter("endereco_cobranca_tipo_logradouro_cliente");
@@ -81,6 +82,7 @@ public class ClienteViewHelper implements IViewHelper {
 		String endereco_cobranca_pais_cliente = req.getParameter("endereco_cobranca_pais_cliente");
 		String endereco_cobranca_observacao_cliente = req.getParameter("endereco_cobranca_observacao_cliente");
 		
+		endereco_cobranca.setFrase(endereco_cobranca_frase_cliente);
 		endereco_cobranca.setResidencia(endereco_cobranca_tipo_residencia_cliente);
 		endereco_cobranca.setCep(endereco_cobranca_cep_cliente);
 		endereco_cobranca.setTipo_logradouro(endereco_cobranca_tipo_logradouro_cliente);
@@ -96,6 +98,12 @@ public class ClienteViewHelper implements IViewHelper {
 		list_enderecos.add(endereco_cobranca);
 				
 		EntidadeDominio cliente = new Cliente(nome_cliente, cpf_cliente, email_cliente, genero_cliente, list_enderecos, data_nascimento_cliente, "ATIVO", "", usuario_cliente, senha_cliente, null, new Telefone(telefone_ddd_cliente, telefone_numero_cliente, telefone_tipo_cliente), null);	
+		
+		try {
+			cliente.setId(Integer.parseInt(req.getParameter("id_cliente")));
+		} catch (Exception e) {
+			return cliente;
+		}
 		
 		return cliente;
 	}

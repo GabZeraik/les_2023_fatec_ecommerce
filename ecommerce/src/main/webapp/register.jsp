@@ -255,6 +255,12 @@
                                             <div class="span5 col">
                                                 <fieldset>
                                                     <div class="control-group">
+                                                        <label class="control-label">Frase curta para nomear endereço*:</label>
+                                                        <div class="controls">
+                                                            <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_cobranca_frase_curta" name="endereco_cobranca_frase_cliente" class="input-xlarge" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
                                                         <label class="control-label">Tipo de residência*:</label>
                                                         <select class="controls" id="endereco_cobranca_tipo_residencia" name="endereco_cobranca_tipo_residencia_cliente" required>
                                                             <option value="casa" selected>Casa</option>
@@ -382,6 +388,7 @@
                         if (cb.checked) preencheFormCobranca();
                     });
                     const preencheFormCobranca = () => {
+                        document.querySelector('#endereco_cobranca_frase_curta').value = document.querySelector('#endereco_entrega_frase_curta').value
                         document.querySelector('#endereco_cobranca_tipo_residencia').value = document.querySelector('#endereco_entrega_tipo_residencia').value
                         document.querySelector('#endereco_cobranca_cep').value = document.querySelector('#endereco_entrega_cep').value
                         document.querySelector('#endereco_cobranca_tipo_logradouro').value = document.querySelector('#endereco_entrega_tipo_logradouro').value

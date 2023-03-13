@@ -1,5 +1,6 @@
 package ecommerce_les2023.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -135,6 +136,12 @@ public class Cliente extends Pessoa {
 		return codigo_unico.toString();
 	}
 
+	public void adicionaEndereco(Endereco end) {
+		if(this.endereco == null) {
+			this.endereco = new ArrayList<Endereco>();
+		}
+		this.endereco.add(end);
+	}
 
 	@Override
 	public String toString() {

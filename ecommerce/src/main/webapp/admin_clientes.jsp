@@ -32,7 +32,7 @@
             <body>
                 <div id="top-bar" class="container">
                     <div class="row">
-                        <form action="ConsultarCliente" method="POST" id="formConsultarCliente">
+                        <form action="ConsultarCliente" method="GET" id="formConsultarCliente">
                             <div class="span4">
                                 <a href="index.jsp" class="logo pull-left"><img src="static/themes/images/logo_horizontal.png" class="site_logo" alt=""></a>
                             </div>
@@ -93,16 +93,98 @@
                                                                 <td>(${item.telefone.ddd})${item.telefone.numero} - ${item.telefone.tipo}</td>
                                                                 <td>
                                                                     <c:forEach items="${item.endereco}" var="item_endereco">
-                                                                        <a href="#" target="_blank">${item_endereco.frase}</a>,
+                                                                        <div class="modal fade" id="modal_end_id_${item_endereco.id}" tabindex="-1" role="dialog" aria-labelledby="modal_end_id_${item_endereco.id}" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="modal_end_id_${item_endereco.id}_titulo">Endereço: ${item_endereco.frase}</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <table class="table table-striped table-hover">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>Tipo</th>
+                                                                                                    <th>CEP</th>
+                                                                                                    <th>Residência</th>
+                                                                                                    <th>Logradouro</th>
+                                                                                                    <th>Tipo Logradouro</th>
+                                                                                                    <th>Número</th>
+                                                                                                    <th>Bairro</th>
+                                                                                                    <th>Cidade</th>
+                                                                                                    <th>Estado</th>
+                                                                                                    <th>País</th>
+                                                                                                    <th>Observação</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td>${item_endereco.tipo}</td>
+                                                                                                    <td>${item_endereco.cep}</td>
+                                                                                                    <td>${item_endereco.residencia}</td>
+                                                                                                    <td>${item_endereco.logradouro}</td>
+                                                                                                    <td>${item_endereco.tipo_logradouro}</td>
+                                                                                                    <td>${item_endereco.numero}</td>
+                                                                                                    <td>${item_endereco.bairro}</td>
+                                                                                                    <td>${item_endereco.cidade.nome_cidade}</td>
+                                                                                                    <td>${item_endereco.cidade.estado.nome_estado}</td>
+                                                                                                    <td>${item_endereco.cidade.estado.pais.nome_pais}</td>
+                                                                                                    <td>${item_endereco.observacao}</td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <button class="btn btn-secondary" data-target="#modal_end_id_${item_endereco.id}" data-toggle="modal">${item_endereco.frase}</button><br>
                                                                     </c:forEach>
                                                                 </td>
                                                                 <td>${item.ranking}</td>
                                                                 <td>${item.justificativa}</td>
                                                                 <td></td>
                                                                 <td><button onclick="editHandler(this)">Editar</button></td>
-                                                                <td><button>Excluir</button></td>
+                                                                <td><button onclick="deleteHandler(this)" data-form="formDadosCliente_${item.id}" id="excluir_${item.id}" value="EXCLUIR">Excluir</button></td>
                                                                 <td><button onclick="statusHandler(this)">Inativar</button></td>
                                                             </tr>
+                                                            <form id="formDadosCliente_${item.id}" action="" method="post">
+                                                                <input type="hidden" id="form_operacao_${item.id}" name="operacao" class="input-xlarge hidden" value="">
+                                                                <input type="hidden" item-id="form_id" name="id_cliente" class="input-xlarge" value="${item.id}">
+                                                                <input type="hidden" item-id="form_usuario" name="usuario_cliente" class="input-xlarge" value="${item.usuario}">
+                                                                <input type="hidden" item-id="form_senha" name="senha_cliente" class="input-xlarge" value="${item.senha}">
+                                                                <input type="hidden" item-id="form_nome" name="nome_cliente" class="input-xlarge" value="${item.nome}">
+                                                                <input type="hidden" item-id="form_data_nascimento" name="data_nascimento_cliente" class="input-xlarge" value="${item.dta_nascimento}">
+                                                                <input type="hidden" item-id="form_genero" name="data_nascimento_cliente" class="input-xlarge" value="${item.genero}">
+                                                                <input type="hidden" item-id="form_cpf" name="cpf_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_email" name="email_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_telefone_ddd" name="telefone_ddd_cliente" class="input-mini">
+                                                                <input type="hidden" item-id="form_telefone_numero" name="telefone_numero_cliente" class="input-small">
+                                                                <input type="hidden" item-id="form_telefone_tipo" name="telefone_tipo_cliente" class="input-small">
+                                                                <input type="hidden" item-id="form_endereco_entrega_frase_curta" name="endereco_entrega_frase_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_endereco_entrega_tipo_residencia" name="endereco_entrega_tipo_residencia_cliente">
+                                                                <input type="hidden" item-id="form_endereco_entrega_cep" name="endereco_entrega_cep_cliente" class="input-small">
+                                                                <input type="hidden" item-id="form_endereco_entrega_tipo_logradouro" name="endereco_entrega_tipo_logradouro_cliente">
+                                                                <input type="hidden" item-id="form_endereco_entrega_logradouro" name="endereco_entrega_logradouro_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_endereco_entrega_numero" name="endereco_entrega_numero_cliente" class="input-mini">
+                                                                <input type="hidden" item-id="form_endereco_entrega_bairro" name="endereco_entrega_bairro_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_endereco_entrega_cidade" name="endereco_entrega_cidade_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_endereco_entrega_estado" name="endereco_entrega_estado_cliente" class="input-mini">
+                                                                <input type="hidden" item-id="form_endereco_entrega_pais" name="endereco_entrega_pais_cliente" class="input-xlarge">
+                                                                <textarea item-id="form_endereco_entrega_observacao" name="endereco_entrega_observacao_cliente" class="input-xlarge hidden"></textarea>
+                                                                <input type="hidden" item-id="form_endereco_cobranca_frase_curta" name="endereco_cobranca_frase_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_tipo_residencia" name="endereco_cobranca_tipo_residencia_cliente">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_cep" name="endereco_cobranca_cep_cliente" class="input-small">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_tipo_logradouro" name="endereco_cobranca_tipo_logradouro_cliente">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_logradouro" name="endereco_cobranca_logradouro_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_numero" name="endereco_cobranca_numero_cliente" class="input-mini">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_bairro" name="endereco_cobranca_bairro_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_cidade" name="endereco_cobranca_cidade_cliente" class="input-xlarge">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_estado" name="endereco_cobranca_estado_cliente" class="input-mini">
+                                                                <input type="hidden" item-id="form_endereco_cobranca_pais" name="endereco_cobranca_pais_cliente" class="input-xlarge">
+                                                                <textarea item-id="form_endereco_cobranca_observacao" name="endereco_cobranca_observacao_cliente" class="input-xlarge hidden"></textarea>
+                                                            </form>
                                                         </c:forEach>
                                                     </c:when>
                                                 </c:choose>
@@ -919,14 +1001,35 @@
                     const formAlteracao = document.querySelector('#editar_cadastro_produto');
                     const formStatus = document.querySelector('#editar_status_produto');
 
-                    let editHandler = (produto) => {
+                    let editHandler = (cliente) => {
                         formStatus.classList.toggle('hidden', true);
                         formAlteracao.classList.toggle('hidden', false);
                     }
 
-                    let statusHandler = (produto) => {
+                    let statusHandler = (cliente) => {
                         formAlteracao.classList.toggle('hidden', true);
                         formStatus.classList.toggle('hidden', false);
+                    }
+
+                    const funcaoExcluir = (form, id) => {
+                        form.action = "ExcluirCliente";
+                        let operacao_id = "form_operacao_" + id;
+                        document.getElementById(operacao_id).value = "EXCLUIR";
+                        form.submit();
+                    }
+
+                    let deleteHandler = (botao) => {
+                        let id = botao.id.split('_')[1];
+                        let form_id = 'formDadosCliente_' + id;
+                        let form = document.getElementById(form_id);
+                        switch (botao.value) {
+                            case "EXCLUIR":
+                                funcaoExcluir(form, id);
+                                break;
+                            case "ALTERAR":
+                                //pegar os itens de cada input do form e preencher os inputs do formulário específico
+                                break;
+                        }
                     }
                 </script>
             </body>

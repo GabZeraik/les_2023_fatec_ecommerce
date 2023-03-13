@@ -130,7 +130,7 @@ public class ClienteDAO extends AbstractDAO {
 						+ "; CPF: " 
 						+ cliente.getCpf()
 						+ "; EMAIL: " 
-						+ cliente.getEmail();
+						+ cliente.getEmail() + " ; ";
 				
 				sb.append(" INNER JOIN enderecos ON clientes.cli_id = enderecos.clientes_cli_id");
 				
@@ -170,29 +170,30 @@ public class ClienteDAO extends AbstractDAO {
 					
 				System.out.println(comandoSQL);
 				ResultSet rs = comandoSQL.executeQuery();
+				Cliente cli = null;
 				
 				while (rs.next()) {
-					Cliente cli = new Cliente();
-					List<Endereco> cli_enderecos = new ArrayList<>();
 					if(rs.isFirst()) {
 						cli = criaClienteResultSet(rs);
 						Endereco end = new Endereco(rs.getString("end_frase"), rs.getString("end_logradouro"), rs.getString("end_tipo_logradouro"), rs.getString("end_numero"), rs.getString("end_bairro"), rs.getString("end_tipo"), rs.getString("end_residencia"), rs.getString("end_cep"), new Cidade(rs.getString("end_cidade"), new Estado(rs.getString("end_estado"), new Pais(rs.getString("end_pais")))), rs.getInt("clientes_cli_id"), rs.getString("end_observacao"));
 						end.setId(rs.getInt("end_id"));
-						cli_enderecos.add(end);
+						cli.adicionaEndereco(end);
+						System.out.println(cli);
+						continue;
+					}
+					System.out.println("CONTINUOU SIM");
+					Cliente proximo_cli = new Cliente();
+					proximo_cli.setId(rs.getInt("cli_id"));
+					if(proximo_cli.getId() == cli.getId()) {
+						Endereco end = new Endereco(rs.getString("end_frase"), rs.getString("end_logradouro"), rs.getString("end_tipo_logradouro"), rs.getString("end_numero"), rs.getString("end_bairro"), rs.getString("end_tipo"), rs.getString("end_residencia"), rs.getString("end_cep"), new Cidade(rs.getString("end_cidade"), new Estado(rs.getString("end_estado"), new Pais(rs.getString("end_pais")))), rs.getInt("clientes_cli_id"), rs.getString("end_observacao"));
+						end.setId(rs.getInt("end_id"));
+						cli.adicionaEndereco(end);
 					}else {
-						Cliente proximo_cli = new Cliente();
-						proximo_cli.setId(rs.getInt("cli_id"));
-						if(proximo_cli.getId() == cli.getId()) {
-							Endereco end = new Endereco(rs.getString("end_frase"), rs.getString("end_logradouro"), rs.getString("end_tipo_logradouro"), rs.getString("end_numero"), rs.getString("end_bairro"), rs.getString("end_tipo"), rs.getString("end_residencia"), rs.getString("end_cep"), new Cidade(rs.getString("end_cidade"), new Estado(rs.getString("end_estado"), new Pais(rs.getString("end_pais")))), rs.getInt("clientes_cli_id"), rs.getString("end_observacao"));
-							end.setId(rs.getInt("end_id"));
-							cli_enderecos.add(end);
-						}else {
-							clientes.add(cli);
-							cli = criaClienteResultSet(rs);
-							if(rs.isLast()) {
-								clientes.add(cli);
-							}
-						}
+						clientes.add(cli);
+						cli = criaClienteResultSet(rs);
+					}
+					if(rs.isLast()) {
+						clientes.add(cli);
 					}
 				}				
 			}
@@ -214,7 +215,7 @@ public class ClienteDAO extends AbstractDAO {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(clientes.get(0).toString());
+		
 		return clientes;
 	}
 
