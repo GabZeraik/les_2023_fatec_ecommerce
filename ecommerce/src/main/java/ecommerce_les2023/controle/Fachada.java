@@ -17,7 +17,7 @@ import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Professor;
 import ecommerce_les2023.negocio.IStrategy;
 import ecommerce_les2023.negocio.VerificadorDigitosCpfStrategy;
-import ecommerce_les2023.negocio.VerificadorCpfAlunoStrategy;
+import ecommerce_les2023.negocio.VerificadorEmailCadastradoStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosClienteStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosCursoStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosProfessorStrategy;

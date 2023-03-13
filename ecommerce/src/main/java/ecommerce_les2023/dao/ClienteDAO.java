@@ -15,6 +15,8 @@ import ecommerce_les2023.modelo.Curso;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Estado;
+import ecommerce_les2023.modelo.Pais;
+import ecommerce_les2023.modelo.Telefone;
 import ecommerce_les2023.utils.Log;
 
 public class ClienteDAO extends AbstractDAO {
@@ -100,8 +102,120 @@ public class ClienteDAO extends AbstractDAO {
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		openConnection();
+		PreparedStatement comandoSQL = null;
+		List<EntidadeDominio> clientes = new ArrayList<EntidadeDominio>();
+		String camposPesquisados = "CONSULTA ID: " 
+				+ null 
+				+ "; NOME: " 
+				+ null 
+				+ "; CPF: " 
+				+ null
+				+ "; EMAIL: " 
+				+ null;
+				
+		try {
+			this.conexao.setAutoCommit(false);
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT * FROM ");
+			sb.append(this.tabela);
+			
+			if(entidade != null) {
+				Cliente cliente = (Cliente) entidade;
+				camposPesquisados = "CONSULTA ID: " 
+						+ cliente.getId() 
+						+ "; NOME: " 
+						+ cliente.getNome() 
+						+ "; CPF: " 
+						+ cliente.getCpf()
+						+ "; EMAIL: " 
+						+ cliente.getEmail();
+				
+				sb.append(" INNER JOIN enderecos ON clientes.cli_id = enderecos.clientes_cli_id");
+				
+					//Pesquisa por id do cliente ou
+					//pelo cpf ou
+					//pelo nome ou pelo email
+				 
+				
+				if(entidade != null) {
+					if(cliente.getId() != 0) {
+						sb.append(" WHERE ");
+						sb.append(this.idTabela);
+						sb.append(" = ?");
+						comandoSQL = this.conexao.prepareStatement(sb.toString());
+						comandoSQL.setInt(1, cliente.getId());
+					}else if(cliente.getCpf() != null && cliente.getCpf() != "") {
+						sb.append(" WHERE ");
+						sb.append(" cli_cpf = ? ");
+						comandoSQL = this.conexao.prepareStatement(sb.toString());
+						comandoSQL.setString(1, cliente.getCpf());	
+					}else if(cliente.getNome() != "" && cliente.getNome() != null){
+						sb.append(" WHERE ");
+						sb.append(" cli_nome_completo LIKE ?");
+						comandoSQL = this.conexao.prepareStatement(sb.toString());
+						comandoSQL.setString(1, "%" + cliente.getNome() + "%");
+					}else if(cliente.getEmail() != "" && cliente.getEmail() != "") {
+						sb.append(" WHERE ");
+						sb.append(" cli_email LIKE ?");
+						comandoSQL = this.conexao.prepareStatement(sb.toString());
+						comandoSQL.setString(1, "%" + cliente.getEmail() + "%");
+					}else {
+						comandoSQL = this.conexao.prepareStatement(sb.toString());
+					}
+				}
+				
+				sb.append(" ORDER BY cli_id ASC;");
+					
+				System.out.println(comandoSQL);
+				ResultSet rs = comandoSQL.executeQuery();
+				
+				while (rs.next()) {
+					Cliente cli = new Cliente();
+					List<Endereco> cli_enderecos = new ArrayList<>();
+					if(rs.isFirst()) {
+						cli = criaClienteResultSet(rs);
+						Endereco end = new Endereco(rs.getString("end_frase"), rs.getString("end_logradouro"), rs.getString("end_tipo_logradouro"), rs.getString("end_numero"), rs.getString("end_bairro"), rs.getString("end_tipo"), rs.getString("end_residencia"), rs.getString("end_cep"), new Cidade(rs.getString("end_cidade"), new Estado(rs.getString("end_estado"), new Pais(rs.getString("end_pais")))), rs.getInt("clientes_cli_id"), rs.getString("end_observacao"));
+						end.setId(rs.getInt("end_id"));
+						cli_enderecos.add(end);
+					}else {
+						Cliente proximo_cli = new Cliente();
+						proximo_cli.setId(rs.getInt("cli_id"));
+						if(proximo_cli.getId() == cli.getId()) {
+							Endereco end = new Endereco(rs.getString("end_frase"), rs.getString("end_logradouro"), rs.getString("end_tipo_logradouro"), rs.getString("end_numero"), rs.getString("end_bairro"), rs.getString("end_tipo"), rs.getString("end_residencia"), rs.getString("end_cep"), new Cidade(rs.getString("end_cidade"), new Estado(rs.getString("end_estado"), new Pais(rs.getString("end_pais")))), rs.getInt("clientes_cli_id"), rs.getString("end_observacao"));
+							end.setId(rs.getInt("end_id"));
+							cli_enderecos.add(end);
+						}else {
+							clientes.add(cli);
+							cli = criaClienteResultSet(rs);
+							if(rs.isLast()) {
+								clientes.add(cli);
+							}
+						}
+					}
+				}				
+			}
+			System.out.println(new Log().gerarLog(clientes, camposPesquisados));
+			
+		} catch (SQLException e) {
+			try {
+				conexao.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			try {
+				comandoSQL.close();
+				conexao.close();
+				System.out.println("CONEXÃO FINALIZADA!");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(clientes.get(0).toString());
+		return clientes;
 	}
 
 	/*@Override
@@ -285,4 +399,19 @@ public class ClienteDAO extends AbstractDAO {
 		}
 		return alunos;
 	}*/
+	
+	private Cliente criaClienteResultSet(ResultSet rs) throws SQLException {
+		Cliente cli = new Cliente();
+		cli.setId(rs.getInt("cli_id"));
+		cli.setNome(rs.getString("cli_nome"));
+		cli.setCpf(rs.getString("cli_cpf"));
+		cli.setEmail(rs.getString("cli_email"));
+		cli.setDta_nascimento(rs.getString("cli_data_nascimento"));
+		cli.setCodigo(rs.getString("cli_codigo"));
+		cli.setGenero(rs.getString("cli_genero"));
+		cli.setRanking(rs.getString("cli_ranking"));
+		cli.setSituacao(rs.getString("cli_situacao"));
+		cli.setTelefone(new Telefone(rs.getString("cli_ddd_telefone"), rs.getString("cli_numero_telefone"), rs.getString("cli_tipo_telefone")));
+		return cli;
+	}
 }

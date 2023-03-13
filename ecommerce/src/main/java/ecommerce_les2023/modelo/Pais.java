@@ -10,6 +10,10 @@ public class Pais {
 		this.sigla = sigla;
 	}
 
+	public Pais(String nome) {
+		this.nome_pais = nome;
+	}
+
 	public String getSigla() {
 		return this.sigla;
 	}

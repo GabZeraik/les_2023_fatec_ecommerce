@@ -11,6 +11,11 @@ public class Estado {
 		this.sigla = sigla;
 		this.pais = pais;
 	}
+	
+	public Estado(String nome, Pais pais) {
+		this.nome_estado = nome;
+		this.pais = pais;
+	}
 
 	public String getSigla() {
 		return this.sigla;
