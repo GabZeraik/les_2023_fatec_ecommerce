@@ -19,11 +19,17 @@ public class VerificadorDadosObrigatoriosClienteStrategy implements IStrategy {
 			dados_obrigatorios.add(cliente.getCpf());
 			dados_obrigatorios.add(cliente.getDta_nascimento());
 			dados_obrigatorios.add(cliente.getGenero());
-			dados_obrigatorios.add(cliente.getTelefone().getDdd());
 			dados_obrigatorios.add(cliente.getEmail());
 			dados_obrigatorios.add(cliente.getSenha());
-			dados_obrigatorios.add(cliente.getTelefone().getNumero());
-			dados_obrigatorios.add(cliente.getTelefone().getTipo());
+			
+			try {
+				dados_obrigatorios.add(cliente.getTelefone().getDdd());
+				dados_obrigatorios.add(cliente.getTelefone().getNumero());
+				dados_obrigatorios.add(cliente.getTelefone().getTipo());
+				cliente.getEndereco();
+			} catch (Exception e) {
+				return "RN0023 - Todos os campos de cadastro de endereço/telefone são obrigatórios, exceto observação.";
+			}
 			
 			for (EntidadeDominio end : cliente.getEndereco()) {
 				VerificadorDadosObrigatoriosEndereco verificadorDadosObrigatoriosEndereco = new VerificadorDadosObrigatoriosEndereco();

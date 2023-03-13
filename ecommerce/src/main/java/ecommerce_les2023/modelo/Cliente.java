@@ -35,6 +35,19 @@ public class Cliente extends Pessoa {
 		this.cupom = cupom;
 		this.codigo = gerarCodigoUnico();
 	}
+	/*Usado para ***/
+	public Cliente(String nome, String cpf, String email, String genero, String dta_nascimento, String usuario, String senha, Telefone telefone) {
+		super.nome = nome;
+		super.cpf = cpf;
+		super.email = email;
+		super.genero = genero;
+		
+		this.dta_nascimento = dta_nascimento;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.telefone = telefone;
+		this.codigo = gerarCodigoUnico();
+	}
 	
 	public Cliente() {};
 	

@@ -35,7 +35,7 @@ public class Controller extends HttpServlet{
 		mapViewHelpers = new HashMap<String, IViewHelper>();
 		mapViewHelpers.put("/ecommerce_les/CadastrarCliente", new ClienteViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ConsultarCliente", new ClienteViewHelper());
-		mapViewHelpers.put("/ecommerce_les/AlterarCliente", new ClienteViewHelper());
+		mapViewHelpers.put("/ecommerce_les/AlterarClienteParcial", new AlterarClienteParcialViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ExcluirCliente", new ClienteViewHelper());
 		
 	}

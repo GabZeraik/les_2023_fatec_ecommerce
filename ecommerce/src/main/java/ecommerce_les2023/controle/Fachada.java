@@ -40,15 +40,16 @@ public class Fachada implements IFachada {
 	//Cria os mapas de chave/valor para as respectivas classes, linkando a classe com suas regras de negócio
 	//Exemplo: classe cliente/ Regra de negócio 01
 	private void criarMapStrategies() {
-		List<IStrategy> clienteStrategy = new ArrayList<IStrategy>();
+		List<IStrategy> cadastrarClienteStrategy = new ArrayList<IStrategy>();
+		List<IStrategy> alterarClienteStrategy = new ArrayList<IStrategy>();
 		
 		//Aplicar regras de negócio para manter clientes
-		clienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
-		clienteStrategy.add(new VerificadorDigitosCpfStrategy());
-		clienteStrategy.add(new VerificadorSenhaForte());
+		cadastrarClienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
+		cadastrarClienteStrategy.add(new VerificadorDigitosCpfStrategy());
+		cadastrarClienteStrategy.add(new VerificadorSenhaForte());
 		
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
-		this.mapStrategies.put(Cliente.class.getName(), clienteStrategy);
+		this.mapStrategies.put("Cadastrar"+Cliente.class.getName(), cadastrarClienteStrategy);
 		
 		/*//Aplicar regras de negócio para manter cursos
 		cursoStrategies.add(new VerificadorDadosObrigatoriosCursoStrategy());
@@ -78,7 +79,7 @@ public class Fachada implements IFachada {
 		resultado.setNomeEntidade(entidade.getClass().getName().substring(25));
 		resultado.setOperacao("CADASTRAR");
 		
-		String retornoStrategies = this.executarStrategies(entidade);
+		String retornoStrategies = this.executarStrategies(entidade, "Cadastrar");
 		if(retornoStrategies == "" || retornoStrategies == null) {
 			mapDaos.get(entidade.getClass().getName()).salvar(entidade);
 			List<EntidadeDominio> lista = new ArrayList<>();
@@ -114,8 +115,8 @@ public class Fachada implements IFachada {
 		resultado.setNomeEntidade(entidade.getClass().getName().substring(25));
 		resultado.setOperacao("ALTERAR");
 		
-		String retornoStrategies = this.executarStrategies(entidade);
-		if(retornoStrategies.isEmpty()) {
+		String retornoStrategies = this.executarStrategies(entidade, "Alterar");
+		if(retornoStrategies == null || retornoStrategies.isEmpty()) {
 			mapDaos.get(entidade.getClass().getName()).alterar(entidade);
 			List<EntidadeDominio> lista = new ArrayList<>();
 			lista.add(entidade);
@@ -137,8 +138,8 @@ public class Fachada implements IFachada {
 	}
 	
 	//Executa as regras para a classe da entidade passada como parâmetro
-	private String executarStrategies(EntidadeDominio entidade) {
-		List<IStrategy> strategiesDaClasse = this.mapStrategies.get(entidade.getClass().getName());
+	private String executarStrategies(EntidadeDominio entidade, String operacao) {
+		List<IStrategy> strategiesDaClasse = this.mapStrategies.get(operacao + entidade.getClass().getName());
 		if(strategiesDaClasse != null)
 			for(IStrategy strategy : strategiesDaClasse) {
 				String erro = strategy.processarStrategy(entidade);

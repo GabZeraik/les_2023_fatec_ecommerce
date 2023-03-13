@@ -40,7 +40,7 @@
                                 <h4 class="title">Filtros</h4>
                                 <ul>
                                     <li>Status<input type="text" name="situacao_cliente" class="input-block-level search-query"></li>
-                                    <li>Usuário<input type="text" name="usuario_cliente" class="input-block-level search-query"></li>
+                                    <li>Código<input type="text" name="codigo_cliente" class="input-block-level search-query"></li>
                                     <li>Nome completo<input type="text" name="nome_cliente" class="input-block-level search-query"></li>
                                     <li>Data de nascimento<input type="text" name="data_nascimento_cliente" class="input-block-level search-query"></li>
                                     <li>Gênero<input type="text" name="genero_cliente" class="input-block-level search-query"></li>
@@ -84,7 +84,7 @@
                                                         <c:forEach items="${clientes.dados}" var="item">
                                                             <tr>
                                                                 <td>${item.situacao}</td>
-                                                                <td>${item.codigo}</td>
+                                                                <td>${item.usuario}</td>
                                                                 <td>${item.nome}</td>
                                                                 <td>${item.dta_nascimento}</td>
                                                                 <td>${item.genero}</td>
@@ -145,45 +145,45 @@
                                                                 <td>${item.ranking}</td>
                                                                 <td>${item.justificativa}</td>
                                                                 <td></td>
-                                                                <td><button onclick="editHandler(this)">Editar</button></td>
-                                                                <td><button onclick="deleteHandler(this)" data-form="formDadosCliente_${item.id}" id="excluir_${item.id}" value="EXCLUIR">Excluir</button></td>
+                                                                <td><button onclick="editHandler(this)" data-form="formDadosCliente_${item.id}" id="alterar_${item.id}" value="ALTERAR">Editar</button></td>
+                                                                <td><button onclick="buttonHandler(this)" data-form="formDadosCliente_${item.id}" id="excluir_${item.id}" value="EXCLUIR">Excluir</button></td>
                                                                 <td><button onclick="statusHandler(this)">Inativar</button></td>
                                                             </tr>
                                                             <form id="formDadosCliente_${item.id}" action="" method="post">
                                                                 <input type="hidden" id="form_operacao_${item.id}" name="operacao" class="input-xlarge hidden" value="">
-                                                                <input type="hidden" item-id="form_id" name="id_cliente" class="input-xlarge" value="${item.id}">
-                                                                <input type="hidden" item-id="form_usuario" name="usuario_cliente" class="input-xlarge" value="${item.usuario}">
-                                                                <input type="hidden" item-id="form_senha" name="senha_cliente" class="input-xlarge" value="${item.senha}">
-                                                                <input type="hidden" item-id="form_nome" name="nome_cliente" class="input-xlarge" value="${item.nome}">
-                                                                <input type="hidden" item-id="form_data_nascimento" name="data_nascimento_cliente" class="input-xlarge" value="${item.dta_nascimento}">
-                                                                <input type="hidden" item-id="form_genero" name="data_nascimento_cliente" class="input-xlarge" value="${item.genero}">
-                                                                <input type="hidden" item-id="form_cpf" name="cpf_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_email" name="email_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_telefone_ddd" name="telefone_ddd_cliente" class="input-mini">
-                                                                <input type="hidden" item-id="form_telefone_numero" name="telefone_numero_cliente" class="input-small">
-                                                                <input type="hidden" item-id="form_telefone_tipo" name="telefone_tipo_cliente" class="input-small">
-                                                                <input type="hidden" item-id="form_endereco_entrega_frase_curta" name="endereco_entrega_frase_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_endereco_entrega_tipo_residencia" name="endereco_entrega_tipo_residencia_cliente">
-                                                                <input type="hidden" item-id="form_endereco_entrega_cep" name="endereco_entrega_cep_cliente" class="input-small">
-                                                                <input type="hidden" item-id="form_endereco_entrega_tipo_logradouro" name="endereco_entrega_tipo_logradouro_cliente">
-                                                                <input type="hidden" item-id="form_endereco_entrega_logradouro" name="endereco_entrega_logradouro_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_endereco_entrega_numero" name="endereco_entrega_numero_cliente" class="input-mini">
-                                                                <input type="hidden" item-id="form_endereco_entrega_bairro" name="endereco_entrega_bairro_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_endereco_entrega_cidade" name="endereco_entrega_cidade_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_endereco_entrega_estado" name="endereco_entrega_estado_cliente" class="input-mini">
-                                                                <input type="hidden" item-id="form_endereco_entrega_pais" name="endereco_entrega_pais_cliente" class="input-xlarge">
-                                                                <textarea item-id="form_endereco_entrega_observacao" name="endereco_entrega_observacao_cliente" class="input-xlarge hidden"></textarea>
-                                                                <input type="hidden" item-id="form_endereco_cobranca_frase_curta" name="endereco_cobranca_frase_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_tipo_residencia" name="endereco_cobranca_tipo_residencia_cliente">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_cep" name="endereco_cobranca_cep_cliente" class="input-small">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_tipo_logradouro" name="endereco_cobranca_tipo_logradouro_cliente">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_logradouro" name="endereco_cobranca_logradouro_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_numero" name="endereco_cobranca_numero_cliente" class="input-mini">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_bairro" name="endereco_cobranca_bairro_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_cidade" name="endereco_cobranca_cidade_cliente" class="input-xlarge">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_estado" name="endereco_cobranca_estado_cliente" class="input-mini">
-                                                                <input type="hidden" item-id="form_endereco_cobranca_pais" name="endereco_cobranca_pais_cliente" class="input-xlarge">
-                                                                <textarea item-id="form_endereco_cobranca_observacao" name="endereco_cobranca_observacao_cliente" class="input-xlarge hidden"></textarea>
+                                                                <input type="hidden" id="form_${item.id}_id" name="id_cliente" class="input-xlarge" value="${item.id}">
+                                                                <input type="hidden" id="form_${item.id}_usuario" name="usuario_cliente" class="input-xlarge" value="${item.usuario}">
+                                                                <input type="hidden" id="form_${item.id}_senha" name="senha_cliente" class="input-xlarge" value="${item.senha}">
+                                                                <input type="hidden" id="form_${item.id}_nome" name="nome_cliente" class="input-xlarge" value="${item.nome}">
+                                                                <input type="hidden" id="form_${item.id}_data_nascimento" name="data_nascimento_cliente" class="input-xlarge" value="${item.dta_nascimento}">
+                                                                <input type="hidden" id="form_${item.id}_genero" name="genero_cliente" class="input-xlarge" value="${item.genero}">
+                                                                <input type="hidden" id="form_${item.id}_cpf" name="cpf_cliente" class="input-xlarge" value="${item.cpf}">
+                                                                <input type="hidden" id="form_${item.id}_email" name="email_cliente" class="input-xlarge" value="${item.email}">
+                                                                <input type="hidden" id="form_${item.id}_telefone_ddd" name="telefone_ddd_cliente" class="input-mini" value="${item.telefone.ddd}">
+                                                                <input type="hidden" id="form_${item.id}_telefone_numero" name="telefone_numero_cliente" class="input-small" value="${item.telefone.numero}">
+                                                                <input type="hidden" id="form_${item.id}_telefone_tipo" name="telefone_tipo_cliente" class="input-small" value="${item.telefone.tipo}">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_frase_curta" name="endereco_entrega_frase_cliente" class="input-xlarge">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_tipo_residencia" name="endereco_entrega_tipo_residencia_cliente">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_cep" name="endereco_entrega_cep_cliente" class="input-small">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_tipo_logradouro" name="endereco_entrega_tipo_logradouro_cliente">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_logradouro" name="endereco_entrega_logradouro_cliente" class="input-xlarge">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_numero" name="endereco_entrega_numero_cliente" class="input-mini">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_bairro" name="endereco_entrega_bairro_cliente" class="input-xlarge">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_cidade" name="endereco_entrega_cidade_cliente" class="input-xlarge">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_estado" name="endereco_entrega_estado_cliente" class="input-mini">
+                                                                <input type="hidden" id="form_${item.id}_endereco_entrega_pais" name="endereco_entrega_pais_cliente" class="input-xlarge">
+                                                                <textarea id="form_${item.id}_endereco_entrega_observacao" name="endereco_entrega_observacao_cliente" class="input-xlarge hidden"></textarea>
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_frase_curta" name="endereco_cobranca_frase_cliente" class="input-xlarge">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_tipo_residencia" name="endereco_cobranca_tipo_residencia_cliente">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_cep" name="endereco_cobranca_cep_cliente" class="input-small">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_tipo_logradouro" name="endereco_cobranca_tipo_logradouro_cliente">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_logradouro" name="endereco_cobranca_logradouro_cliente" class="input-xlarge">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_numero" name="endereco_cobranca_numero_cliente" class="input-mini">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_bairro" name="endereco_cobranca_bairro_cliente" class="input-xlarge">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_cidade" name="endereco_cobranca_cidade_cliente" class="input-xlarge">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_estado" name="endereco_cobranca_estado_cliente" class="input-mini">
+                                                                <input type="hidden" id="form_${item.id}_endereco_cobranca_pais" name="endereco_cobranca_pais_cliente" class="input-xlarge">
+                                                                <textarea id="form_${item.id}_endereco_cobranca_observacao" name="endereco_cobranca_observacao_cliente" class="input-xlarge hidden"></textarea>
                                                             </form>
                                                         </c:forEach>
                                                     </c:when>
@@ -196,11 +196,11 @@
                             <div class="actions" style="float: right"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Cadastrar Novo Cliente" onclick="editHandler()"></div>
                         </div>
                     </section>
-                    <section class="hidden" id="editar_cadastro_produto">
+                    <section class="hidden" id="editar_cadastro_cliente">
                         <div class="row">
-                            <form action="#" method="post">
-                                <div class="span12">
-                                    <section class="pedidos_cliente">
+                            <div class="span12">
+                                <section class="pedidos_cliente">
+                                    <form action="#" method="post">
                                         <h4 class="title"><span class="text"><strong>Pedidos</strong> Cliente</span></h4>
                                         <table class="table table-striped table-hover">
                                             <thead>
@@ -429,54 +429,56 @@
                                                 </form>
                                             </tbody>
                                         </table>
-                                    </section>
-                                    <section class="cadastro_cliente">
+                                    </form>
+                                </section>
+                                <section class="cadastro_cliente">
+                                    <form id="formAlterarCadastroParcial" action="AlterarClienteParcial" method="POST">
+                                        <input type="hidden" id="formAlterarCadastroParcial_id" name="id_cliente" class="input-xlarge">
                                         <h4 class="title"><span class="text"><strong>Cadastro</strong> Cliente</span></h4>
-                                        <input type="hidden" name="next" value="/">
                                         <div class="span1 col"></div>
                                         <div class="span12 col">
                                             <fieldset>
                                                 <div class="control-group">
                                                     <label class="control-label">Usuário*:</label>
                                                     <div class="controls">
-                                                        <input type="text" placeholder="Digite seu usuário" id="username" class="input-xlarge" disabled>
+                                                        <input type="text" placeholder="Digite seu usuário" id="formAlterarCadastroParcial_usuario" name="usuario_cliente" class="input-xlarge">
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <label class="control-label">Senha*:</label>
                                                     <div class="controls">
-                                                        <input type="password" placeholder="Digite sua senha" id="password" class="input-xlarge" disabled>
+                                                        <input type="password" placeholder="Digite sua senha" id="formAlterarCadastroParcial_senha" name="senha_cliente" class="input-xlarge">
                                                     </div>
                                                 </div>
-                                                <hr>
                                             </fieldset>
+                                            <hr>
                                         </div>
                                         <div class="span5 col">
                                             <fieldset>
                                                 <div class="control-group">
                                                     <label class="control-label">Nome completo*:</label>
                                                     <div class="controls">
-                                                        <input type="text" placeholder="Digite o nome completo" id="nome_completo" class="input-xlarge">
+                                                        <input type="text" placeholder="Digite o nome completo" id="formAlterarCadastroParcial_nome_completo" name="nome_cliente" class="input-xlarge">
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <label class="control-label">Data de nascimento*:</label>
                                                     <div class="controls">
-                                                        <input type="date" id="data_nascimento" class="input-xlarge">
+                                                        <input type="date" id="formAlterarCadastroParcial_data_nascimento" name="data_nascimento_cliente" class="input-xlarge">
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <label class="control-label">Gênero*:</label>
-                                                    <select class="controls" id="genero">
-                                        <option value="feminino">Feminino</option>
-                                        <option value="masculino">Masculino</option>
-                                        <option value="outro">Outro</option>
-                                    </select>
+                                                    <select class="controls" id="formAlterarCadastroParcial_genero" name="genero_cliente">
+                                                        <option value="feminino">Feminino</option>
+                                                        <option value="masculino">Masculino</option>
+                                                        <option value="outro">Outro</option>
+                                                    </select>
                                                 </div>
                                                 <div class="control-group">
                                                     <label class="control-label">CPF*:</label>
                                                     <div class="controls">
-                                                        <input type="text" placeholder="Digite seu cpf" id="cpf" class="input-xlarge" required>
+                                                        <input type="text" placeholder="Digite seu cpf" id="formAlterarCadastroParcial_cpf" name="cpf_cliente" class="input-xlarge">
                                                     </div>
                                                 </div>
                                             </fieldset>
@@ -487,58 +489,60 @@
                                                 <div class="control-group">
                                                     <label class="control-label">Email*:</label>
                                                     <div class="controls">
-                                                        <input type="email" placeholder="Digite seu email" id="email" class="input-xlarge" required>
+                                                        <input type="email" placeholder="Digite seu email" id="formAlterarCadastroParcial_email" name="email_cliente" class="input-xlarge">
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <label class="control-label">Telefone*:</label>
                                                     <div class="controls">
-                                                        <input type="tel" placeholder="XX" id="telefone_ddd" class="input-mini" required>
-                                                        <input type="tel" placeholder="XXXXX-XXXX" id="telefone_numero" class="input-small" required>
-                                                        <select class="controls" id="telefone_tipo" required>
-                                            <option value="residencial">Residencial</option>
-                                            <option value="celular">Celular</option>
-                                            <option value="comercial">Comercial</option>
-                                        </select>
+                                                        <input type="tel" placeholder="XX" id="formAlterarCadastroParcial_telefone_ddd" name="telefone_ddd_cliente" class="input-mini">
+                                                        <input type="tel" placeholder="XXXXX-XXXX" id="formAlterarCadastroParcial_telefone_numero" name="telefone_numero_cliente" class="input-small">
+                                                        <select class="controls" id="formAlterarCadastroParcial_telefone_tipo" name="telefone_tipo_cliente">
+                                                            <option value="residencial">Residencial</option>
+                                                            <option value="celular">Celular</option>
+                                                            <option value="comercial">Comercial</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </fieldset>
+                                            <div class="actions span3" style="float: right" id="btn_cadastrar_cartao"><input tabindex="9" form="formAlterarCadastroParcial" class="btn btn-inverse large" type="submit" name="operacao" value="ALTERAR"></div>
                                         </div>
-                                    </section>
-                                    <section class="meus_enderecos">
-                                        <div class="span12">
-                                            <h4 class="title"><span class="text"><strong>Endereços</strong> Entrega</span></h4>
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#endereco_1">
-                                                <h4><span class="text"><strong>Endereço</strong> 1</span></h4>
-                                            </a>
-                                            <div id="endereco_1" class="accordion-body collapse">
-                                                <div class="accordion-inner">
-                                                    <div class="row-fluid">
-                                                        <div class="span5 col">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Frase curta para nomear endereço*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_entrega_frase_curta" class="input-xlarge" required>
-                                                                    </div>
+                                    </form>
+                                </section>
+                                <section class="meus_enderecos">
+                                    <div class="span12">
+                                        <h4 class="title"><span class="text"><strong>Endereços</strong> Entrega</span></h4>
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#endereco_1">
+                                            <h4><span class="text"><strong>Endereço</strong> 1</span></h4>
+                                        </a>
+                                        <div id="endereco_1" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                <div class="row-fluid">
+                                                    <div class="span5 col">
+                                                        <fieldset>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Frase curta para nomear endereço*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_entrega_frase_curta" name="endereco_entrega_frase_cliente" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Tipo de residência*:</label>
-                                                                    <select class="controls" id="endereco_entrega_tipo_residencia" required>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Tipo de residência*:</label>
+                                                                <select class="controls" id="endereco_entrega_tipo_residencia">
                                                             <option value="casa">Casa</option>
                                                             <option value="apartamento">Apartamento</option>
                                                             <option value="outro">Outro</option>
                                                         </select>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">CEP*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_cep" class="input-small">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">CEP*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_cep" class="input-small" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Tipo de logradouro*:</label>
-                                                                    <select class="controls" id="endereco_entrega_tipo_logradouro" required>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Tipo de logradouro*:</label>
+                                                                <select class="controls" id="endereco_entrega_tipo_logradouro">
                                                             <option value="rua">Rua</option>
                                                             <option value="avenida">Avenida</option>
                                                             <option value="travessa">Travessa</option>
@@ -546,96 +550,96 @@
                                                             <option value="rodovia">Rodovia</option>
                                                             <option value="outro">Outro</option>
                                                         </select>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Logradouro*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite o logradouro" id="endereco_entrega_logradouro" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Logradouro*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o logradouro" id="endereco_entrega_logradouro" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Número*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_numero" class="input-mini">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Número*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_numero" class="input-mini" required>
-                                                                    </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="span1 col"></div>
+                                                    <div class="span5 col">
+                                                        <fieldset>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Bairro*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite o bairro" id="endereco_entrega_bairro" class="input-xlarge">
                                                                 </div>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="span1 col"></div>
-                                                        <div class="span5 col">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Bairro*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o bairro" id="endereco_entrega_bairro" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Cidade*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite a cidade" id="endereco_entrega_cidade" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Cidade*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite a cidade" id="endereco_entrega_cidade" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Estado*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_estado" placeholder="Ex*: SP" class="input-mini">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Estado*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_estado" placeholder="Ex*: SP" class="input-mini" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">País*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_pais" placeholder="Ex*: Brasil" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">País*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_pais" placeholder="Ex*: Brasil" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Observação:</label>
+                                                                <div class="controls">
+                                                                    <textarea id="endereco_entrega_observacao" placeholder="Opcional" class="input-xlarge"></textarea>
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Observação:</label>
-                                                                    <div class="controls">
-                                                                        <textarea id="endereco_entrega_observacao" placeholder="Opcional" class="input-xlarge"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
+                                                            </div>
+                                                        </fieldset>
                                                     </div>
                                                 </div>
-                                                <div class="actions" style="float: left" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Editar"></div>
                                             </div>
-                                            <hr>
+                                            <div class="actions" style="float: left" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Editar"></div>
                                         </div>
-                                    </section>
-                                    <section class="cadastrar_novo_endereco">
-                                        <div class="span12">
-                                            <button><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#cadastrar_novo_endereco">
+                                        <hr>
+                                    </div>
+                                </section>
+                                <section class="cadastrar_novo_endereco">
+                                    <div class="span12">
+                                        <button><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#cadastrar_novo_endereco">
                                     <h4><span class="text"><strong>Cadastrar</strong> novo endereço</span></h4>
                                 </a></button>
-                                            <div id="cadastrar_novo_endereco" class="accordion-body collapse">
-                                                <div class="accordion-inner">
-                                                    <div class="row-fluid">
-                                                        <div class="span5 col">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Frase curta para nomear endereço*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_entrega_frase_curta" class="input-xlarge" required>
-                                                                    </div>
+                                        <div id="cadastrar_novo_endereco" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                <div class="row-fluid">
+                                                    <div class="span5 col">
+                                                        <fieldset>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Frase curta para nomear endereço*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_entrega_frase_curta" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Tipo de residência*:</label>
-                                                                    <select class="controls" id="endereco_entrega_tipo_residencia" required>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Tipo de residência*:</label>
+                                                                <select class="controls" id="endereco_entrega_tipo_residencia">
                                                             <option value="casa">Casa</option>
                                                             <option value="apartamento">Apartamento</option>
                                                             <option value="outro">Outro</option>
                                                         </select>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">CEP*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_cep" class="input-small">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">CEP*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_cep" class="input-small" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Tipo de logradouro*:</label>
-                                                                    <select class="controls" id="endereco_entrega_tipo_logradouro" required>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Tipo de logradouro*:</label>
+                                                                <select class="controls" id="endereco_entrega_tipo_logradouro">
                                                             <option value="rua">Rua</option>
                                                             <option value="avenida">Avenida</option>
                                                             <option value="travessa">Travessa</option>
@@ -643,97 +647,97 @@
                                                             <option value="rodovia">Rodovia</option>
                                                             <option value="outro">Outro</option>
                                                         </select>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Logradouro*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite o logradouro" id="endereco_entrega_logradouro" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Logradouro*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o logradouro" id="endereco_entrega_logradouro" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Número*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_numero" class="input-mini">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Número*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_numero" class="input-mini" required>
-                                                                    </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="span1 col"></div>
+                                                    <div class="span5 col">
+                                                        <fieldset>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Bairro*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite o bairro" id="endereco_entrega_bairro" class="input-xlarge">
                                                                 </div>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="span1 col"></div>
-                                                        <div class="span5 col">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Bairro*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o bairro" id="endereco_entrega_bairro" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Cidade*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite a cidade" id="endereco_entrega_cidade" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Cidade*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite a cidade" id="endereco_entrega_cidade" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Estado*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_estado" placeholder="Ex*: SP" class="input-mini">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Estado*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_estado" placeholder="Ex*: SP" class="input-mini" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">País*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_pais" placeholder="Ex*: Brasil" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">País*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_pais" placeholder="Ex*: Brasil" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Observação:</label>
+                                                                <div class="controls">
+                                                                    <textarea id="endereco_entrega_observacao" placeholder="Opcional" class="input-xlarge"></textarea>
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Observação:</label>
-                                                                    <div class="controls">
-                                                                        <textarea id="endereco_entrega_observacao" placeholder="Opcional" class="input-xlarge"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
+                                                            </div>
+                                                        </fieldset>
                                                     </div>
                                                 </div>
-                                                <div class="actions" style="float: left" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Cadastrar"></div>
                                             </div>
-                                            <hr>
+                                            <div class="actions" style="float: left" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Cadastrar"></div>
                                         </div>
-                                    </section>
-                                    <section class="enderecos_cliente">
-                                        <div class="span12">
-                                            <h4 class="title"><span class="text"><strong>Endereços</strong> Cobrança</span></h4>
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#endereco_cobranca_1">
-                                                <h4><span class="text"><strong>Endereço</strong> 1</span></h4>
-                                            </a>
-                                            <div id="endereco_cobranca_1" class="accordion-body collapse">
-                                                <div class="accordion-inner">
-                                                    <div class="row-fluid">
-                                                        <div class="span5 col">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Frase curta para nomear endereço*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_entrega_frase_curta" class="input-xlarge" required>
-                                                                    </div>
+                                        <hr>
+                                    </div>
+                                </section>
+                                <section class="enderecos_cliente">
+                                    <div class="span12">
+                                        <h4 class="title"><span class="text"><strong>Endereços</strong> Cobrança</span></h4>
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#endereco_cobranca_1">
+                                            <h4><span class="text"><strong>Endereço</strong> 1</span></h4>
+                                        </a>
+                                        <div id="endereco_cobranca_1" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                <div class="row-fluid">
+                                                    <div class="span5 col">
+                                                        <fieldset>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Frase curta para nomear endereço*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_entrega_frase_curta" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Tipo de residência*:</label>
-                                                                    <select class="controls" id="endereco_entrega_tipo_residencia" required>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Tipo de residência*:</label>
+                                                                <select class="controls" id="endereco_entrega_tipo_residencia">
                                                             <option value="casa">Casa</option>
                                                             <option value="apartamento">Apartamento</option>
                                                             <option value="outro">Outro</option>
                                                         </select>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">CEP*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_cep" class="input-small">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">CEP*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_cep" class="input-small" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Tipo de logradouro*:</label>
-                                                                    <select class="controls" id="endereco_entrega_tipo_logradouro" required>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Tipo de logradouro*:</label>
+                                                                <select class="controls" id="endereco_entrega_tipo_logradouro">
                                                             <option value="rua">Rua</option>
                                                             <option value="avenida">Avenida</option>
                                                             <option value="travessa">Travessa</option>
@@ -741,96 +745,96 @@
                                                             <option value="rodovia">Rodovia</option>
                                                             <option value="outro">Outro</option>
                                                         </select>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Logradouro*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite o logradouro" id="endereco_entrega_logradouro" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Logradouro*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o logradouro" id="endereco_entrega_logradouro" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Número*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_numero" class="input-mini">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Número*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_numero" class="input-mini" required>
-                                                                    </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="span1 col"></div>
+                                                    <div class="span5 col">
+                                                        <fieldset>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Bairro*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite o bairro" id="endereco_entrega_bairro" class="input-xlarge">
                                                                 </div>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="span1 col"></div>
-                                                        <div class="span5 col">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Bairro*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o bairro" id="endereco_entrega_bairro" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Cidade*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite a cidade" id="endereco_entrega_cidade" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Cidade*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite a cidade" id="endereco_entrega_cidade" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Estado*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_estado" placeholder="Ex*: SP" class="input-mini">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Estado*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_estado" placeholder="Ex*: SP" class="input-mini" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">País*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_pais" placeholder="Ex*: Brasil" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">País*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_pais" placeholder="Ex*: Brasil" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Observação:</label>
+                                                                <div class="controls">
+                                                                    <textarea id="endereco_entrega_observacao" placeholder="Opcional" class="input-xlarge"></textarea>
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Observação:</label>
-                                                                    <div class="controls">
-                                                                        <textarea id="endereco_entrega_observacao" placeholder="Opcional" class="input-xlarge"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
+                                                            </div>
+                                                        </fieldset>
                                                     </div>
                                                 </div>
-                                                <div class="actions" style="float: left" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Editar"></div>
                                             </div>
-                                            <hr>
+                                            <div class="actions" style="float: left" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Editar"></div>
                                         </div>
-                                    </section>
-                                    <section class="cadastrar_novo_endereco_cobranca">
-                                        <div class="span12">
-                                            <button><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#cadastrar_novo_endereco_cobranca">
+                                        <hr>
+                                    </div>
+                                </section>
+                                <section class="cadastrar_novo_endereco_cobranca">
+                                    <div class="span12">
+                                        <button><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#cadastrar_novo_endereco_cobranca">
                                     <h4><span class="text"><strong>Cadastrar</strong> novo endereço</span></h4>
                                 </a></button>
-                                            <div id="cadastrar_novo_endereco_cobranca" class="accordion-body collapse">
-                                                <div class="accordion-inner">
-                                                    <div class="row-fluid">
-                                                        <div class="span5 col">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Frase curta para nomear endereço*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_entrega_frase_curta" class="input-xlarge" required>
-                                                                    </div>
+                                        <div id="cadastrar_novo_endereco_cobranca" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                <div class="row-fluid">
+                                                    <div class="span5 col">
+                                                        <fieldset>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Frase curta para nomear endereço*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Ex: Minha casa; casa dos pais etc." id="endereco_entrega_frase_curta" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Tipo de residência*:</label>
-                                                                    <select class="controls" id="endereco_entrega_tipo_residencia" required>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Tipo de residência*:</label>
+                                                                <select class="controls" id="endereco_entrega_tipo_residencia">
                                                             <option value="casa">Casa</option>
                                                             <option value="apartamento">Apartamento</option>
                                                             <option value="outro">Outro</option>
                                                         </select>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">CEP*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_cep" class="input-small">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">CEP*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_cep" class="input-small" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Tipo de logradouro*:</label>
-                                                                    <select class="controls" id="endereco_entrega_tipo_logradouro" required>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Tipo de logradouro*:</label>
+                                                                <select class="controls" id="endereco_entrega_tipo_logradouro">
                                                             <option value="rua">Rua</option>
                                                             <option value="avenida">Avenida</option>
                                                             <option value="travessa">Travessa</option>
@@ -838,175 +842,177 @@
                                                             <option value="rodovia">Rodovia</option>
                                                             <option value="outro">Outro</option>
                                                         </select>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Logradouro*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite o logradouro" id="endereco_entrega_logradouro" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Logradouro*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o logradouro" id="endereco_entrega_logradouro" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Número*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_numero" class="input-mini">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Número*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_numero" class="input-mini" required>
-                                                                    </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="span1 col"></div>
+                                                    <div class="span5 col">
+                                                        <fieldset>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Bairro*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite o bairro" id="endereco_entrega_bairro" class="input-xlarge">
                                                                 </div>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="span1 col"></div>
-                                                        <div class="span5 col">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Bairro*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o bairro" id="endereco_entrega_bairro" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Cidade*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" placeholder="Digite a cidade" id="endereco_entrega_cidade" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Cidade*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite a cidade" id="endereco_entrega_cidade" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Estado*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_estado" placeholder="Ex*: SP" class="input-mini">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Estado*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_estado" placeholder="Ex*: SP" class="input-mini" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">País*:</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="endereco_entrega_pais" placeholder="Ex*: Brasil" class="input-xlarge">
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">País*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="endereco_entrega_pais" placeholder="Ex*: Brasil" class="input-xlarge" required>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label">Observação:</label>
+                                                                <div class="controls">
+                                                                    <textarea id="endereco_entrega_observacao" placeholder="Opcional" class="input-xlarge"></textarea>
                                                                 </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Observação:</label>
-                                                                    <div class="controls">
-                                                                        <textarea id="endereco_entrega_observacao" placeholder="Opcional" class="input-xlarge"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
+                                                            </div>
+                                                        </fieldset>
                                                     </div>
                                                 </div>
-                                                <div class="actions" style="float: left" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Cadastrar"></div>
                                             </div>
-                                            <hr>
+                                            <div class="actions" style="float: left" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Cadastrar"></div>
                                         </div>
-                                    </section>
-                                    <section class="cupons_cliente">
-                                        <h4 class="title"><span class="text"><strong>Cupons</strong> Cadastrados</span></h4>
-                                        <table class="table table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Cód. Cupom</th>
-                                                    <th>Valor</th>
-                                                    <th>Tipo</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>123456</td>
-                                                    <td>R$350,00</td>
-                                                    <td>Troca</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>124588</td>
-                                                    <td>R$350,00</td>
-                                                    <td>Promocional</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </section>
-                                </div>
+                                        <hr>
+                                    </div>
+                                </section>
+                                <section class="cupons_cliente">
+                                    <h4 class="title"><span class="text"><strong>Cupons</strong> Cadastrados</span></h4>
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Cód. Cupom</th>
+                                                <th>Valor</th>
+                                                <th>Tipo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>123456</td>
+                                                <td>R$350,00</td>
+                                                <td>Troca</td>
+                                            </tr>
+                                            <tr>
+                                                <td>124588</td>
+                                                <td>R$350,00</td>
+                                                <td>Promocional</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
                             </form>
                         </div>
-                    </section>
-                    <section class="hidden" id="editar_status_produto">
-                        <div class="row">
-                            <form action="#" method="post">
-                                <div class="span12">
-                                    <h4 class="title"><span class="text"><strong>Ativar/Inativar</strong> Cliente</span></h4>
-                                    <div class="control-group">
-                                        <label class="control-label">Código Único:</label>
-                                        <div class="controls">
-                                            <input type="text" id="codigo_produto" class="input-small" disabled>
-                                        </div>
+                </div>
+                </section>
+                <section class="hidden" id="editar_status_cliente">
+                    <div class="row">
+                        <form action="#" method="post">
+                            <div class="span12">
+                                <h4 class="title"><span class="text"><strong>Ativar/Inativar</strong> Cliente</span></h4>
+                                <div class="control-group">
+                                    <label class="control-label">Código Único:</label>
+                                    <div class="controls">
+                                        <input type="text" id="codigo_produto" class="input-small" disabled>
                                     </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Selecione o Status desejado*:</label>
-                                        <select class="controls" id="status_produto">
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Selecione o Status desejado*:</label>
+                                    <select class="controls" id="status_produto">
                                 <option value="ativo">Ativo</option>
                                 <option value="inativo">Inativo</option>
                             </select>
-                                    </div>
-                                    <div class="hidden control-group">
-                                        <label class="control-label">Selecione a categoria desejada*:</label>
-                                        <select class="controls" id="categoria_status_produto">
+                                </div>
+                                <div class="hidden control-group">
+                                    <label class="control-label">Selecione a categoria desejada*:</label>
+                                    <select class="controls" id="categoria_status_produto">
                                 <option value="dados_incorretos">DADOS INCORRETOS</option>
                                 <option value="outro">OUTRO</option>
                             </select>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Justificativa*:</label>
-                                        <div class="controls">
-                                            <textarea id="justificativa_produto" placeholder="Justificativa obrigatória" class="input-xlarge"></textarea>
-                                        </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Justificativa*:</label>
+                                    <div class="controls">
+                                        <textarea id="justificativa_produto" placeholder="Justificativa obrigatória" class="input-xlarge"></textarea>
                                     </div>
                                 </div>
-                                <div class="actions" style="float: right"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Editar status Cliente"></div>
-                            </form>
+                            </div>
+                            <div class="actions" style="float: right"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Editar status Cliente"></div>
+                        </form>
+                    </div>
+                </section>
+                <section id="footer-bar">
+                    <div class="row">
+                        <div class="span3">
+                            <h4>Navegação</h4>
+                            <ul class="nav">
+                                <li><a href="./index.jsp">HOME</a></li>
+                                <li><a href="./about.jsp">Sobre</a></li>
+                                <li><a href="./contact.jsp">Contato</a></li>
+                                <li><a href="./cart.jsp">Carrinho</a></li>
+                                <li><a href="./login.jsp">Entrar</a></li>
+                            </ul>
                         </div>
-                    </section>
-                    <section id="footer-bar">
-                        <div class="row">
-                            <div class="span3">
-                                <h4>Navegação</h4>
-                                <ul class="nav">
-                                    <li><a href="./index.jsp">HOME</a></li>
-                                    <li><a href="./about.jsp">Sobre</a></li>
-                                    <li><a href="./contact.jsp">Contato</a></li>
-                                    <li><a href="./cart.jsp">Carrinho</a></li>
-                                    <li><a href="./login.jsp">Entrar</a></li>
-                                </ul>
-                            </div>
-                            <div class="span4">
-                                <h4>Minha conta</h4>
-                                <ul class="nav">
-                                    <li><a href="#">Minha conta</a></li>
-                                    <li><a href="#">Histórico de pedidos</a></li>
-                                    <li><a href="#">Lista de desejos</a></li>
-                                    <li><a href="#">Newsletter</a></li>
-                                </ul>
-                            </div>
-                            <div class="span5">
-                                <p class="logo"><img src="static/themes/images/logo_horizontal.png" class="site_logo" alt=""></p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
-                                <br/>
-                                <span class="social_icons">
+                        <div class="span4">
+                            <h4>Minha conta</h4>
+                            <ul class="nav">
+                                <li><a href="#">Minha conta</a></li>
+                                <li><a href="#">Histórico de pedidos</a></li>
+                                <li><a href="#">Lista de desejos</a></li>
+                                <li><a href="#">Newsletter</a></li>
+                            </ul>
+                        </div>
+                        <div class="span5">
+                            <p class="logo"><img src="static/themes/images/logo_horizontal.png" class="site_logo" alt=""></p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+                            <br/>
+                            <span class="social_icons">
 							<a class="facebook" href="#">Facebook</a>
 							<a class="twitter" href="#">Twitter</a>
 							<a class="skype" href="#">Skype</a>
 							<a class="vimeo" href="#">Vimeo</a>
 						</span>
-                            </div>
                         </div>
-                    </section>
-                    <section id="copyright">
-                        <span>Copyright 2013 bootstrappage template  All right reserved.</span>
-                    </section>
+                    </div>
+                </section>
+                <section id="copyright">
+                    <span>Copyright 2013 bootstrappage template  All right reserved.</span>
+                </section>
                 </div>
                 <script type="text/javascript">
-                    const formAlteracao = document.querySelector('#editar_cadastro_produto');
-                    const formStatus = document.querySelector('#editar_status_produto');
+                    const formAlteracao = document.querySelector('#editar_cadastro_cliente');
+                    const formStatus = document.querySelector('#editar_status_cliente');
 
-                    let editHandler = (cliente) => {
+                    const editHandler = (botao) => {
                         formStatus.classList.toggle('hidden', true);
                         formAlteracao.classList.toggle('hidden', false);
+                        buttonHandler(botao);
                     }
 
-                    let statusHandler = (cliente) => {
+                    const statusHandler = (botao) => {
                         formAlteracao.classList.toggle('hidden', true);
                         formStatus.classList.toggle('hidden', false);
                     }
@@ -1018,7 +1024,21 @@
                         form.submit();
                     }
 
-                    let deleteHandler = (botao) => {
+                    const funcaoAlterar = (form, id) => {
+                        let selector = 'input[id*="form_' + id + '"], select[id*="form_' + id + '"]';
+                        let inputs = document.querySelectorAll(selector);
+                        let inputs_form_alterar = document.querySelectorAll('#formAlterarCadastroParcial input, #formAlterarCadastroParcial select')
+
+                        inputs_form_alterar.forEach(input => {
+                            let filtered = Array.from(inputs).filter((value) => value.getAttribute('name') == input.getAttribute('name'));
+                            if (filtered.length) {
+                                input.value = filtered[0].value;
+                            }
+
+                        });
+                    }
+
+                    const buttonHandler = (botao) => {
                         let id = botao.id.split('_')[1];
                         let form_id = 'formDadosCliente_' + id;
                         let form = document.getElementById(form_id);
@@ -1028,6 +1048,7 @@
                                 break;
                             case "ALTERAR":
                                 //pegar os itens de cada input do form e preencher os inputs do formulário específico
+                                funcaoAlterar(form, id);
                                 break;
                         }
                     }

@@ -4,14 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import ecommerce_les2023.modelo.Aluno;
 import ecommerce_les2023.modelo.Cidade;
 import ecommerce_les2023.modelo.Cliente;
-import ecommerce_les2023.modelo.Curso;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Estado;
@@ -96,7 +93,67 @@ public class ClienteDAO extends AbstractDAO {
 
 	@Override
 	public void alterar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
+		openConnection();
+		PreparedStatement comandoSQL = null;
+		Cliente cliente = (Cliente) entidade;
+		
+		try {
+			this.conexao.setAutoCommit(false);
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE ");
+			sb.append(this.tabela);
+			
+			if(cliente.getEndereco() == null) {
+				if(cliente.getSituacao() == null) {
+					sb.append(" SET cli_usuario = ?, cli_senha = ?, cli_nome_completo = ?, cli_genero = ?, cli_data_nascimento = ?, cli_cpf = ?, cli_email = ?, cli_ddd_telefone = ?, cli_numero_telefone = ?, cli_tipo_telefone = ?");
+					sb.append(" WHERE ");
+					sb.append(this.idTabela + " = ?;");
+					comandoSQL = this.conexao.prepareStatement(sb.toString());
+					comandoSQL.setString(1, cliente.getUsuario());
+					comandoSQL.setString(2, cliente.getSenha());
+					comandoSQL.setString(3, cliente.getNome());
+					comandoSQL.setString(4, cliente.getGenero());
+					comandoSQL.setString(5, cliente.getDta_nascimento());
+					comandoSQL.setString(6, cliente.getCpf());
+					comandoSQL.setString(7, cliente.getEmail());
+					comandoSQL.setString(8, cliente.getTelefone().getDdd());
+					comandoSQL.setString(9, cliente.getTelefone().getNumero());
+					comandoSQL.setString(10, cliente.getTelefone().getTipo());
+					comandoSQL.setInt(11, cliente.getId());
+				}else{
+					sb.append(" SET cli_situacao = ?, cli_justificativa = ?");
+					sb.append(" WHERE ");
+					sb.append(this.idTabela + " = ?;");
+					comandoSQL = this.conexao.prepareStatement(sb.toString());
+					comandoSQL.setString(1, cliente.getSituacao());
+					comandoSQL.setString(2, cliente.getJustificativa());
+					comandoSQL.setInt(3, cliente.getId());
+				}
+			}else {
+				//alteração total de cadastro
+			}
+			comandoSQL.executeUpdate();
+			
+			conexao.commit();			
+			System.out.println(new Log().gerarLog(cliente, "ALTERAÇÃO"));
+			
+		} catch (SQLException e) {
+			try {
+				conexao.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			try {
+				comandoSQL.close();
+				conexao.close();
+				System.out.println("CONEXÃO FINALIZADA!");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
@@ -404,6 +461,8 @@ public class ClienteDAO extends AbstractDAO {
 	private Cliente criaClienteResultSet(ResultSet rs) throws SQLException {
 		Cliente cli = new Cliente();
 		cli.setId(rs.getInt("cli_id"));
+		cli.setUsuario(rs.getString("cli_usuario"));
+		cli.setSenha(rs.getString("cli_senha"));
 		cli.setNome(rs.getString("cli_nome_completo"));
 		cli.setCpf(rs.getString("cli_cpf"));
 		cli.setEmail(rs.getString("cli_email"));
