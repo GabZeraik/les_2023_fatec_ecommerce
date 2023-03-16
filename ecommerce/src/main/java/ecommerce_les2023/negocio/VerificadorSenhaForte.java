@@ -24,7 +24,7 @@ public class VerificadorSenhaForte implements IStrategy {
 		        Matcher temNumero = numeros.matcher(senha);
 		        Matcher temEspecial = especial.matcher(senha);
 
-		        if(!(temLetra.find() && temNumero.find() && temEspecial.find())) {
+		        if(!temLetra.find() && !temNumero.find() && !temEspecial.find()) {
 		        	return "RNF0031 - A senha cadastrada pelo usuário deve ser composta de pelo menos 8 caracteres, ter letras maiúsculas e minúsculas além de conter caracteres especiais.";
 		        }
 			}

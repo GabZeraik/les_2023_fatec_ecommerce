@@ -49,7 +49,7 @@ public class Fachada implements IFachada {
 		cadastrarClienteStrategy.add(new VerificadorSenhaForte());
 		
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
-		this.mapStrategies.put("Cadastrar"+Cliente.class.getName(), cadastrarClienteStrategy);
+		this.mapStrategies.put("Cadastrar" + Cliente.class.getName(), cadastrarClienteStrategy);
 		
 		/*//Aplicar regras de negócio para manter cursos
 		cursoStrategies.add(new VerificadorDadosObrigatoriosCursoStrategy());

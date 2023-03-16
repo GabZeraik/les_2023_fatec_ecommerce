@@ -82,12 +82,12 @@
                             <c:choose>
                                 <c:when test="${resultado.sucesso == true && resultado != null}">
                                     <div class="alert alert-success" role="alert">
-                                        <p>${resultado.mensagem}</p>
+                                        <p id="mensagem_resultado">${resultado.mensagem}</p>
                                     </div>
                                 </c:when>
                                 <c:when test="${resultado.sucesso == false && resultado != null}">
                                     <div class="alert alert-danger" role="alert">
-                                        <p>${resultado.mensagem}</p>
+                                        <p id="mensagem_resultado">${resultado.mensagem}</p>
                                     </div>
                                 </c:when>
                             </c:choose>

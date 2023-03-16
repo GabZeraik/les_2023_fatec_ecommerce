@@ -336,7 +336,7 @@
                                             </div>
                                         </div>
                                     </section>
-                                    <div class="actions" style="float: right"><input tabindex="9" class="btn btn-inverse large" type="submit" name="operacao" value="SALVAR"></div>
+                                    <div class="actions" style="float: right"><input tabindex="9" class="btn btn-inverse large" id="botao_submit" type="submit" name="operacao" value="SALVAR"></div>
                                 </div>
                             </form>
                         </div>
