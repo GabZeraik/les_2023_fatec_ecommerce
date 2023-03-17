@@ -112,22 +112,15 @@ public class ClienteViewHelper implements IViewHelper {
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
 		if (resultado.getOperacao() != "CONSULTAR") {
 			req.getSession().setAttribute("resultado", resultado);
-			if(resultado.isSucesso()) {
-				//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
-				try {
-					resp.sendRedirect("sucesso.jsp");
-					return;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}else {
-				try {
-					resp.sendRedirect("error.jsp");
-					return;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			
+			//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
+			try {
+				resp.sendRedirect("resultado.jsp");
+				return;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+			
 		} else {
 			req.getSession().setAttribute("clientes", resultado);
 			//Encaminha à página clientes

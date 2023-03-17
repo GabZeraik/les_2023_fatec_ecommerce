@@ -2,6 +2,8 @@ package ecommerce_les2023.utils;
 
 import java.util.List;
 
+import com.google.gson.Gson;
+
 import ecommerce_les2023.modelo.EntidadeDominio;
 
 public class Resultado {
@@ -10,6 +12,7 @@ public class Resultado {
 	private String operacao;
 	private String nomeEntidade;
 	private List<EntidadeDominio> dados;
+	private String json;
 	
 	public Resultado(String mensagem, boolean sucesso, String operacao, String nomeEntidade, List<EntidadeDominio> dados){
 		this.mensagem = mensagem;
@@ -17,6 +20,7 @@ public class Resultado {
 		this.nomeEntidade = nomeEntidade;
 		this.operacao = operacao;
 		this.dados = dados;
+		this.json = this.objetoToJson();
 	}
 	
 	public Resultado() {
@@ -59,4 +63,22 @@ public class Resultado {
 		this.sucesso = sucesso;
 	}
 	
+	public String getJson() {
+		return json;
+	}
+
+	public void setJson() {
+		this.json = this.objetoToJson();
+	}
+
+	public String objetoToJson() {
+		Gson gson = new Gson();
+		String json = gson.toJson(this);
+		return json;
+	}
+	
+	@Override
+	public String toString() {
+		return this.json;
+	}
 }

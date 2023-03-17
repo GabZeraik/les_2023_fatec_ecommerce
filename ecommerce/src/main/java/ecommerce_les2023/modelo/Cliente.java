@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.google.gson.Gson;
+
 public class Cliente extends Pessoa {
 	
 	private String dta_nascimento;
@@ -155,10 +157,4 @@ public class Cliente extends Pessoa {
 		}
 		this.endereco.add(end);
 	}
-
-	@Override
-	public String toString() {
-		return this.codigo + " - " + this.nome;
-	}
-
 }

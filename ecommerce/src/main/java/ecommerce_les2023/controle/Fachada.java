@@ -46,6 +46,7 @@ public class Fachada implements IFachada {
 		//Aplicar regras de negócio para manter clientes
 		cadastrarClienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
 		cadastrarClienteStrategy.add(new VerificadorDigitosCpfStrategy());
+		cadastrarClienteStrategy.add(new VerificadorEmailCadastradoStrategy());
 		cadastrarClienteStrategy.add(new VerificadorSenhaForte());
 		
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
@@ -75,7 +76,6 @@ public class Fachada implements IFachada {
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
-		System.out.println(entidade.getClass().getName());
 		resultado.setNomeEntidade(entidade.getClass().getName().substring(25));
 		resultado.setOperacao("CADASTRAR");
 		
@@ -90,7 +90,8 @@ public class Fachada implements IFachada {
 		}else {
 			resultado.setSucesso(false);
 			resultado.setMensagem(retornoStrategies);
-		} 
+		}
+		resultado.objetoToJson();
 		return resultado;	
 	}
 
@@ -105,7 +106,7 @@ public class Fachada implements IFachada {
 		resultado.setDados(lista);
 		resultado.setMensagem("Cadastro excluído com sucesso!");
 		resultado.setSucesso(true);
-		
+		resultado.objetoToJson();
 		return resultado;	
 	}
 
@@ -126,7 +127,8 @@ public class Fachada implements IFachada {
 		}else {
 			resultado.setSucesso(false);
 			resultado.setMensagem(retornoStrategies);
-		} 
+		}
+		resultado.objetoToJson();
 		return resultado;	
 	}
 
@@ -134,6 +136,7 @@ public class Fachada implements IFachada {
 	public Resultado consultar(EntidadeDominio entidade) {
 		List<EntidadeDominio> lista = mapDaos.get(entidade.getClass().getName()).consultar(entidade);
 		Resultado resultado = new Resultado("Consulta realizada com sucesso", true, "CONSULTAR", entidade.getClass().getName(), lista);  
+		resultado.objetoToJson();
 		return resultado;
 	}
 	
