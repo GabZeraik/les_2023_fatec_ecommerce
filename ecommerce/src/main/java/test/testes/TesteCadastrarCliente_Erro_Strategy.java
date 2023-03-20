@@ -25,7 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class TesteCadastrarCliente_Erro_Strategy {
         System.out.println("Preenchendo formulário");
     }
 			
-    @RepeatedTest(1)
+    @RepeatedTest(3)
     @DisplayName("Teste com cadastros que devem falhar por causa das strategies.")
     public void cadastroClientes (RepetitionInfo repetitionInfo){ 
 		int linha = repetitionInfo.getCurrentRepetition();

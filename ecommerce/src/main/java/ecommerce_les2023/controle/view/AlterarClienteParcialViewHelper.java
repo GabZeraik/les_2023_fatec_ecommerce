@@ -48,7 +48,7 @@ public class AlterarClienteParcialViewHelper implements IViewHelper {
 		req.getSession().setAttribute("resultado", resultado);
 		//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
 		try {
-			resp.sendRedirect("admin_clientes.jsp");
+			resp.sendRedirect("resultado.jsp");
 			return;
 		} catch (IOException e) {
 			e.printStackTrace();

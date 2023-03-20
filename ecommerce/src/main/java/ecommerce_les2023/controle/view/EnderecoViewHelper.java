@@ -15,7 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class ClienteViewHelper implements IViewHelper {
+public class EnderecoViewHelper implements IViewHelper {
 
 	@Override
 	public EntidadeDominio obterEntidade(HttpServletRequest req) {		
