@@ -9,7 +9,7 @@
                 <title>Projeto LES 2023 - E-Commerce</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <meta name="description" content="">
-                <!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
+
                 <!-- bootstrap -->
                 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
                 <link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -24,10 +24,7 @@
                 <script src="static/bootstrap/js/bootstrap.min.js"></script>
                 <script src="static/themes/js/superfish.js"></script>
                 <script src="static/themes/js/jquery.scrolltotop.js"></script>
-                <!--[if lt IE 9]>			
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<script src="js/respond.min.js"></script>
-		<![endif]-->
+
             </head>
 
             <body>

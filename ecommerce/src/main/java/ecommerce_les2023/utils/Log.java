@@ -56,6 +56,7 @@ public class Log {
 	/*
 	 * Realiza iteração em todas as superclasses, recursivamente, para obter todos os atributos das mesmas e da própria classe e retornar uma lista de Fields
 	 */
+	@SuppressWarnings("rawtypes")
 	public List<Field> getAllFields(Class classe){
 		if (classe == null) {
 	        return Collections.emptyList();

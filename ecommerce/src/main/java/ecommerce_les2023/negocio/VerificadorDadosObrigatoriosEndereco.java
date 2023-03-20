@@ -3,7 +3,6 @@ package ecommerce_les2023.negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
 
