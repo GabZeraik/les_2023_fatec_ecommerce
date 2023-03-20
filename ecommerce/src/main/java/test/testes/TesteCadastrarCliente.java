@@ -51,7 +51,7 @@ public class TesteCadastrarCliente {
         System.out.println("Preenchendo formulário");
     }
 			
-    @RepeatedTest(2)
+    @RepeatedTest(10)
     @DisplayName("Teste com cadastros que devem ser concluídos com sucesso.")
     public void cadastroClientes (RepetitionInfo repetitionInfo){ 
 		int linha = repetitionInfo.getCurrentRepetition();

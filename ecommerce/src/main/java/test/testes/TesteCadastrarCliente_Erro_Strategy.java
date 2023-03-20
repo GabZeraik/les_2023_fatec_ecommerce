@@ -30,7 +30,7 @@ import java.util.List;
 
 public class TesteCadastrarCliente_Erro_Strategy {
 	private static List<String> massa_cadastro;
-	private static Path path_arquivo = Paths.get("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\massa_testes\\TESTE_CADASTRO_CLIENTE.txt");
+	private static Path path_arquivo = Paths.get("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\massa_testes\\TESTE_CADASTRO_CLIENTE_ERRO_DADOS.txt");
 	private static WebDriver driver = new FirefoxDriver();	
 	
 	static {
@@ -51,10 +51,10 @@ public class TesteCadastrarCliente_Erro_Strategy {
         System.out.println("Preenchendo formulário");
     }
 			
-    @RepeatedTest(3)
+    @RepeatedTest(4)
     @DisplayName("Teste com cadastros que devem falhar por causa das strategies.")
     public void cadastroClientes (RepetitionInfo repetitionInfo){ 
-		int linha = repetitionInfo.getCurrentRepetition();
+		int linha = repetitionInfo.getCurrentRepetition() - 1;
 		String[] valores = massa_cadastro.get(linha).split(";");
 		    	
     	driver.get("localhost:8080/ecommerce_les/register.jsp");

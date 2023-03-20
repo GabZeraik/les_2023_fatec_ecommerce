@@ -43,7 +43,6 @@ public class Fachada implements IFachada {
 		cadastrarClienteStrategy.add(new VerificadorSenhaForte());
 		
 		alterarClienteStrategy.add(new VerificadorDigitosCpfStrategy());
-		alterarClienteStrategy.add(new VerificadorEmailCadastradoStrategy());
 		alterarClienteStrategy.add(new VerificadorSenhaForte());
 		
 		//Aplicar regras de negócio para manter enderecos

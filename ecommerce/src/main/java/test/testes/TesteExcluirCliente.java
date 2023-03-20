@@ -29,7 +29,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TesteExcluirCliente {
 	private static List<String> massa_cadastro;
-	private static Path path_arquivo = Paths.get("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\massa_testes\\TESTE_ALTERAR_CLIENTE.txt");
+	private static Path path_arquivo = Paths.get("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\massa_testes\\TESTE_EXCLUIR_CLIENTE.txt");
 	private static WebDriver driver = new FirefoxDriver();	
 	
 	static {
@@ -62,18 +62,23 @@ public class TesteExcluirCliente {
     	
     	driver.findElement(new By.ById("filtro_email_cliente")).clear();
     	driver.findElement(new By.ById("filtro_email_cliente")).sendKeys(valores[0]);
+    	System.out.println(valores[0]);
     	
-    	driver.findElement(new By.ByCssSelector("input[value='CONSULTAR']")).click();
+    	try {
+			Thread.sleep(5000);
+			driver.findElement(new By.ByCssSelector("input[value='CONSULTAR']")).click();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	
     	driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
     	
-    	driver.findElement(new By.ByCssSelector("button[value='EXCLUIR']")).click();
-    	
-    	//altera nome e telefone
-    	
-    	
     	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-
+    	wait.until(ExpectedConditions.presenceOfElementLocated(new By.ByCssSelector("td button[value="+ "EXCLUIR" + "]")));
+    	driver.findElement(new By.ByCssSelector("input[value='EXCLUIR']")).click();
+    	
+    	wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     	wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mensagem_resultado")));
     	
     	String texto_resultado = driver.findElement(By.id("mensagem_resultado")).getText();
