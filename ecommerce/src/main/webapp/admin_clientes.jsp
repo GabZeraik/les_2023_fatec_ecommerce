@@ -39,17 +39,17 @@
                             <div class="span6 col">
                                 <h4 class="title">Filtros</h4>
                                 <ul>
-                                    <li>Status<input type="text" name="situacao_cliente" class="input-block-level search-query"></li>
-                                    <li>Código<input type="text" name="codigo_cliente" class="input-block-level search-query"></li>
-                                    <li>Nome completo<input type="text" name="nome_cliente" class="input-block-level search-query"></li>
-                                    <li>Data de nascimento<input type="text" name="data_nascimento_cliente" class="input-block-level search-query"></li>
-                                    <li>Gênero<input type="text" name="genero_cliente" class="input-block-level search-query"></li>
-                                    <li>CPF<input type="text" name="cpf_cliente" class="input-block-level search-query"></li>
-                                    <li>Email<input type="text" name="email_cliente" class="input-block-level search-query"></li>
-                                    <li>Telefone<input type="text" name="telefone_ddd_cliente" class="input-block-level search-query"></li>
-                                    <li>Ranking<input type="text" name="ranking_cliente" class="input-block-level search-query"></li>
+                                    <li>Status<input type="text" id="filtro_situacao_cliente" name="situacao_cliente" class="input-block-level search-query"></li>
+                                    <li>Código<input type="text" id="filtro_codigo_cliente" name="codigo_cliente" class="input-block-level search-query"></li>
+                                    <li>Nome completo<input type="text" id="filtro_nome_cliente" name="nome_cliente" class="input-block-level search-query"></li>
+                                    <li>Data de nascimento<input type="text" id="filtro_data_nascimento_cliente" name="data_nascimento_cliente" class="input-block-level search-query"></li>
+                                    <li>Gênero<input type="text" id="filtro_genero_cliente" name="genero_cliente" class="input-block-level search-query"></li>
+                                    <li>CPF<input type="text" id="filtro_cpf_cliente" name="cpf_cliente" class="input-block-level search-query"></li>
+                                    <li>Email<input type="text" id="filtro_email_cliente" name="email_cliente" class="input-block-level search-query"></li>
+                                    <li>Telefone<input type="text" id="filtro_telefone_ddd_cliente" name="telefone_ddd_cliente" class="input-block-level search-query"></li>
+                                    <li>Ranking<input type="text" id="filtro_ranking_cliente" name="ranking_cliente" class="input-block-level search-query"></li>
                                 </ul>
-                                <div class="actions" style="float: right"><input class="btn btn-inverse large" form="formConsultarCliente" type="submit" name="operacao" value="CONSULTAR"></div>
+                                <div class="actions" style="float: right"><input class="btn btn-inverse large" form="formConsultarCliente" type="submit" name="operacao" value="CONSULTAR" id="botao_consultar"></div>
                             </div>
                         </form>
                     </div>
@@ -59,7 +59,7 @@
                         <div class="row">
                             <div class="span12">
                                 <h4 class="title"><span class="text"><strong>ADMINISTRAÇÃO</strong> Clientes</span></h4>
-                                <table class="table table-striped table-hover">
+                                <table id="tabela_resultado" class="table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>Status</th>

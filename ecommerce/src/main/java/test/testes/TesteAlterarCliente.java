@@ -99,21 +99,21 @@ public class TesteAlterarCliente {
 			e.printStackTrace();
 		}
     }
+    
+    public String obtemDataHoraTeste() {
+		DateTimeFormatter dh = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
+    	LocalDateTime dia_hora = LocalDateTime.now();
+		return dh.format(dia_hora);
+	}
+		
+	public void obtemPrintTela() throws IOException {
+		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    	FileHandler.copy(scrFile, new File("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\testes\\prints_tela\\" + this.getClass().getTypeName() + "_" + obtemDataHoraTeste() + ".png"));
+	}
 
-		@AfterAll
-		public static void finalizaTeste(){
-	        System.out.println("Teste finalizado");
-	        driver.quit();
-	    }
-    		
-		public String obtemDataHoraTeste() {
-			DateTimeFormatter dh = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
-	    	LocalDateTime dia_hora = LocalDateTime.now();
-			return dh.format(dia_hora);
-		}
-    		
-		public void obtemPrintTela() throws IOException {
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-	    	FileHandler.copy(scrFile, new File("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\testes\\prints_tela\\" + this.getClass().getTypeName() + "_" + obtemDataHoraTeste() + ".png"));
-		}
+	@AfterAll
+	public static void finalizaTeste(){
+        System.out.println("Teste finalizado");
+        driver.quit();
+    }
 }

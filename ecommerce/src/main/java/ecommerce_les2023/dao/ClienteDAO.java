@@ -214,8 +214,8 @@ public class ClienteDAO extends AbstractDAO {
 						sb.append("cli_nome_completo LIKE ?");
 						comandoSQL = this.conexao.prepareStatement(sb.toString());
 						comandoSQL.setString(1, "%" + cliente.getNome() + "%");
-					}else if(cliente.getEmail() != "") {
-						if(cliente.getSenha() != "") {
+					}else if(cliente.getEmail() != "" && cliente.getEmail() != null) {
+						if(cliente.getSenha() != "" && cliente.getSenha() != null) {
 							sb.append(" WHERE ");
 							sb.append("cli_email = ? AND cli_senha = ?");
 							comandoSQL = this.conexao.prepareStatement(sb.toString());
