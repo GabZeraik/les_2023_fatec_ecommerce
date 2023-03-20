@@ -13,6 +13,7 @@ class LinhaEndereco {
         this.pais = dados_endereco.cidade.estado.pais.nome_pais;
         this.observacao = dados_endereco.observacao;
         this.tipo = dados_endereco.tipo;
+        this.cliente_id = dados_endereco.cliente_id;
     }
 
     criaLinhaEndereco() {
@@ -21,7 +22,8 @@ class LinhaEndereco {
                 </a>
         <div id="endereco_${this.id}" class="accordion-body collapse js-liberar-edicao">
         <form id="formAlterarEndereco_${this.id}" action="AlterarEndereco" method="POST">
-            <input value="${this.tipo}" type="hidden" name="endereco_${this.tipo.toLowerCase()}_tipo">
+            <input value="${this.tipo}" type="hidden" name="endereco_tipo">
+            <input value="${this.cliente_id}" type="hidden" name="endereco_${this.tipo.toLowerCase()}_cliente_id">
             <input value="${this.id}" type="hidden" name="endereco_${this.tipo.toLowerCase()}_id">
             <div class="accordion-inner">
                 <div class="row-fluid">

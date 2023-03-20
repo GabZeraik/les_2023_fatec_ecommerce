@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,9 @@ public class EnderecoDAO extends AbstractDAO  {
 	public void salvar(EntidadeDominio entidade) {
 		PreparedStatement comandoSQL = null;
 		Endereco endereco = (Endereco) entidade;
+		
+		if(this.acaoIndependente)
+			openConnection();
 		
 		try {
 			this.conexao.setAutoCommit(false);
@@ -63,6 +65,8 @@ public class EnderecoDAO extends AbstractDAO  {
 				idEnd = rs.getInt(1);
 			endereco.setId(idEnd);
 			
+			System.out.println(new Log().gerarLog(endereco, "ALTERAÇÃO"));
+			
 			conexao.commit();					
 		} catch (SQLException e) {
 			try {
@@ -91,30 +95,39 @@ public class EnderecoDAO extends AbstractDAO  {
 	public void alterar(EntidadeDominio entidade) {
 		openConnection();
 		PreparedStatement comandoSQL = null;
-		Curso curso = (Curso) entidade;
-		
+		Endereco endereco = (Endereco) entidade;
+		System.out.println("ID: " + endereco.getId());
 		try {
 			this.conexao.setAutoCommit(false);
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("UPDATE ");
 			sb.append(this.tabela);
-			sb.append(" SET cur_nome = ?, cur_descricao = ?, cur_periodo = ?, cur_dta_cad = ?");
+			sb.append(" SET end_frase = ?, end_cep = ?, end_logradouro = ?, end_numero = ?, end_bairro = ?, end_cidade = ?, end_estado = ?, end_pais = ?, end_observacao = ?, end_tipo = ?, end_residencia = ?, end_tipo_logradouro = ?, clientes_cli_id = ?");
 			sb.append(" WHERE ");
-			sb.append(this.idTabela + " = ?;");
-					
-			Timestamp ts = Timestamp.from(curso.getDta_cadastro().toInstant());
-			comandoSQL = this.conexao.prepareStatement(sb.toString());
-			comandoSQL.setString(1, curso.getNome_curso());
-			comandoSQL.setString(2, curso.getDescricao());
-			comandoSQL.setString(3, curso.getPeriodo());			
-			comandoSQL.setTimestamp(4, ts, curso.getDta_cadastro());
-			comandoSQL.setInt(5, curso.getId());
-			comandoSQL.executeUpdate();
+			sb.append(this.idTabela + " = ?");
 			
-			conexao.commit();			
-			System.out.println(new Log().gerarLog(curso, "ALTERAÇÃO"));
+			comandoSQL = this.conexao.prepareStatement(sb.toString(), Statement.RETURN_GENERATED_KEYS);			
+			comandoSQL.setString(1, endereco.getFrase());
+			comandoSQL.setString(2, endereco.getCep());
+			comandoSQL.setString(3, endereco.getLogradouro());
+			comandoSQL.setString(4, endereco.getNumero());
+			comandoSQL.setString(5, endereco.getBairro());
+			comandoSQL.setString(6, endereco.getCidade().getNome_cidade());
+			comandoSQL.setString(7, endereco.getCidade().getEstado().getNome_estado());
+			comandoSQL.setString(8, endereco.getCidade().getEstado().getPais().getNome_pais());
+			comandoSQL.setString(9, endereco.getObservacao());
+			comandoSQL.setString(10, endereco.getTipo());
+			comandoSQL.setString(11, endereco.getResidencia());
+			comandoSQL.setString(12, endereco.getTipo_logradouro());
+			comandoSQL.setInt(13, endereco.getCliente_id());
+			comandoSQL.setInt(14, endereco.getId());
 			
+			comandoSQL.executeUpdate();		
+								
+			System.out.println(new Log().gerarLog(endereco, "ALTERAÇÃO"));
+			
+			conexao.commit();					
 		} catch (SQLException e) {
 			try {
 				conexao.rollback();

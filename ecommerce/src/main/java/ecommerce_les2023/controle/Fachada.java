@@ -8,11 +8,13 @@ import java.util.Map;
 import ecommerce_les2023.dao.AlunoDAO;
 import ecommerce_les2023.dao.ClienteDAO;
 import ecommerce_les2023.dao.CursoDAO;
+import ecommerce_les2023.dao.EnderecoDAO;
 import ecommerce_les2023.dao.IDAO;
 import ecommerce_les2023.dao.ProfessorDAO;
 import ecommerce_les2023.modelo.Aluno;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Curso;
+import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Professor;
 import ecommerce_les2023.negocio.IStrategy;
@@ -20,6 +22,7 @@ import ecommerce_les2023.negocio.VerificadorDigitosCpfStrategy;
 import ecommerce_les2023.negocio.VerificadorEmailCadastradoStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosClienteStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosCursoStrategy;
+import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosEndereco;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosProfessorStrategy;
 import ecommerce_les2023.negocio.VerificadorExistenciaCursoStrategy;
 import ecommerce_les2023.negocio.VerificadorRaAlunoStrategy;
@@ -42,6 +45,8 @@ public class Fachada implements IFachada {
 	private void criarMapStrategies() {
 		List<IStrategy> cadastrarClienteStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> alterarClienteStrategy = new ArrayList<IStrategy>();
+		List<IStrategy> cadastrarEnderecoStrategy = new ArrayList<IStrategy>();
+		List<IStrategy> alterarEnderecoStrategy = new ArrayList<IStrategy>();
 		
 		//Aplicar regras de negócio para manter clientes
 		cadastrarClienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
@@ -49,8 +54,18 @@ public class Fachada implements IFachada {
 		cadastrarClienteStrategy.add(new VerificadorEmailCadastradoStrategy());
 		cadastrarClienteStrategy.add(new VerificadorSenhaForte());
 		
+		
+		alterarClienteStrategy.add(new VerificadorDigitosCpfStrategy());
+		alterarClienteStrategy.add(new VerificadorEmailCadastradoStrategy());
+		alterarClienteStrategy.add(new VerificadorSenhaForte());
+		
+		//Aplicar regras de negócio para manter enderecos
+		cadastrarEnderecoStrategy.add(new VerificadorDadosObrigatoriosEndereco());
+		
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
 		this.mapStrategies.put("Cadastrar" + Cliente.class.getName(), cadastrarClienteStrategy);
+		this.mapStrategies.put("Alterar" + Cliente.class.getName(), alterarClienteStrategy);
+		this.mapStrategies.put("Cadastrar" + Endereco.class.getName(), cadastrarEnderecoStrategy);
 		
 		/*//Aplicar regras de negócio para manter cursos
 		cursoStrategies.add(new VerificadorDadosObrigatoriosCursoStrategy());
@@ -71,6 +86,7 @@ public class Fachada implements IFachada {
 	private void criarMapDaos() {
 		this.mapDaos = new HashMap<String, IDAO>();
 		this.mapDaos.put(Cliente.class.getName(), new ClienteDAO());
+		this.mapDaos.put(Endereco.class.getName(), new EnderecoDAO());
 	}
 
 	@Override

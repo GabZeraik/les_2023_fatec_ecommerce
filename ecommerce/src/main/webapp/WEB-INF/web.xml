@@ -46,5 +46,20 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>/AlterarClienteParcial</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/CadastrarEndereco</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/AlterarEndereco</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/ExcluirEndereco</url-pattern>
+  </servlet-mapping>
     
 </web-app>

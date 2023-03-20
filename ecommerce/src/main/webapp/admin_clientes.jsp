@@ -479,12 +479,12 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">Frase curta para nomear endereço*:</label>
                                                                 <div class="controls">
-                                                                    <input value="Frase" type="text" class="form-control-plaintext" name="endereco_entrega_frase_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_entrega_frase_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Tipo de residência*:</label>
-                                                                <select value="casa" class="form-control-plaintext" name="endereco_entrega_tipo_residencia_cliente">
+                                                                <select class="form-control-plaintext" name="endereco_entrega_tipo_residencia_cliente">
                                                                     <option value="casa">Casa</option>
                                                                     <option value="apartamento">Apartamento</option>
                                                                     <option value="outro">Outro</option>
@@ -493,12 +493,12 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">CEP*:</label>
                                                                 <div class="controls">
-                                                                    <input value="cep" type="text" class="form-control-plaintext" name="endereco_entrega_cep_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_entrega_cep_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Tipo de logradouro*:</label>
-                                                                <select value="avenida" class="form-control-plaintext" name="endereco_entrega_tipo_logradouro_cliente">
+                                                                <select class="form-control-plaintext" name="endereco_entrega_tipo_logradouro_cliente">
                                                                     <option value="rua">Rua</option>
                                                                     <option value="avenida">Avenida</option>
                                                                     <option value="travessa">Travessa</option>
@@ -510,13 +510,13 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">Logradouro*:</label>
                                                                 <div class="controls">
-                                                                    <input value="logradouro" type="text" class="form-control-plaintext" name="endereco_entrega_logradouro_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_entrega_logradouro_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Número*:</label>
                                                                 <div class="controls">
-                                                                    <input value="numero" type="text" class="form-control-plaintext" name="endereco_entrega_numero_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_entrega_numero_cliente">
                                                                 </div>
                                                             </div>
                                                         </fieldset>
@@ -527,31 +527,31 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">Bairro*:</label>
                                                                 <div class="controls">
-                                                                    <input value="bairro" type="text" class="form-control-plaintext" name="endereco_entrega_bairro_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_entrega_bairro_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Cidade*:</label>
                                                                 <div class="controls">
-                                                                    <input value="cidade" type="text" class="form-control-plaintext" name="endereco_entrega_cidade_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_entrega_cidade_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Estado*:</label>
                                                                 <div class="controls">
-                                                                    <input value="estado" type="text" class="form-control-plaintext" name="endereco_entrega_estado_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_entrega_estado_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">País*:</label>
                                                                 <div class="controls">
-                                                                    <input value="pais" type="text" class="form-control-plaintext" name="endereco_entrega_pais_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_entrega_pais_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Observação:</label>
                                                                 <div class="controls">
-                                                                    <textarea value="observacao" class="form-control-plaintext" name="endereco_entrega_observacao_cliente"></textarea>
+                                                                    <textarea class="form-control-plaintext" name="endereco_entrega_observacao_cliente"></textarea>
                                                                 </div>
                                                             </div>
                                                         </fieldset>
@@ -584,12 +584,12 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">Frase curta para nomear endereço*:</label>
                                                                 <div class="controls">
-                                                                    <input value="Frase" type="text" class="form-control-plaintext" name="endereco_cobranca_frase_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_cobranca_frase_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Tipo de residência*:</label>
-                                                                <select value="casa" class="form-control-plaintext" name="endereco_cobranca_tipo_residencia_cliente">
+                                                                <select class="form-control-plaintext" name="endereco_cobranca_tipo_residencia_cliente">
                                                                     <option value="casa">Casa</option>
                                                                     <option value="apartamento">Apartamento</option>
                                                                     <option value="outro">Outro</option>
@@ -598,12 +598,12 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">CEP*:</label>
                                                                 <div class="controls">
-                                                                    <input value="cep" type="text" class="form-control-plaintext" name="endereco_cobranca_cep_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_cobranca_cep_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Tipo de logradouro*:</label>
-                                                                <select value="avenida" class="form-control-plaintext" name="endereco_cobranca_tipo_logradouro_cliente">
+                                                                <select class="form-control-plaintext" name="endereco_cobranca_tipo_logradouro_cliente">
                                                                     <option value="rua">Rua</option>
                                                                     <option value="avenida">Avenida</option>
                                                                     <option value="travessa">Travessa</option>
@@ -615,13 +615,13 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">Logradouro*:</label>
                                                                 <div class="controls">
-                                                                    <input value="logradouro" type="text" class="form-control-plaintext" name="endereco_cobranca_logradouro_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_cobranca_logradouro_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Número*:</label>
                                                                 <div class="controls">
-                                                                    <input value="numero" type="text" class="form-control-plaintext" name="endereco_cobranca_numero_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_cobranca_numero_cliente">
                                                                 </div>
                                                             </div>
                                                         </fieldset>
@@ -632,31 +632,31 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">Bairro*:</label>
                                                                 <div class="controls">
-                                                                    <input value="bairro" type="text" class="form-control-plaintext" name="endereco_cobranca_bairro_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_cobranca_bairro_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Cidade*:</label>
                                                                 <div class="controls">
-                                                                    <input value="cidade" type="text" class="form-control-plaintext" name="endereco_cobranca_cidade_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_cobranca_cidade_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Estado*:</label>
                                                                 <div class="controls">
-                                                                    <input value="estado" type="text" class="form-control-plaintext" name="endereco_cobranca_estado_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_cobranca_estado_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">País*:</label>
                                                                 <div class="controls">
-                                                                    <input value="pais" type="text" class="form-control-plaintext" name="endereco_cobranca_pais_cliente">
+                                                                    <input type="text" class="form-control-plaintext" name="endereco_cobranca_pais_cliente">
                                                                 </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <label class="control-label">Observação:</label>
                                                                 <div class="controls">
-                                                                    <textarea value="observacao" class="form-control-plaintext" name="endereco_cobranca_observacao_cliente"></textarea>
+                                                                    <textarea class="form-control-plaintext" name="endereco_cobranca_observacao_cliente"></textarea>
                                                                 </div>
                                                             </div>
                                                         </fieldset>
@@ -776,6 +776,7 @@
                     const json_resultado = JSON.parse('${clientes}');
                     const container_enderecos_entrega = document.querySelector('.js-container-enderecos-entrega');
                     const container_enderecos_cobranca = document.querySelector('.js-container-enderecos-cobranca');
+                    const cliente_id_inputs = document.querySelectorAll('input[name*="cliente_id"]');
 
                     const liberarEdicaoAccordion = (button) => {
                         let inputs = button.closest('.js-liberar-edicao').querySelectorAll('input, select, textarea');
@@ -789,8 +790,9 @@
                     const preencheEnderecos = (dados_cliente) => {
                         container_enderecos_entrega.innerHTML = '';
                         container_enderecos_cobranca.innerHTML = '';
-                        console.log(dados_cliente);
+
                         dados_cliente.endereco.forEach(end => {
+                            console.log(end);
                             let linha_endereco = new LinhaEndereco(end).criaLinhaEndereco();
                             if (end.tipo == "ENTREGA") {
                                 container_enderecos_entrega.insertAdjacentHTML('beforeend', linha_endereco);
@@ -805,6 +807,8 @@
                         let dados_cliente = json_resultado.dados.filter((value) =>
                             value.id == cli_id
                         )[0];
+
+                        cliente_id_inputs.forEach(input => input.value = cli_id);
 
                         preencheEnderecos(dados_cliente);
                         buttonHandler(botao);
