@@ -61,5 +61,10 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>/ExcluirEndereco</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/EntrarCliente</url-pattern>
+  </servlet-mapping>
     
 </web-app>

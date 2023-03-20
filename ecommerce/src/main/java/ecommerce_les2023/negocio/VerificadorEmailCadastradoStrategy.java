@@ -2,10 +2,8 @@ package ecommerce_les2023.negocio;
 
 import java.util.List;
 
-import ecommerce_les2023.dao.AlunoDAO;
 import ecommerce_les2023.dao.ClienteDAO;
 import ecommerce_les2023.dao.IDAO;
-import ecommerce_les2023.modelo.Aluno;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.EntidadeDominio;
 

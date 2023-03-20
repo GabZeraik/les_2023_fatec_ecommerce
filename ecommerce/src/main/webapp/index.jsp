@@ -42,7 +42,12 @@
                         <div class="span8">
                             <div class="account pull-right">
                                 <ul class="user-menu">
-                                    <li><a href="account.jsp">Minha conta</a></li>
+                                    <c:if test="${usuario_logado.nome != null}">
+                                        <div class="span3">
+                                            <span>Bem vindo ${usuario_logado.nome}</span>
+                                        </div>
+                                        <li><a href="#">Minha conta</a></li>
+                                    </c:if>
                                     <li><a href="cart.jsp">Carrinho</a></li>
                                     <li><a href="checkout.jsp">Finalizar Compra</a></li>
                                     <li><a href="login.jsp">Entrar</a></li>
@@ -78,20 +83,6 @@
                 </div>
                 <div id="wrapper" class="container">
                     <section class="navbar main-menu">
-                        <div id="site-container">
-                            <c:choose>
-                                <c:when test="${resultado.sucesso == true && resultado != null}">
-                                    <div class="alert alert-success" role="alert">
-                                        <p id="mensagem_resultado">${resultado.mensagem}</p>
-                                    </div>
-                                </c:when>
-                                <c:when test="${resultado.sucesso == false && resultado != null}">
-                                    <div class="alert alert-danger" role="alert">
-                                        <p id="mensagem_resultado">${resultado.mensagem}</p>
-                                    </div>
-                                </c:when>
-                            </c:choose>
-                        </div>
                         <div class="navbar-inner main-menu">
                             <nav id="menu" class="pull-right">
                                 <ul>

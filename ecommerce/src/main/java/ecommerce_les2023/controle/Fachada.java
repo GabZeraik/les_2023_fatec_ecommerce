@@ -5,28 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ecommerce_les2023.dao.AlunoDAO;
 import ecommerce_les2023.dao.ClienteDAO;
-import ecommerce_les2023.dao.CursoDAO;
 import ecommerce_les2023.dao.EnderecoDAO;
 import ecommerce_les2023.dao.IDAO;
-import ecommerce_les2023.dao.ProfessorDAO;
-import ecommerce_les2023.modelo.Aluno;
 import ecommerce_les2023.modelo.Cliente;
-import ecommerce_les2023.modelo.Curso;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
-import ecommerce_les2023.modelo.Professor;
 import ecommerce_les2023.negocio.IStrategy;
 import ecommerce_les2023.negocio.VerificadorDigitosCpfStrategy;
 import ecommerce_les2023.negocio.VerificadorEmailCadastradoStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosClienteStrategy;
-import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosCursoStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosEndereco;
-import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosProfessorStrategy;
-import ecommerce_les2023.negocio.VerificadorExistenciaCursoStrategy;
-import ecommerce_les2023.negocio.VerificadorRaAlunoStrategy;
-import ecommerce_les2023.negocio.VerificadorRfProfessorStrategy;
 import ecommerce_les2023.negocio.VerificadorSenhaForte;
 import ecommerce_les2023.utils.Resultado;
 
@@ -46,14 +35,12 @@ public class Fachada implements IFachada {
 		List<IStrategy> cadastrarClienteStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> alterarClienteStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> cadastrarEnderecoStrategy = new ArrayList<IStrategy>();
-		List<IStrategy> alterarEnderecoStrategy = new ArrayList<IStrategy>();
 		
 		//Aplicar regras de negócio para manter clientes
 		cadastrarClienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
 		cadastrarClienteStrategy.add(new VerificadorDigitosCpfStrategy());
 		cadastrarClienteStrategy.add(new VerificadorEmailCadastradoStrategy());
 		cadastrarClienteStrategy.add(new VerificadorSenhaForte());
-		
 		
 		alterarClienteStrategy.add(new VerificadorDigitosCpfStrategy());
 		alterarClienteStrategy.add(new VerificadorEmailCadastradoStrategy());
@@ -65,6 +52,7 @@ public class Fachada implements IFachada {
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
 		this.mapStrategies.put("Cadastrar" + Cliente.class.getName(), cadastrarClienteStrategy);
 		this.mapStrategies.put("Alterar" + Cliente.class.getName(), alterarClienteStrategy);
+
 		this.mapStrategies.put("Cadastrar" + Endereco.class.getName(), cadastrarEnderecoStrategy);
 		
 		/*//Aplicar regras de negócio para manter cursos

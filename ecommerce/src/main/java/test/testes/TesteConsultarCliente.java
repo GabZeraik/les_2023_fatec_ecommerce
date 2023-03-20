@@ -1,4 +1,4 @@
-package ecommerce_les2023.testes;
+package test.testes;
 
 public class TesteConsultarCliente {
 

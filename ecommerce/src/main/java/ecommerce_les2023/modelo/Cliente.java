@@ -18,6 +18,7 @@ public class Cliente extends Pessoa {
 	private Cartao cartao;
 	private Telefone telefone;
 	private Cupom cupom;
+	private String json;
 	
 	public Cliente(String nome, String cpf, String email, String genero, List<Endereco> enderecos, String dta_nascimento, String situacao, String ranking, String usuario, String senha, Cartao cartao,
 			Telefone telefone, Cupom cupom) {
@@ -37,7 +38,7 @@ public class Cliente extends Pessoa {
 		this.cupom = cupom;
 		this.codigo = gerarCodigoUnico();
 	}
-	/*Usado para ***/
+	/*Usado para alterar cadastro parcial***/
 	public Cliente(String nome, String cpf, String email, String genero, String dta_nascimento, String usuario, String senha, Telefone telefone) {
 		super.nome = nome;
 		super.cpf = cpf;
@@ -49,6 +50,12 @@ public class Cliente extends Pessoa {
 		this.senha = senha;
 		this.telefone = telefone;
 		this.codigo = gerarCodigoUnico();
+	}
+	
+	/*Usado para alterar entrar***/
+	public Cliente(String email, String senha) {
+		super.email = email;
+		this.senha = senha;
 	}
 	
 	public Cliente() {};
@@ -156,5 +163,19 @@ public class Cliente extends Pessoa {
 			this.endereco = new ArrayList<Endereco>();
 		}
 		this.endereco.add(end);
+	}
+	
+	public String getJson() {
+		return this.json;
+	}
+
+	public void setJson() {
+		this.json = this.objetoToJson();
+	}
+
+	public String objetoToJson() {
+		Gson gson = new Gson();
+		String json = gson.toJson(this);
+		return json;
 	}
 }

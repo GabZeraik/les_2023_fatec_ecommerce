@@ -1,23 +1,10 @@
 package ecommerce_les2023.controle.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import ecommerce_les2023.modelo.Aluno;
-import ecommerce_les2023.modelo.Cidade;
 import ecommerce_les2023.modelo.Cliente;
-import ecommerce_les2023.modelo.Curso;
-import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
-import ecommerce_les2023.modelo.Estado;
-import ecommerce_les2023.modelo.Pais;
 import ecommerce_les2023.modelo.Telefone;
-import ecommerce_les2023.modelo.Tipo;
 import ecommerce_les2023.utils.Resultado;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

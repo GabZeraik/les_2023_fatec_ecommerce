@@ -42,7 +42,12 @@
                         <div class="span8">
                             <div class="account pull-right">
                                 <ul class="user-menu">
-                                    <li><a href="#">Minha conta</a></li>
+                                    <c:if test="${usuario_logado != null}">
+                                        <div class="span3">
+                                            <span>Bem vindo ${usuario_logado.nome}</span>
+                                        </div>
+                                        <li><a href="#">Minha conta</a></li>
+                                    </c:if>
                                     <li><a href="cart.jsp">Carrinho</a></li>
                                     <li><a href="checkout.jsp">Finalizar Compra</a></li>
                                     <li><a href="login.jsp">Entrar</a></li>
@@ -83,23 +88,23 @@
                         <div class="row">
                             <div class="span5">
                                 <h4 class="title"><span class="text"><strong>Acessar</strong> Conta</span></h4>
-                                <form action="#" method="post">
-                                    <input type="hidden" name="next" value="/">
+                                <form action="EntrarCliente" method="POST" id="formEntrar">
+                                    <input type="hidden" name="operacao" value="CONSULTAR">
                                     <fieldset>
                                         <div class="control-group">
-                                            <label class="control-label">Usuário:</label>
+                                            <label class="control-label">Email:</label>
                                             <div class="controls">
-                                                <input type="text" placeholder="Digite seu usuário" id="username" class="input-xlarge">
+                                                <input type="text" placeholder="Digite seu email" name="email_cliente" id="email_cliente" class="input-xlarge">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">Senha:</label>
                                             <div class="controls">
-                                                <input type="password" placeholder="Digite sua senha" id="password" class="input-xlarge">
+                                                <input type="password" placeholder="Digite sua senha" name="senha_cliente" id="senha_cliente" class="input-xlarge">
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <input tabindex="3" class="btn btn-inverse large" type="submit" value="Entrar">
+                                            <div class="actions"><input class="btn btn-inverse large" form="formEntrar" type="submit" name="entrar_cliente" value="Entrar"></div>
                                             <hr>
                                             <p class="reset">Área <a tabindex="4" href="./admin.jsp" title="Área administrador">administrador</a></p>
                                         </div>
