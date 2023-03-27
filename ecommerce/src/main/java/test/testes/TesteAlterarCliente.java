@@ -89,8 +89,6 @@ public class TesteAlterarCliente {
     	
     	String texto_resultado = driver.findElement(By.id("mensagem_resultado")).getText();
     	
-    	assertTrue(texto_resultado, texto_resultado.contains("sucesso"));
-    	
     	//tenta tirar print da tela
 		try {
 			obtemPrintTela();
@@ -98,6 +96,8 @@ public class TesteAlterarCliente {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	
+    	assertTrue(texto_resultado, texto_resultado.contains("sucesso"));
     }
     
     public String obtemDataHoraTeste() {

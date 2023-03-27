@@ -51,7 +51,7 @@ public class TesteCadastrarCliente {
         System.out.println("Preenchendo formulário");
     }
 			
-    @RepeatedTest(10)
+    @RepeatedTest(12)
     @DisplayName("Teste com cadastros que devem ser concluídos com sucesso.")
     public void cadastroClientes (RepetitionInfo repetitionInfo){ 
 		int linha = repetitionInfo.getCurrentRepetition();
@@ -132,6 +132,14 @@ public class TesteCadastrarCliente {
     	wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mensagem_resultado")));
     	
     	String texto_resultado = driver.findElement(By.id("mensagem_resultado")).getText();
+    	
+    	//tenta tirar print da tela
+		try {
+			obtemPrintTela();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     	assertTrue(texto_resultado, texto_resultado.contains("sucesso"));
 		
