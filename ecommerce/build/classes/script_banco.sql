@@ -170,4 +170,3 @@ ALTER TABLE pedidos
 ALTER TABLE produtos
     ADD CONSTRAINT produtos_itens_fk FOREIGN KEY ( itens_item_id )
         REFERENCES itens ( item_id );
-

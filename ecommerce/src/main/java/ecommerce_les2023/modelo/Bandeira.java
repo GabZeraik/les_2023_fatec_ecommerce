@@ -1,9 +1,20 @@
 package ecommerce_les2023.modelo;
 
-public class Bandeira {
+public class Bandeira extends EntidadeDominio{
+	
 	private String cod_bandeira;
 	private String nome;
+		
+	public Bandeira(int id, String cod_bandeira, String nome) {
+		this.cod_bandeira = cod_bandeira;
+		this.nome = nome;
+		super.id = id;
+	}
 	
+	public Bandeira() {
+		
+	}
+
 	public String getCod_bandeira() {
 		return cod_bandeira;
 	}
@@ -16,6 +27,4 @@ public class Bandeira {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
 }

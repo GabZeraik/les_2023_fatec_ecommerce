@@ -23,9 +23,11 @@ public class EntrarClienteViewHelper implements IViewHelper {
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
 		if(!resultado.getDados().isEmpty()) {
-			Cliente cliente = (Cliente)resultado.getDados().get(0);
+			Cliente cliente = (Cliente) resultado.getDados().get(0);
 			cliente.setJson();
 			req.getSession().setAttribute("usuario_logado", cliente);
+			req.getSession().setAttribute("bandeiras", resultado.getBandeiras());
+			
 			//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
 			try {
 				resp.sendRedirect("account.jsp");

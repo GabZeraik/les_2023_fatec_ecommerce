@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ecommerce_les2023.dao.BandeiraDAO;
 import ecommerce_les2023.dao.ClienteDAO;
 import ecommerce_les2023.dao.EnderecoDAO;
 import ecommerce_les2023.dao.IDAO;
+import ecommerce_les2023.modelo.Bandeira;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
@@ -74,6 +76,7 @@ public class Fachada implements IFachada {
 		this.mapDaos = new HashMap<String, IDAO>();
 		this.mapDaos.put(Cliente.class.getName(), new ClienteDAO());
 		this.mapDaos.put(Endereco.class.getName(), new EnderecoDAO());
+		this.mapDaos.put(Bandeira.class.getName(), new BandeiraDAO());
 	}
 
 	@Override
@@ -138,7 +141,9 @@ public class Fachada implements IFachada {
 	@Override
 	public Resultado consultar(EntidadeDominio entidade) {
 		List<EntidadeDominio> lista = mapDaos.get(entidade.getClass().getName()).consultar(entidade);
-		Resultado resultado = new Resultado("Consulta realizada com sucesso", true, "CONSULTAR", entidade.getClass().getName(), lista);  
+		Bandeira band = new Bandeira();
+		List<EntidadeDominio> bandeiras = mapDaos.get(band.getClass().getName()).consultar(band);
+		Resultado resultado = new Resultado("Consulta realizada com sucesso", true, "CONSULTAR", entidade.getClass().getName(), lista, bandeiras);  
 		resultado.objetoToJson();
 		return resultado;
 	}

@@ -646,42 +646,6 @@
                                         </tbody>
                                     </table>
                                 </section>
-                                <section class="hidden" id="editar_status_cliente">
-                                    <div class="row">
-                                        <form action="#" method="post">
-                                            <div class="span12">
-                                                <h4 class="title"><span class="text"><strong>Ativar/Inativar</strong> Cliente</span></h4>
-                                                <div class="control-group">
-                                                    <label class="control-label">Código Único:</label>
-                                                    <div class="controls">
-                                                        <input type="text" id="codigo_produto" class="input-small" disabled>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <label class="control-label">Selecione o Status desejado*:</label>
-                                                    <select class="controls" id="status_produto">
-                                                <option value="ativo">Ativo</option>
-                                                <option value="inativo">Inativo</option>
-                                            </select>
-                                                </div>
-                                                <div class="hidden control-group">
-                                                    <label class="control-label">Selecione a categoria desejada*:</label>
-                                                    <select class="controls" id="categoria_status_produto">
-                                                <option value="dados_incorretos">DADOS INCORRETOS</option>
-                                                <option value="outro">OUTRO</option>
-                                            </select>
-                                                </div>
-                                                <div class="control-group">
-                                                    <label class="control-label">Justificativa*:</label>
-                                                    <div class="controls">
-                                                        <textarea id="justificativa_produto" placeholder="Justificativa obrigatória" class="input-xlarge"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="actions" style="float: right"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Editar status Cliente"></div>
-                                        </form>
-                                    </div>
-                                </section>
                             </div>
                         </div>
                     </section>
@@ -713,7 +677,59 @@
                                 <span class="text"><strong>Nome: </strong>Lorem ipsum Lorem</span>
                             </div>
                         </label>
-
+                        <section class="cadastrar_novo_cartao">
+                            <button>
+                                <a class="accordion-toggle" data-toggle="collapse" href="#cadastrar_novo_cartao">
+                                    <h4><span class="text"><strong>Cadastrar</strong> novo cartão</span></h4>
+                                </a>
+                            </button>
+                            <div id="cadastrar_novo_cartao" class="accordion-body collapse js-liberar-edicao">
+                                <form id="formCadastrarNovoCartao" action="CadastrarCartao" method="POST">
+                                    <div class="accordion-inner">
+                                        <div class="row-fluid">
+                                            <div class="span5 col">
+                                                <fieldset>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Número do cartão*:</label>
+                                                        <div class="controls">
+                                                            <input type="text" id="cartao_numero" class="input-xlarge" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Bandeira*:</label>
+                                                        <select class="controls" id="cartao_bandeira" required>
+                                                            <c:forEach var="bandeira" items="${bandeiras}">
+                                                                <option value="${bandeira.id}">${bandeira.nome}</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Validade*:</label>
+                                                        <div class="controls">
+                                                            <input type="text" placeholder="MM/AA" id="cartao_validade" class="input-mini" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">CVV*:</label>
+                                                        <div class="controls">
+                                                            <input type="text" placeholder="CVV" id="cartao_cvv" class="input-mini" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Nome no cartão*:</label>
+                                                        <div class="controls">
+                                                            <input type="text" placeholder="Digite o nome impresso" id="cartao_nome" class="input-xlarge" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="actions" style="float: right" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Vincular cartão"></div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="actions span3" style="float: right"><input tabindex="9" form="formCadastrarNovoCartao" class="btn btn-inverse large" type="submit" name="operacao" value="SALVAR"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
                         <div class="card">
                             <label class="radio" for="cb_cadastrar_novo_cartao">
                                 <input type="checkbox" value="cadastrar_novo_card" id="cb_cadastrar_novo_cartao" onchange="radioHandlerCartao(this);">Cadastrar novo cartão

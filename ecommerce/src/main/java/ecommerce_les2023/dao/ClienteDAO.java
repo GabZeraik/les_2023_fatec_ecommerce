@@ -155,7 +155,6 @@ public class ClienteDAO extends AbstractDAO {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 	@Override
@@ -190,7 +189,7 @@ public class ClienteDAO extends AbstractDAO {
 						+ "; EMAIL: " 
 						+ cliente.getEmail() + " ; ";
 				
-				sb.append(" INNER JOIN enderecos ON clientes.cli_id = enderecos.clientes_cli_id");
+				sb.append(" INNER JOIN enderecos ON clientes.cli_id = enderecos.clientes_cli_id ");
 				
 					//Pesquisa por id do cliente ou
 					//pelo cpf ou
