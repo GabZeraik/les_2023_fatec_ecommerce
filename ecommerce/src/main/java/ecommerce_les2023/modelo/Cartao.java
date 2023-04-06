@@ -4,16 +4,20 @@ public class Cartao extends EntidadeDominio {
 	
 	private String numero;
 	private String nome_impresso;
+	private String validade;
 	private String cod_seguranca;
-	private Boolean preferencial;
+	private char preferencial;
 	private Bandeira bandeira;
+	private int cliente_id;
 	
-	public Cartao(String numero, String nome_impresso, String cod_seguranca, Boolean preferencial, Bandeira bandeira) {
+	public Cartao(String numero, String nome_impresso, String validade, String cod_seguranca, char preferencial, Bandeira bandeira, int cliente_id) {
 		this.numero = numero;
 		this.nome_impresso = nome_impresso;
+		this.validade = validade;
 		this.cod_seguranca = cod_seguranca;
 		this.preferencial = preferencial;
 		this.bandeira = bandeira;
+		this.cliente_id = cliente_id;
 	}
 	
 	public String getNumero() {
@@ -34,10 +38,10 @@ public class Cartao extends EntidadeDominio {
 	public void setCod_seguranca(String cod_seguranca) {
 		this.cod_seguranca = cod_seguranca;
 	}
-	public Boolean getPreferencial() {
+	public char getPreferencial() {
 		return preferencial;
 	}
-	public void setPreferencial(Boolean preferencial) {
+	public void setPreferencial(char preferencial) {
 		this.preferencial = preferencial;
 	}
 	public Bandeira getBandeira() {
@@ -45,5 +49,21 @@ public class Cartao extends EntidadeDominio {
 	}
 	public void setBandeira(Bandeira bandeira) {
 		this.bandeira = bandeira;
+	}
+
+	public int getCliente_id() {
+		return cliente_id;
+	}
+
+	public void setCliente_id(int cliente_id) {
+		this.cliente_id = cliente_id;
+	}
+
+	public String getValidade() {
+		return validade;
+	}
+
+	public void setValidade(String validade) {
+		this.validade = validade;
 	}
 }

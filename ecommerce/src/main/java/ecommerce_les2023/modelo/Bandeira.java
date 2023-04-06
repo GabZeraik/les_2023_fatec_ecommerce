@@ -11,6 +11,10 @@ public class Bandeira extends EntidadeDominio{
 		super.id = id;
 	}
 	
+	public Bandeira(int id) {
+		super.id = id;
+	}
+	
 	public Bandeira() {
 		
 	}

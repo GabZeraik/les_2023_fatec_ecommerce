@@ -689,6 +689,8 @@
                                         <div class="row-fluid">
                                             <div class="span5 col">
                                                 <fieldset>
+                                                    <input type="hidden" id="formCadastrarNovoCartao_id" name="cartao_cliente_id">
+                                                    <input type="hidden" name="cartao_preferencial" value="true">
                                                     <div class="control-group">
                                                         <label class="control-label">Número do cartão*:</label>
                                                         <div class="controls">
@@ -721,59 +723,14 @@
                                                             <input type="text" placeholder="Digite o nome impresso" id="cartao_nome" class="input-xlarge" required>
                                                         </div>
                                                     </div>
-                                                    <div class="actions" style="float: right" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Vincular cartão"></div>
+                                                    <div class="actions span3" style="float: right"><input tabindex="9" form="formCadastrarNovoCartao" class="btn btn-inverse large" type="submit" name="operacao" value="SALVAR"></div>
                                                 </fieldset>
                                             </div>
                                         </div>
-                                        <div class="actions span3" style="float: right"><input tabindex="9" form="formCadastrarNovoCartao" class="btn btn-inverse large" type="submit" name="operacao" value="SALVAR"></div>
                                     </div>
                                 </form>
                             </div>
                         </section>
-                        <div class="card">
-                            <label class="radio" for="cb_cadastrar_novo_cartao">
-                                <input type="checkbox" value="cadastrar_novo_card" id="cb_cadastrar_novo_cartao" onchange="radioHandlerCartao(this);">Cadastrar novo cartão
-                            </label>
-                            <div class="hidden" id="div_novo_cartao">
-                                <form action="#" method="post" id="form_cadastrar_cartao">
-                                    <fieldset>
-                                        <div class="control-group">
-                                            <label class="control-label">Número do cartão*:</label>
-                                            <div class="controls">
-                                                <input type="text" id="cartao_numero" class="input-xlarge" required>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Bandeira*:</label>
-                                            <select class="controls" id="cartao_bandeira" required>
-                                                <option value="visa">VISA</option>
-                                                <option value="mastercard">MasterCard</option>
-                                                <option value="elo">Elo</option>
-                                            </select>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Validade*:</label>
-                                            <div class="controls">
-                                                <input type="text" placeholder="MM/AA" id="cartao_validade" class="input-mini" required>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">CVV*:</label>
-                                            <div class="controls">
-                                                <input type="text" placeholder="CVV" id="cartao_cvv" class="input-mini" required>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Nome no cartão*:</label>
-                                            <div class="controls">
-                                                <input type="text" placeholder="Digite o nome impresso" id="cartao_nome" class="input-xlarge" required>
-                                            </div>
-                                        </div>
-                                        <div class="actions" style="float: right" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Vincular cartão"></div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
                     </section>
                     <section id="footer-bar">
                         <div class="row">

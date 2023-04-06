@@ -10,8 +10,9 @@ CREATE TABLE cartoes (
     car_id               SERIAL,
     car_numero           VARCHAR(30),
     car_nome_impresso    VARCHAR(30),
+    car_validade		 VARCHAR(4),
     car_codigo_seguranca VARCHAR(3),
-    car_preferencial    CHAR(1),
+    car_preferencial	 CHAR(1),
     bandeiras_ban_id     INTEGER,
     clientes_cli_id      INTEGER NOT NULL
 );
