@@ -66,5 +66,20 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>/EntrarCliente</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/CadastrarCartao</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/AlterarCartao</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/ExcluirCartao</url-pattern>
+  </servlet-mapping>
     
 </web-app>

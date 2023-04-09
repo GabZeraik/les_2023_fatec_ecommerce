@@ -15,10 +15,10 @@ public class Cliente extends Pessoa {
 	private String usuario;
 	private String senha;
 	private String justificativa;
-	private Cartao cartao;
 	private Telefone telefone;
 	private Cupom cupom;
 	private String json;
+	private List<Cartao> cartao;
 	
 	public Cliente(String nome, String cpf, String email, String genero, List<Endereco> enderecos, String dta_nascimento, String situacao, String ranking, String usuario, String senha, Cartao cartao,
 			Telefone telefone, Cupom cupom) {
@@ -33,9 +33,10 @@ public class Cliente extends Pessoa {
 		this.ranking = ranking;
 		this.usuario = usuario;
 		this.senha = senha;
-		this.cartao = cartao;
 		this.telefone = telefone;
 		this.cupom = cupom;
+		
+		this.adicionaCartao(cartao);
 		this.codigo = gerarCodigoUnico();
 	}
 	/*Usado para alterar cadastro parcial***/
@@ -124,16 +125,6 @@ public class Cliente extends Pessoa {
 		this.justificativa = justificativa;
 	}
 
-	public Cartao getCartao() {
-		return cartao;
-	}
-
-
-	public void setCartao(Cartao cartao) {
-		this.cartao = cartao;
-	}
-
-
 	public Telefone getTelefone() {
 		return telefone;
 	}
@@ -153,6 +144,13 @@ public class Cliente extends Pessoa {
 		this.cupom = cupom;
 	}
 	
+	public List<Cartao> getCartao() {
+		return cartao;
+	}
+	public void setCartao(List<Cartao> cartao) {
+		this.cartao = cartao;
+	}
+	
 	public String gerarCodigoUnico() {
 		UUID codigo_unico = UUID.randomUUID();
 		return codigo_unico.toString();
@@ -163,6 +161,13 @@ public class Cliente extends Pessoa {
 			this.endereco = new ArrayList<Endereco>();
 		}
 		this.endereco.add(end);
+	}
+	
+	public void adicionaCartao(Cartao cartao) {
+		if(this.cartao == null) {
+			this.cartao = new ArrayList<Cartao>();
+		}
+		this.cartao.add(cartao);
 	}
 	
 	public String getJson() {

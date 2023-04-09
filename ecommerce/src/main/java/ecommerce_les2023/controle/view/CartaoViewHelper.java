@@ -4,11 +4,7 @@ import java.io.IOException;
 
 import ecommerce_les2023.modelo.Bandeira;
 import ecommerce_les2023.modelo.Cartao;
-import ecommerce_les2023.modelo.Cidade;
-import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
-import ecommerce_les2023.modelo.Estado;
-import ecommerce_les2023.modelo.Pais;
 import ecommerce_les2023.utils.Resultado;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,9 +21,8 @@ public class CartaoViewHelper implements IViewHelper {
 		String car_nome = req.getParameter("cartao_nome");
 		String car_preferencial = req.getParameter("cartao_preferencial");
 		String car_cliente_id = req.getParameter("cartao_cliente_id");
-				
-		EntidadeDominio cartao = new Cartao(car_numero, car_nome, car_validade, car_cvv, (char) Integer.parseInt(car_preferencial), new Bandeira(Integer.parseInt(car_bandeira)), Integer.parseInt(car_cliente_id));
 		
+		EntidadeDominio cartao = new Cartao(car_numero, car_nome, car_validade, car_cvv, car_preferencial, new Bandeira(Integer.parseInt(car_bandeira)), Integer.parseInt(car_cliente_id));
 		return cartao;
 	}
 	

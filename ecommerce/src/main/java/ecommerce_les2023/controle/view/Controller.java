@@ -43,6 +43,10 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/CadastrarEndereco", new EnderecoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarEndereco", new EnderecoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ExcluirEndereco", new EnderecoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/CadastrarCartao", new CartaoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/AlterarCartao", new CartaoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/ExcluirCartao", new CartaoViewHelper());
 	}
 	
 	@Override

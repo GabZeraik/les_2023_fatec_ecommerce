@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import ecommerce_les2023.dao.BandeiraDAO;
+import ecommerce_les2023.dao.CartaoDAO;
 import ecommerce_les2023.dao.ClienteDAO;
 import ecommerce_les2023.dao.EnderecoDAO;
 import ecommerce_les2023.dao.IDAO;
 import ecommerce_les2023.modelo.Bandeira;
+import ecommerce_les2023.modelo.Cartao;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
@@ -37,6 +39,7 @@ public class Fachada implements IFachada {
 		List<IStrategy> cadastrarClienteStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> alterarClienteStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> cadastrarEnderecoStrategy = new ArrayList<IStrategy>();
+		List<IStrategy> cadastrarCartaoStrategy = new ArrayList<IStrategy>();
 		
 		//Aplicar regras de negócio para manter clientes
 		cadastrarClienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
@@ -51,24 +54,16 @@ public class Fachada implements IFachada {
 		cadastrarEnderecoStrategy.add(new VerificadorDadosObrigatoriosEndereco());
 		
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
+		
+		//Cliente
 		this.mapStrategies.put("Cadastrar" + Cliente.class.getName(), cadastrarClienteStrategy);
 		this.mapStrategies.put("Alterar" + Cliente.class.getName(), alterarClienteStrategy);
 
+		//Endereco
 		this.mapStrategies.put("Cadastrar" + Endereco.class.getName(), cadastrarEnderecoStrategy);
 		
-		/*//Aplicar regras de negócio para manter cursos
-		cursoStrategies.add(new VerificadorDadosObrigatoriosCursoStrategy());
-		cursoStrategies.add(new VerificadorExistenciaCursoStrategy());
-		
-		//Aplicar regras de negócio para manter professores
-		professorStrategies.add(new VerificadorDadosObrigatoriosProfessorStrategy());
-		professorStrategies.add(new VerificadorExistenciaCursoStrategy());
-		professorStrategies.add(new VerificadorRfProfessorStrategy());
-		
-		this.mapStrategies = new HashMap<String, List<IStrategy>>();
-		this.mapStrategies.put(Aluno.class.getName(), clienteStrategy);
-		this.mapStrategies.put(Curso.class.getName(), cursoStrategies);
-		this.mapStrategies.put(Professor.class.getName(), professorStrategies);*/
+		//Cartao
+		this.mapStrategies.put("Cadastrar" + Cartao.class.getName(), cadastrarCartaoStrategy);
 	}
 
 	//Cria os mapas de chave/valor para as respectivas classes, linkando a classe com seu DAO. Exemplo: classe Aluno/ AlunoDAO
@@ -77,6 +72,7 @@ public class Fachada implements IFachada {
 		this.mapDaos.put(Cliente.class.getName(), new ClienteDAO());
 		this.mapDaos.put(Endereco.class.getName(), new EnderecoDAO());
 		this.mapDaos.put(Bandeira.class.getName(), new BandeiraDAO());
+		this.mapDaos.put(Cartao.class.getName(), new CartaoDAO());
 	}
 
 	@Override

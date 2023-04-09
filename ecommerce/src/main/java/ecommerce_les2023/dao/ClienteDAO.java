@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import ecommerce_les2023.modelo.Bandeira;
+import ecommerce_les2023.modelo.Cartao;
 import ecommerce_les2023.modelo.Cidade;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Endereco;
@@ -189,7 +191,7 @@ public class ClienteDAO extends AbstractDAO {
 						+ "; EMAIL: " 
 						+ cliente.getEmail() + " ; ";
 				
-				sb.append(" INNER JOIN enderecos ON clientes.cli_id = enderecos.clientes_cli_id ");
+				sb.append(" INNER JOIN enderecos ON clientes.cli_id = enderecos.clientes_cli_id");
 				
 					//Pesquisa por id do cliente ou
 					//pelo cpf ou
@@ -253,13 +255,17 @@ public class ClienteDAO extends AbstractDAO {
 					if(proximo_cli.getId() == cli.getId()) {
 						cli.adicionaEndereco(end);
 					}else {
+						adicionaCartoesResultSet(cli);
+						System.out.println(cli);
 						clientes.add(cli);
 						cli = criaClienteResultSet(rs);
 						cli.adicionaEndereco(end);
 					}
 				}
 				
-				if (cli != null) clientes.add(cli);
+				if (cli != null) {
+					clientes.add(cli);
+				}
 			}
 			System.out.println(new Log().gerarLog(clientes, camposPesquisados));
 			
@@ -299,5 +305,23 @@ public class ClienteDAO extends AbstractDAO {
 		cli.setTelefone(new Telefone(rs.getString("cli_ddd_telefone"), rs.getString("cli_numero_telefone"), rs.getString("cli_tipo_telefone")));
 		cli.setJustificativa(rs.getString("cli_justificativa"));
 		return cli;
+	}
+	
+	private void adicionaCartoesResultSet(Cliente cli) throws SQLException {
+		System.out.println("ENTROU NO METODO");
+		PreparedStatement comandoSQL = null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT * FROM cartoes INNER JOIN bandeiras ON bandeiras_ban_id = bandeiras.ban_id WHERE clientes_cli_id = ");
+		sb.append(cli.getId());
+		comandoSQL = this.conexao.prepareStatement(sb.toString());
+		ResultSet rs = comandoSQL.executeQuery();
+		
+		while (rs.next()) {
+			Cartao cartao = new Cartao(rs.getString("car_numero"), rs.getString("car_nome_impresso"), rs.getString("car_validade"), rs.getString("car_codigo_seguranca"), rs.getString("car_preferencial"), new Bandeira(rs.getInt("ban_id"), rs.getString("ban_codigo"), rs.getString("ban_nome")), cli.getId());
+			
+			cli.adicionaCartao(cartao);
+		}
+		
+		return;
 	}
 }
