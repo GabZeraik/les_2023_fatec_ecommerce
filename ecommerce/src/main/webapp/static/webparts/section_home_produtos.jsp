@@ -17,17 +17,20 @@
                             <div class="carousel-inner">
                                 <div class="active item">
                                     <ul class="thumbnails">
-                                        <li class="span3">
-                                            <div class="product-box">
-                                                <span class="sale_tag"></span>
-                                                <p>
-                                                    <a href="product_detail.jsp"><img src="static/themes/images/camiseta.png" alt="" /></a>
-                                                </p>
-                                                <a href="product_detail.jsp" class="title">Lorem ipsum dolor</a><br/>
-                                                <a href="products.jsp" class="category">Lorem ipsum dolor</a>
-                                                <p class="price">R$17,20</p>
-                                            </div>
-                                        </li>
+                                        <c:forEach items="${produtos.dados}" var="item">
+                                            <li class="span3">
+                                                <div class="product-box">
+                                                    <span class="sale_tag"></span>
+                                                    <p>
+                                                        <a href="product_detail.jsp"><img src="static/themes/images/camiseta.png" alt="item." /></a>
+                                                    </p>
+                                                    <a href="product_detail.jsp" class="title">Lorem ipsum dolor</a><br/>
+                                                    <a href="products.jsp" class="category">Lorem ipsum dolor</a>
+                                                    <p class="price">R$17,20</p>
+                                                </div>
+                                            </li>
+                                        </c:forEach>
+
                                         <li class="span3">
                                             <div class="product-box">
                                                 <span class="sale_tag"></span>
