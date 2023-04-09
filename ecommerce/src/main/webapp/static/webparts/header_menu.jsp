@@ -24,6 +24,3 @@
             </nav>
         </div>
     </section>
-    <section class="header_text sub">
-        <img class="pageBanner" src="static/themes/images/pageBanner.png" alt="New products">
-    </section>

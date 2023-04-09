@@ -7,13 +7,16 @@
             <c:out value="${cHead}" escapeXml="false" />
 
             <body>
-                <c:import url="./static/webparts/header.jsp" var="cHeader" charEncoding="UTF-8" />
+                <c:import url="./static/webparts/header_filtros.jsp" var="cHeader" charEncoding="UTF-8" />
                 <c:out value="${cHeader}" escapeXml="false" />
 
                 <div id="wrapper" class="container">
 
                     <c:import url="./static/webparts/header_menu.jsp" var="cHeaderMenu" charEncoding="UTF-8" />
                     <c:out value="${cHeaderMenu}" escapeXml="false" />
+
+                    <c:import url="./static/webparts/header_banner.jsp" var="cHeaderBanner" charEncoding="UTF-8" />
+                    <c:out value="${cHeaderBanner}" escapeXml="false" />
 
                     <section id="editar_cadastro_cliente">
                         <div class="row">
@@ -57,7 +60,6 @@
 
                                 </c:import>
                                 <c:out value="${cSectionCartoesCliente}" escapeXml="false" />
-
 
                             </div>
                         </div>

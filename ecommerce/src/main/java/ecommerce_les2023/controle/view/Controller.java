@@ -39,6 +39,7 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/ExcluirCliente", new ClienteViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/EntrarCliente", new EntrarClienteViewHelper());
+		mapViewHelpers.put("/ecommerce_les/SairCliente", new SairClienteViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/CadastrarEndereco", new EnderecoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarEndereco", new EnderecoViewHelper());
@@ -59,6 +60,12 @@ public class Controller extends HttpServlet{
 		
 		//Obtém a view específica mapeada para a uri(chave do map)
 		IViewHelper viewHelperRequisitada = mapViewHelpers.get(uriDeOrigem);
+		
+		//LIMPAR SESSAO
+		if(operacaoForm.equals("SAIR")) {
+			viewHelperRequisitada.setView(null, req, resp);
+			return;
+		}
 		
 		//Cria entidade da viewHelper específica
 		EntidadeDominio entidade = viewHelperRequisitada.obterEntidade(req);

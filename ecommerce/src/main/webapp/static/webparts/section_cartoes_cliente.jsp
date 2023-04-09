@@ -10,11 +10,11 @@
                         <input type="checkbox" value="cartao_${cartao.id}" id="cartao_${cartao.id}">
                         <div class="thumbnails small">
                             <c:choose>
-                                <c:when test="${cartao.bandeira == 'VISA'}">
-                                    <img src="" alt="img_visa">
+                                <c:when test="${cartao.bandeira.nome == 'VISA'}">
+                                    <img src="static\themes\images\img_visa.svg" alt="VISA">
                                 </c:when>
-                                <c:when test="${cartao.bandeira == 'MASTERCARD'}">
-                                    <img src="" alt="img_mastercard">
+                                <c:when test="${cartao.bandeira.nome == 'MASTERCARD'}">
+                                    <img src="static\themes\images\img_mastercard.svg" alt="MASTERCARD">
                                 </c:when>
                             </c:choose>
                         </div>
