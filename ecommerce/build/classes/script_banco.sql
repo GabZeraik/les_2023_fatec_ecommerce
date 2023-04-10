@@ -22,13 +22,7 @@ ALTER TABLE cartoes ADD CONSTRAINT cartoes_pk PRIMARY KEY ( car_id );
 CREATE TABLE categorias (
     cat_id          SERIAL,
     cat_nome        VARCHAR(50),
-    produtos_pro_id INTEGER NOT NULL
 );
-
-CREATE UNIQUE INDEX categorias__idx ON
-    categorias (
-        produtos_pro_id
-    ASC );
 
 ALTER TABLE categorias ADD CONSTRAINT categorias_pk PRIMARY KEY ( cat_id );
 
@@ -84,7 +78,8 @@ ALTER TABLE enderecos ADD CONSTRAINT enderecos_pk PRIMARY KEY ( end_id );
 CREATE TABLE itens (
     item_id             SERIAL,
     item_quantidade     INTEGER,
-    item_preco_unitario NUMERIC(7),
+    item_preco_total    NUMERIC(7),
+    produtos_pro_id     INTEGER NOT NULL,
     pedidos_ped_id      INTEGER NOT NULL
 );
 
@@ -129,12 +124,14 @@ CREATE TABLE produtos (
     itens_item_id     INTEGER NOT NULL
 );
 
-CREATE UNIQUE INDEX produtos__idx ON
-    produtos (
-        itens_item_id
-    ASC );
-
 ALTER TABLE produtos ADD CONSTRAINT produtos_pk PRIMARY KEY ( pro_id );
+
+CREATE TABLE produto_categorias (
+    produtos_pro_id   INTEGER NOT NULL,
+    categorias_cat_id INTEGER NOT NULL,
+);
+
+ALTER TABLE produto_categorias ADD CONSTRAINT produtos_categorias_pk PRIMARY KEY ( produtos_pro_id, categorias_cat_id);
 
 ALTER TABLE cartoes
     ADD CONSTRAINT cartoes_bandeiras_fk FOREIGN KEY ( bandeiras_ban_id )
@@ -164,10 +161,10 @@ ALTER TABLE itens
     ADD CONSTRAINT itens_pedidos_fk FOREIGN KEY ( pedidos_ped_id )
         REFERENCES pedidos ( ped_id );
 
+ALTER TABLE itens
+    ADD CONSTRAINT itens_produtos_fk FOREIGN KEY ( produtos_pro_id )
+        REFERENCES produtos ( pro_id );
+
 ALTER TABLE pedidos
     ADD CONSTRAINT pedidos_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
-
-ALTER TABLE produtos
-    ADD CONSTRAINT produtos_itens_fk FOREIGN KEY ( itens_item_id )
-        REFERENCES itens ( item_id );

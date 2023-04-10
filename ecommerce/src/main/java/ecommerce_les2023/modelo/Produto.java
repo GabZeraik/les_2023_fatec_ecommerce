@@ -1,5 +1,7 @@
 package ecommerce_les2023.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import com.google.gson.Gson;
@@ -15,13 +17,13 @@ public class Produto extends EntidadeDominio {
 	private float preco_atual;
 	private String codigo_barras;
 	private String justificativa;
-	private int item_id;
+	private List<Categoria> categoria;
 	private String json;
 	
 	public Produto() {};
 	
 	public Produto(String codigo, String nome, String tamanho, String cor, String genero, String grupo_preco,
-			float preco_atual, String codigo_barras, String justificativa, int item_id) {
+			float preco_atual, String codigo_barras, String justificativa) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.tamanho = tamanho;
@@ -31,37 +33,9 @@ public class Produto extends EntidadeDominio {
 		this.preco_atual = preco_atual;
 		this.codigo_barras = codigo_barras;
 		this.justificativa = justificativa;
-		this.item_id = item_id;
 		this.codigo = gerarCodigoUnico();
 	}
 	
-	public float getPreco_atual() {
-		return preco_atual;
-	}
-	public void setPreco_atual(float preco_atual) {
-		this.preco_atual = preco_atual;
-	}
-	public String getCodigo_barras() {
-		return codigo_barras;
-	}
-	public void setCodigo_barras(String codigo_barras) {
-		this.codigo_barras = codigo_barras;
-	}
-	public String getJustificativa() {
-		return justificativa;
-	}
-	public void setJustificativa(String justificativa) {
-		this.justificativa = justificativa;
-	}
-	public int getItem_id() {
-		return item_id;
-	}
-	public void setItem_id(int item_id) {
-		this.item_id = item_id;
-	}
-	public void setJson(String json) {
-		this.json = json;
-	}
 	public String getCodigo() {
 		return codigo;
 	}
@@ -109,6 +83,38 @@ public class Produto extends EntidadeDominio {
 	public void setGrupo_preco(String grupo_preco) {
 		this.grupo_preco = grupo_preco;
 	}
+	
+	public float getPreco_atual() {
+		return preco_atual;
+	}
+	
+	public void setPreco_atual(float preco_atual) {
+		this.preco_atual = preco_atual;
+	}
+	
+	public String getCodigo_barras() {
+		return codigo_barras;
+	}
+	
+	public void setCodigo_barras(String codigo_barras) {
+		this.codigo_barras = codigo_barras;
+	}
+	
+	public String getJustificativa() {
+		return justificativa;
+	}
+	
+	public void setJustificativa(String justificativa) {
+		this.justificativa = justificativa;
+	}
+	
+	public List<Categoria> getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(List<Categoria> categoria) {
+		this.categoria = categoria;
+	}
 
 	public String gerarCodigoUnico() {
 		UUID codigo_unico = UUID.randomUUID();
@@ -127,5 +133,12 @@ public class Produto extends EntidadeDominio {
 		Gson gson = new Gson();
 		String json = gson.toJson(this);
 		return json;
+	}
+	
+	public void adicionaCategoria(Categoria categoria) {
+		if(this.categoria == null) {
+			this.categoria = new ArrayList<Categoria>();
+		}
+		this.categoria.add(categoria);
 	}
 }
