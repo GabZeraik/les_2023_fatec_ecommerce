@@ -3,6 +3,7 @@
     <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
         <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
             <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"  %>
+
                 <c:import url="./static/webparts/head.jsp" var="cHead" charEncoding="UTF-8" />
                 <c:out value="${cHead}" escapeXml="false" />
 
@@ -56,9 +57,7 @@
 
                                     <br>
 
-                                    <c:import url="./static/webparts/section_cartoes_cliente.jsp" var="cSectionCartoesCliente" charEncoding="UTF-8">
-
-                                    </c:import>
+                                    <c:import url="./static/webparts/section_cartoes_cliente.jsp" var="cSectionCartoesCliente" charEncoding="UTF-8" />
                                     <c:out value="${cSectionCartoesCliente}" escapeXml="false" />
 
                                 </div>

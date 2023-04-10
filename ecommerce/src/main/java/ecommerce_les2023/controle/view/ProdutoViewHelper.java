@@ -14,20 +14,30 @@ public class ProdutoViewHelper implements IViewHelper {
 	public EntidadeDominio obterEntidade(HttpServletRequest req) {
 		
 		EntidadeDominio produto = new Produto();
-		if(req != null && req.getParameter("pro_id") != null) produto.setId(Integer.parseInt(req.getParameter("pro_id")));
+		if(req != null && req.getParameter("pro_id") != "0") produto.setId(Integer.parseInt(req.getParameter("pro_id")));
 		return produto;
 	}
 
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().setAttribute("resultado", resultado);
-		
-		//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
-		try {
-			resp.sendRedirect("product_detail.jsp");
-			return;
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(resultado.getDados().size() > 1) {
+
+			try {
+				resp.sendRedirect("products.jsp");
+				return;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}else if(resultado.getDados().size() == 1){
+			
+			try {
+				resp.sendRedirect("product_detail.jsp");
+				return;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

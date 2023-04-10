@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ecommerce_les2023.modelo.Categoria;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Produto;
 
@@ -55,6 +56,7 @@ public class ProdutoDAO extends AbstractDAO {
 			while (rs.next()) {
 				Produto produto = new Produto(rs.getString("pro_codigo"), rs.getString("pro_nome"), rs.getString("pro_tamanho"), rs.getString("pro_cor"), rs.getString("pro_genero"), rs.getString("pro_grupo_preco"), rs.getFloat("pro_preco_atual"), rs.getString("pro_codigo_barras"), rs.getString("pro_justificativa"));
 				produto.setId(rs.getInt("pro_id"));
+				adicionaCategoriasResultSet(produto);
 				produtos.add(produto);
 			}
 			
@@ -74,7 +76,21 @@ public class ProdutoDAO extends AbstractDAO {
 				e.printStackTrace();
 			}
 		}
-		
 		return produtos;
+	}
+	
+	private void adicionaCategoriasResultSet(Produto prod) throws SQLException {
+		PreparedStatement comandoSQL = null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT cat_id, cat_nome FROM produtos JOIN produto_categorias as prod_cat ON produtos.pro_id = prod_cat.produtos_pro_id JOIN categorias ON categorias.cat_id = prod_cat.categorias_cat_id WHERE pro_id = ");
+		sb.append(prod.getId());
+		comandoSQL = this.conexao.prepareStatement(sb.toString());
+		ResultSet rs = comandoSQL.executeQuery();
+		
+		while (rs.next()) {
+			Categoria categoria = new Categoria(rs.getInt("cat_id"), rs.getString("cat_nome"));
+			prod.adicionaCategoria(categoria);
+		}
+		return;
 	}
 }

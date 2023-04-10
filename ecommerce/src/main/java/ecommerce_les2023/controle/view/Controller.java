@@ -73,7 +73,6 @@ public class Controller extends HttpServlet{
 		Resultado resultado = commandRequisitado.execute(entidade);
 		
 		getServletContext().setAttribute("produtos", resultado.getDados());
-		System.out.println(resultado.getJson());
 		getServletContext().setAttribute("bandeiras", resultado.getBandeiras());
 	}
 	

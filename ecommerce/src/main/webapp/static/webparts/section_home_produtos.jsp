@@ -22,9 +22,9 @@
                                                     <div class="product-box">
                                                         <span class="sale_tag"></span>
                                                         <p>
-                                                            <a href="product_detail.jsp?id=${item.id}"><img src="static/themes/images/camiseta.png" alt="item.nome" /></a>
+                                                            <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.id}"><img src="static/themes/images/camiseta.png" alt="item.nome" /></a>
                                                         </p>
-                                                        <a href="product_detail.jsp?id=${item.id}" class="title">${item.nome}</a><br/>
+                                                        <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.id}" class="title">${item.nome}</a><br/>
                                                         <a href="products.jsp" class="category">${item.genero}</a>
                                                         <p class="price">R$${fn:replace(item.preco_atual, '.', ',')}</p>
                                                     </div>
@@ -39,9 +39,9 @@
                                                     <div class="product-box">
                                                         <span class="sale_tag"></span>
                                                         <p>
-                                                            <a href="product_detail.jsp?id=${item.id}"><img src="static/themes/images/camiseta.png" alt="item.nome" /></a>
+                                                            <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.id}"><img src="static/themes/images/camiseta.png" alt="item.nome" /></a>
                                                         </p>
-                                                        <a href="product_detail.jsp?id=${item.id}" class="title">${item.nome}</a><br/>
+                                                        <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.id}" class="title">${item.nome}</a><br/>
                                                         <a href="products.jsp" class="category">${item.genero}</a>
                                                         <p class="price">R$${fn:replace(item.preco_atual, '.', ',')}</p>
                                                     </div>

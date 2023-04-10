@@ -75,7 +75,7 @@ CREATE TABLE enderecos (
 
 ALTER TABLE enderecos ADD CONSTRAINT enderecos_pk PRIMARY KEY ( end_id );
 
-CREATE TABLE itens (
+CREATE TABLE itens_pedidos (
     item_id             SERIAL,
     item_quantidade     INTEGER,
     item_preco_unitario NUMERIC(10,2),
@@ -83,7 +83,17 @@ CREATE TABLE itens (
     pedidos_ped_id      INTEGER NOT NULL
 );
 
-ALTER TABLE itens ADD CONSTRAINT itens_pk PRIMARY KEY ( item_id );
+ALTER TABLE itens_pedidos ADD CONSTRAINT itens_pk PRIMARY KEY ( item_id );
+
+CREATE TABLE itens_carrinhos (
+    item_id             SERIAL,
+    item_quantidade     INTEGER,
+    item_preco_unitario NUMERIC(10,2),
+    produtos_pro_id     INTEGER NOT NULL,
+    carrinhos_ped_id      INTEGER NOT NULL
+);
+
+ALTER TABLE itens_pedidos ADD CONSTRAINT itens_pk PRIMARY KEY ( item_id );
 
 CREATE TABLE itens_estoque (
     est_id             SERIAL,
@@ -167,11 +177,11 @@ ALTER TABLE itens_estoque
     ADD CONSTRAINT itens_estoque_produtos_fk FOREIGN KEY ( produtos_pro_id )
         REFERENCES produtos ( pro_id );
 
-ALTER TABLE itens
+ALTER TABLE itens_pedidos
     ADD CONSTRAINT itens_pedidos_fk FOREIGN KEY ( pedidos_ped_id )
         REFERENCES pedidos ( ped_id ) ON DELETE CASCADE;
 
-ALTER TABLE itens
+ALTER TABLE itens_pedidos
     ADD CONSTRAINT itens_produtos_fk FOREIGN KEY ( produtos_pro_id )
         REFERENCES produtos ( pro_id );
 
