@@ -21,7 +21,7 @@ ALTER TABLE cartoes ADD CONSTRAINT cartoes_pk PRIMARY KEY ( car_id );
 
 CREATE TABLE categorias (
     cat_id          SERIAL,
-    cat_nome        VARCHAR(50),
+    cat_nome        VARCHAR(50)
 );
 
 ALTER TABLE categorias ADD CONSTRAINT categorias_pk PRIMARY KEY ( cat_id );
@@ -49,8 +49,8 @@ ALTER TABLE clientes ADD CONSTRAINT clientes_pk PRIMARY KEY ( cli_id );
 CREATE TABLE cupons (
     cup_id          SERIAL,
     cup_codigo      VARCHAR(40),
-    cup_valor       NUMERIC(7),
-    cup_tipo  		VARCHAR(30)
+    cup_valor       NUMERIC(10,2),
+    cup_tipo  		VARCHAR(30),
     clientes_cli_id INTEGER
 );
 
@@ -78,7 +78,7 @@ ALTER TABLE enderecos ADD CONSTRAINT enderecos_pk PRIMARY KEY ( end_id );
 CREATE TABLE itens (
     item_id             SERIAL,
     item_quantidade     INTEGER,
-    item_preco_total    NUMERIC(7),
+    item_preco_unitario NUMERIC(10,2),
     produtos_pro_id     INTEGER NOT NULL,
     pedidos_ped_id      INTEGER NOT NULL
 );
@@ -89,7 +89,7 @@ CREATE TABLE itens_estoque (
     est_id             SERIAL,
     est_codigo_entrada VARCHAR(40),
     est_quantidade     INTEGER,
-    est_valor_custo    NUMERIC(7),
+    est_valor_custo    NUMERIC(10,2),
     est_fornecedor     VARCHAR(150),
     est_data_entrada   DATE,
     produtos_pro_id    INTEGER NOT NULL
@@ -100,12 +100,12 @@ ALTER TABLE itens_estoque ADD CONSTRAINT itens_estoque_pk PRIMARY KEY ( est_id )
 CREATE TABLE pedidos (
     ped_id                 SERIAL,
     ped_codigo             VARCHAR(40),
-    ped_valor_total        NUMERIC(7),
+    ped_valor_total        NUMERIC(10,2),
     ped_data_pedido        DATE,
     ped_situacao           VARCHAR(50),
     ped_modificado_por     VARCHAR(150),
     ped_ultima_atualizacao DATE,
-    clientes_cli_id        INTEGER
+    clientes_cli_id        INTEGER NOT NULL
 );
 
 ALTER TABLE pedidos ADD CONSTRAINT pedidos_pk PRIMARY KEY ( ped_id );
@@ -114,24 +114,38 @@ CREATE TABLE produtos (
     pro_id            SERIAL,
     pro_codigo        VARCHAR(40),
     pro_nome          VARCHAR(150),
-    pro_tamanho       VARCHAR(2),
+    pro_tamanho       VARCHAR(3),
     pro_cor           VARCHAR(50),
     pro_genero        VARCHAR(15),
     pro_grupo_preco   VARCHAR(10),
-    pro_preco_atual   NUMERIC(7),
+    pro_preco_atual   NUMERIC(10,2),
     pro_codigo_barras VARCHAR(50),
-    pro_justificativa VARCHAR(250),
-    itens_item_id     INTEGER NOT NULL
+    pro_justificativa VARCHAR(250)
 );
 
 ALTER TABLE produtos ADD CONSTRAINT produtos_pk PRIMARY KEY ( pro_id );
 
 CREATE TABLE produto_categorias (
     produtos_pro_id   INTEGER NOT NULL,
-    categorias_cat_id INTEGER NOT NULL,
+    categorias_cat_id INTEGER NOT NULL
 );
 
 ALTER TABLE produto_categorias ADD CONSTRAINT produtos_categorias_pk PRIMARY KEY ( produtos_pro_id, categorias_cat_id);
+
+CREATE TABLE carrinhos (
+    shop_id           SERIAL,
+    shop_session_id   VARCHAR(50),
+    clientes_cli_id   INTEGER NOT NULL
+);
+
+ALTER TABLE carrinhos ADD CONSTRAINT carrinhos_pk PRIMARY KEY ( shop_id );
+
+CREATE TABLE carrinho_itens (
+    carrinhos_shop_id   INTEGER NOT NULL,
+    itens_item_id       INTEGER NOT NULL
+);
+
+ALTER TABLE carrinho_itens ADD CONSTRAINT carrinho_itens_pk PRIMARY KEY ( carrinhos_shop_id, itens_item_id);
 
 ALTER TABLE cartoes
     ADD CONSTRAINT cartoes_bandeiras_fk FOREIGN KEY ( bandeiras_ban_id )
@@ -140,10 +154,6 @@ ALTER TABLE cartoes
 ALTER TABLE cartoes
     ADD CONSTRAINT cartoes_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
-
-ALTER TABLE categorias
-    ADD CONSTRAINT categorias_produtos_fk FOREIGN KEY ( produtos_pro_id )
-        REFERENCES produtos ( pro_id );
 
 ALTER TABLE cupons
     ADD CONSTRAINT cupons_clientes_fk FOREIGN KEY ( clientes_cli_id )
@@ -159,7 +169,7 @@ ALTER TABLE itens_estoque
 
 ALTER TABLE itens
     ADD CONSTRAINT itens_pedidos_fk FOREIGN KEY ( pedidos_ped_id )
-        REFERENCES pedidos ( ped_id );
+        REFERENCES pedidos ( ped_id ) ON DELETE CASCADE;
 
 ALTER TABLE itens
     ADD CONSTRAINT itens_produtos_fk FOREIGN KEY ( produtos_pro_id )
@@ -167,4 +177,8 @@ ALTER TABLE itens
 
 ALTER TABLE pedidos
     ADD CONSTRAINT pedidos_clientes_fk FOREIGN KEY ( clientes_cli_id )
+        REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
+
+ALTER TABLE carrinhos
+    ADD CONSTRAINT carrinhos_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;

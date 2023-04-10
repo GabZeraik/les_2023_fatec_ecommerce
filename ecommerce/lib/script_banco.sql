@@ -21,7 +21,7 @@ ALTER TABLE cartoes ADD CONSTRAINT cartoes_pk PRIMARY KEY ( car_id );
 
 CREATE TABLE categorias (
     cat_id          SERIAL,
-    cat_nome        VARCHAR(50),
+    cat_nome        VARCHAR(50)
 );
 
 ALTER TABLE categorias ADD CONSTRAINT categorias_pk PRIMARY KEY ( cat_id );
@@ -50,7 +50,7 @@ CREATE TABLE cupons (
     cup_id          SERIAL,
     cup_codigo      VARCHAR(40),
     cup_valor       NUMERIC(10,2),
-    cup_tipo  		VARCHAR(30)
+    cup_tipo  		VARCHAR(30),
     clientes_cli_id INTEGER
 );
 
@@ -105,7 +105,7 @@ CREATE TABLE pedidos (
     ped_situacao           VARCHAR(50),
     ped_modificado_por     VARCHAR(150),
     ped_ultima_atualizacao DATE,
-    clientes_cli_id        INTEGER
+    clientes_cli_id        INTEGER NOT NULL
 );
 
 ALTER TABLE pedidos ADD CONSTRAINT pedidos_pk PRIMARY KEY ( ped_id );
@@ -114,14 +114,13 @@ CREATE TABLE produtos (
     pro_id            SERIAL,
     pro_codigo        VARCHAR(40),
     pro_nome          VARCHAR(150),
-    pro_tamanho       VARCHAR(2),
+    pro_tamanho       VARCHAR(3),
     pro_cor           VARCHAR(50),
     pro_genero        VARCHAR(15),
     pro_grupo_preco   VARCHAR(10),
     pro_preco_atual   NUMERIC(10,2),
     pro_codigo_barras VARCHAR(50),
-    pro_justificativa VARCHAR(250),
-    itens_item_id     INTEGER NOT NULL
+    pro_justificativa VARCHAR(250)
 );
 
 ALTER TABLE produtos ADD CONSTRAINT produtos_pk PRIMARY KEY ( pro_id );
@@ -135,6 +134,7 @@ ALTER TABLE produto_categorias ADD CONSTRAINT produtos_categorias_pk PRIMARY KEY
 
 CREATE TABLE carrinhos (
     shop_id           SERIAL,
+    shop_session_id   VARCHAR(50),
     clientes_cli_id   INTEGER NOT NULL
 );
 
@@ -154,10 +154,6 @@ ALTER TABLE cartoes
 ALTER TABLE cartoes
     ADD CONSTRAINT cartoes_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
-
-ALTER TABLE categorias
-    ADD CONSTRAINT categorias_produtos_fk FOREIGN KEY ( produtos_pro_id )
-        REFERENCES produtos ( pro_id );
 
 ALTER TABLE cupons
     ADD CONSTRAINT cupons_clientes_fk FOREIGN KEY ( clientes_cli_id )

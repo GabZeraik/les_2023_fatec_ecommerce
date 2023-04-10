@@ -10,11 +10,13 @@ import ecommerce_les2023.dao.CartaoDAO;
 import ecommerce_les2023.dao.ClienteDAO;
 import ecommerce_les2023.dao.EnderecoDAO;
 import ecommerce_les2023.dao.IDAO;
+import ecommerce_les2023.dao.ProdutoDAO;
 import ecommerce_les2023.modelo.Bandeira;
 import ecommerce_les2023.modelo.Cartao;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
+import ecommerce_les2023.modelo.Produto;
 import ecommerce_les2023.negocio.IStrategy;
 import ecommerce_les2023.negocio.VerificadorDigitosCpfStrategy;
 import ecommerce_les2023.negocio.VerificadorEmailCadastradoStrategy;
@@ -73,6 +75,7 @@ public class Fachada implements IFachada {
 		this.mapDaos.put(Endereco.class.getName(), new EnderecoDAO());
 		this.mapDaos.put(Bandeira.class.getName(), new BandeiraDAO());
 		this.mapDaos.put(Cartao.class.getName(), new CartaoDAO());
+		this.mapDaos.put(Produto.class.getName(), new ProdutoDAO());
 	}
 
 	@Override

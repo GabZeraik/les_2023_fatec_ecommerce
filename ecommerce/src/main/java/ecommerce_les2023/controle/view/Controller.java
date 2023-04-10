@@ -48,6 +48,33 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/CadastrarCartao", new CartaoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarCartao", new CartaoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ExcluirCartao", new CartaoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/ConsultarProduto", new ProdutoViewHelper());
+	}
+	
+	@Override
+	public void init() throws ServletException {
+		//Obtém a operação realizada, como parametro da requisição
+		String operacaoForm = "CONSULTAR";
+		
+		//Obtém a uri que deu origem a requisição
+		String uriDeOrigem = "/ecommerce_les/ConsultarProduto";
+		
+		//Obtém a view específica mapeada para a uri(chave do map)
+		IViewHelper viewHelperRequisitada = mapViewHelpers.get(uriDeOrigem);
+		
+		//Cria entidade da viewHelper específica
+		EntidadeDominio entidade = viewHelperRequisitada.obterEntidade(null);
+				
+		//Obtém o command específico de acordo com o parametro (tipo) operacao do form
+		ICommand commandRequisitado = mapCommands.get(operacaoForm);
+		
+		//Executa o command passando o objeto (entidade) para realizar a operacao
+		Resultado resultado = commandRequisitado.execute(entidade);
+		
+		getServletContext().setAttribute("produtos", resultado.getDados());
+		System.out.println(resultado.getJson());
+		getServletContext().setAttribute("bandeiras", resultado.getBandeiras());
 	}
 	
 	@Override
