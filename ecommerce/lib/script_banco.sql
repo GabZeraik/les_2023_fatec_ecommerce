@@ -83,17 +83,7 @@ CREATE TABLE itens_pedidos (
     pedidos_ped_id      INTEGER NOT NULL
 );
 
-ALTER TABLE itens_pedidos ADD CONSTRAINT itens_pk PRIMARY KEY ( item_id );
-
-CREATE TABLE itens_carrinhos (
-    item_id             SERIAL,
-    item_quantidade     INTEGER,
-    item_preco_unitario NUMERIC(10,2),
-    produtos_pro_id     INTEGER NOT NULL,
-    carrinhos_ped_id      INTEGER NOT NULL
-);
-
-ALTER TABLE itens_pedidos ADD CONSTRAINT itens_pk PRIMARY KEY ( item_id );
+ALTER TABLE itens_pedidos ADD CONSTRAINT itens_pedidos_pk PRIMARY KEY ( item_id );
 
 CREATE TABLE itens_estoque (
     est_id             SERIAL,
@@ -150,12 +140,15 @@ CREATE TABLE carrinhos (
 
 ALTER TABLE carrinhos ADD CONSTRAINT carrinhos_pk PRIMARY KEY ( shop_id );
 
-CREATE TABLE carrinho_itens (
-    carrinhos_shop_id   INTEGER NOT NULL,
-    itens_item_id       INTEGER NOT NULL
+CREATE TABLE itens_carrinhos (
+    item_id             SERIAL,
+    item_quantidade     INTEGER,
+    item_preco_unitario NUMERIC(10,2),
+    produtos_pro_id     INTEGER NOT NULL,
+    carrinhos_shop_id    INTEGER NOT NULL
 );
 
-ALTER TABLE carrinho_itens ADD CONSTRAINT carrinho_itens_pk PRIMARY KEY ( carrinhos_shop_id, itens_item_id);
+ALTER TABLE itens_carrinhos ADD CONSTRAINT itens_carrinhos_pk PRIMARY KEY ( item_id );
 
 ALTER TABLE cartoes
     ADD CONSTRAINT cartoes_bandeiras_fk FOREIGN KEY ( bandeiras_ban_id )
@@ -178,11 +171,19 @@ ALTER TABLE itens_estoque
         REFERENCES produtos ( pro_id );
 
 ALTER TABLE itens_pedidos
-    ADD CONSTRAINT itens_pedidos_fk FOREIGN KEY ( pedidos_ped_id )
+    ADD CONSTRAINT itens_pedidos_pedidos_fk FOREIGN KEY ( pedidos_ped_id )
         REFERENCES pedidos ( ped_id ) ON DELETE CASCADE;
 
 ALTER TABLE itens_pedidos
-    ADD CONSTRAINT itens_produtos_fk FOREIGN KEY ( produtos_pro_id )
+    ADD CONSTRAINT itens_pedidos_produtos_fk FOREIGN KEY ( produtos_pro_id )
+        REFERENCES produtos ( pro_id );
+
+ALTER TABLE itens_carrinhos
+    ADD CONSTRAINT itens_carrinhos_carrinhos_fk FOREIGN KEY ( carrinhos_shop_id )
+        REFERENCES carrinhos ( shop_id ) ON DELETE CASCADE;
+
+ALTER TABLE itens_carrinhos
+    ADD CONSTRAINT itens_carrinhos_produtos_fk FOREIGN KEY ( produtos_pro_id )
         REFERENCES produtos ( pro_id );
 
 ALTER TABLE pedidos
