@@ -15,13 +15,13 @@
                             </span><br>
                         <strong>Código : </strong><span>${resultado.dados[0].codigo}</span><br>
                         <div class="control-group">
-                            <label class="control-label">Tamanho: </label>
+                            <label class="control-label"><strong>Tamanho: </strong></label>
                             <select class="controls" id="select_tamanho_item" required>
                                 <option value="${resultado.dados[0].tamanho}">${resultado.dados[0].tamanho}</option>
                             </select>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">Cor: </label>
+                            <label class="control-label"><strong>Cor: </strong></label>
                             <select class="controls" id="select_cor_item" required>
                                 <option value="${resultado.dados[0].cor}">${resultado.dados[0].cor}</option>
                             </select>

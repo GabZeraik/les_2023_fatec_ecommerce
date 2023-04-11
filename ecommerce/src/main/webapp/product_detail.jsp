@@ -48,11 +48,10 @@
 
                                         </div>
                                         <div class="span5">
-                                            <form class="form-inline">
-                                                <label>Quantidade:</label>
-                                                <input type="text" class="span1" placeholder="1" value="1">
-                                                <button class="btn btn-inverse" type="submit">Adicionar ao carrinho</button>
-                                            </form>
+
+                                            <c:import url="./static/webparts/section_form_adicionar_produto.jsp" var="cAdicionarProduto" charEncoding="UTF-8" />
+                                            <c:out value="${cAdicionarProduto}" escapeXml="false" />
+
                                         </div>
                                     </div>
                                     <div class="row">

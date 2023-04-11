@@ -6,16 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 import ecommerce_les2023.dao.BandeiraDAO;
+import ecommerce_les2023.dao.CarrinhoDAO;
 import ecommerce_les2023.dao.CartaoDAO;
 import ecommerce_les2023.dao.ClienteDAO;
 import ecommerce_les2023.dao.EnderecoDAO;
 import ecommerce_les2023.dao.IDAO;
+import ecommerce_les2023.dao.ItemCarrinhoDAO;
 import ecommerce_les2023.dao.ProdutoDAO;
 import ecommerce_les2023.modelo.Bandeira;
+import ecommerce_les2023.modelo.Carrinho;
 import ecommerce_les2023.modelo.Cartao;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
+import ecommerce_les2023.modelo.ItemCarrinho;
 import ecommerce_les2023.modelo.Produto;
 import ecommerce_les2023.negocio.IStrategy;
 import ecommerce_les2023.negocio.VerificadorDigitosCpfStrategy;
@@ -76,6 +80,8 @@ public class Fachada implements IFachada {
 		this.mapDaos.put(Bandeira.class.getName(), new BandeiraDAO());
 		this.mapDaos.put(Cartao.class.getName(), new CartaoDAO());
 		this.mapDaos.put(Produto.class.getName(), new ProdutoDAO());
+		this.mapDaos.put(Carrinho.class.getName(), new CarrinhoDAO());
+		this.mapDaos.put(ItemCarrinho.class.getName(), new ItemCarrinhoDAO());
 	}
 
 	@Override

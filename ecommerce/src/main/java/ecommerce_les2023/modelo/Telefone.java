@@ -33,6 +33,6 @@ public class Telefone {
 	
 	@Override
 	public String toString() {
-		return this.ddd + "-" + this.numero + "-" + this.tipo;
+		return "(" + this.ddd + ") " + this.numero + " - " + this.tipo;
 	}
 }

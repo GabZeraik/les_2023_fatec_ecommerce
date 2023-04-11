@@ -70,6 +70,10 @@
                         const bandeiras = () => {
                             console.log("${bandeiras}")
                         }
+
+                        const carrinho = () => {
+                            console.log("${carrinho}")
+                        }
                     </script>
                 </body>
 

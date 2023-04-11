@@ -1,6 +1,5 @@
 package ecommerce_les2023.controle.view;
 
-import java.io.IOException;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.utils.Resultado;
@@ -26,21 +25,6 @@ public class EntrarClienteViewHelper implements IViewHelper {
 			Cliente cliente = (Cliente) resultado.getDados().get(0);
 			cliente.setJson();
 			req.getSession().setAttribute("usuario_logado", cliente);
-			req.getSession().setAttribute("bandeiras", resultado.getBandeiras());
-			
-			//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
-			try {
-				resp.sendRedirect("account.jsp");
-				return;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}else {
-			try {
-				resp.sendRedirect("login.jsp");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

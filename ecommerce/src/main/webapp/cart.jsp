@@ -5,174 +5,26 @@
             <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"  %>
 
 
-                <head>
-                    <meta charset="utf-8">
-                    <title>Bootstrap E-commerce Templates</title>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <meta name="description" content="">
-                    <!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
-                    <!-- bootstrap -->
-                    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-                    <link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-                    <link href="static/themes/css/bootstrappage.css" rel="stylesheet" />
-
-                    <!-- global styles -->
-                    <link href="static/themes/css/flexslider.css" rel="stylesheet" />
-                    <link href="static/themes/css/main.css" rel="stylesheet" />
-
-                    <!-- scripts -->
-                    <script src="static/themes/js/jquery-1.7.2.min.js"></script>
-                    <script src="static/bootstrap/js/bootstrap.min.js"></script>
-                    <script src="static/themes/js/superfish.js"></script>
-                    <script src="static/themes/js/jquery.scrolltotop.js"></script>
-                    <!--[if lt IE 9]>			
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<script src="themes/js/respond.min.js"></script>
-		<![endif]-->
-                </head>
+                <c:import url="./static/webparts/head.jsp" var="cHead" charEncoding="UTF-8" />
+                <c:out value="${cHead}" escapeXml="false" />
 
                 <body>
-                    <div id="top-bar" class="container">
-                        <div class="row">
-                            <div class="span4">
-                                <a href="index.jsp" class="logo pull-left"><img src="static/themes/images/logo_horizontal.png" class="site_logo" alt=""></a>
-                                <form method="POST" class="search_form">
-                                    <input type="text" class="input-block-level search-query" Placeholder="Pesquisar produto">
-                                </form>
-                            </div>
-                            <div class="span8">
-                                <div class="account pull-right">
-                                    <ul class="user-menu">
-                                        <c:if test="${usuario_logado.nome != null}">
-                                            <div class="span3">
-                                                <span>Bem vindo ${usuario_logado.nome}</span>
-                                            </div>
-                                            <li><a href="#">Minha conta</a></li>
-                                        </c:if>
-                                        <li><a href="cart.jsp">Carrinho</a></li>
-                                        <li><a href="checkout.jsp">Finalizar Compra</a></li>
-                                        <li><a href="login.jsp">Entrar</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <c:import url="./static/webparts/header_filtros.jsp" var="cHeader" charEncoding="UTF-8" />
+                    <c:out value="${cHeader}" escapeXml="false" />
+
                     <div id="wrapper" class="container">
-                        <section class="navbar main-menu">
-                            <div class="navbar-inner main-menu">
-                                <nav id="menu" class="pull-right">
-                                    <ul>
-                                        <li><a href="./products.jsp">Mulher</a>
-                                            <ul>
-                                                <li><a href="./products.jsp">Presentes</a></li>
-                                                <li><a href="./products.jsp">Acessórios</a></li>
-                                                <li><a href="./products.jsp">Inverno</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="./products.jsp">Homem</a>
-                                            <ul>
-                                                <li><a href="./products.jsp">Presentes</a></li>
-                                                <li><a href="./products.jsp">Acessórios</a></li>
-                                                <li><a href="./products.jsp">Inverno</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="./products.jsp">Melhor avaliados</a></li>
-                                        <li><a href="./products.jsp">Mais vendidos</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </section>
-                        <section class="header_text sub">
-                            <img class="pageBanner" src="static/themes/images/pageBanner.png" alt="New products">
-                        </section>
+                        <c:import url="./static/webparts/header_menu.jsp" var="cHeaderMenu" charEncoding="UTF-8" />
+                        <c:out value="${cHeaderMenu}" escapeXml="false" />
+
+                        <c:import url="./static/webparts/header_banner.jsp" var="cHeaderBanner" charEncoding="UTF-8" />
+                        <c:out value="${cHeaderBanner}" escapeXml="false" />
+
                         <section class="main-content">
                             <div class="row">
                                 <div class="span9">
-                                    <h4 class="title"><span class="text"><strong>Meu</strong> Carrinho</span></h4>
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Remover</th>
-                                                <th>Imagem</th>
-                                                <th>Produto</th>
-                                                <th>Quantidade</th>
-                                                <th>Preço Unitário</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type="checkbox" value="option1"></td>
-                                                <td>
-                                                    <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                </td>
-                                                <td>Fusce id molestie massa</td>
-                                                <td><input type="text" value="1" class="input-mini"></td>
-                                                <td>R$2.350,00</td>
-                                                <td>R$2.350,00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" value="option1"></td>
-                                                <td>
-                                                    <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                </td>
-                                                <td>Luctus quam ultrices rutrum</td>
-                                                <td><input type="text" placeholder="2" value="2" class="input-mini"></td>
-                                                <td>R$1.150,00</td>
-                                                <td>R$2.450,00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" value="option1"></td>
-                                                <td>
-                                                    <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                </td>
-                                                <td>Wuam ultrices rutrum</td>
-                                                <td><input type="text" placeholder="1" value="1" class="input-mini"></td>
-                                                <td>R$1.210,00</td>
-                                                <td>R$1.123,00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                                <td><strong>R$3.600,00</strong></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <h4>Simular frete</h4>
-                                    <fieldset>
-                                        <div class="control-group">
-                                            <label class="control-label">CEP:</label>
-                                            <div class="controls">
-                                                <input type="text" placeholder="Digite o CEP" id="calcular-frete" class="input-xlarge">
-                                                <button class="btn" type="button" style="margin-bottom: 10px;">Calcular frete</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <h4>Adicionar cupom</h4>
-                                    <fieldset>
-                                        <div class="control-group">
-                                            <label class="control-label">Cupom de desconto:</label>
-                                            <div class="controls">
-                                                <input type="text" placeholder="Digite o cupom de desconto" id="calcular-frete" class="input-xlarge">
-                                                <button class="btn" type="button" style="margin-bottom: 10px;">Atualizar valor</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <hr>
-                                    <p class="cart-total right">
-                                        <strong>Sub-Total</strong>: R$100,00<br>
-                                        <strong>Frete (prévia)</strong>: R$17,50<br>
-                                        <strong>Cupom (prévia)</strong>: - R$10,50<br>
-                                        <strong>Total</strong>: R$107,50<br>
-                                    </p>
-                                    <hr/>
-                                    <p class="buttons right">
-                                        <button class="btn" type="button"><a href="index.jsp">Continuar comprando</a></button>
-                                        <button class="btn btn-inverse right" type="submit" id="checkout"><a href="checkout.jsp">Finalizar compra</a></button>
-                                    </p>
+
+                                    <c:import url="./static/webparts/section_carrinho_detalhes.jsp" var="cCarrinhoDetalhes" charEncoding="UTF-8" />
+                                    <c:out value="${cCarrinhoDetalhes}" escapeXml="false" />
 
                                 </div>
                                 <div class="span3 col">
@@ -235,43 +87,10 @@
                                 </div>
                             </div>
                         </section>
-                        <section id="footer-bar">
-                            <div class="row">
-                                <div class="span3">
-                                    <h4>Navegação</h4>
-                                    <ul class="nav">
-                                        <li><a href="./index.jsp">HOME</a></li>
-                                        <li><a href="./about.jsp">Sobre</a></li>
-                                        <li><a href="./contact.jsp">Contato</a></li>
-                                        <li><a href="./cart.jsp">Carrinho</a></li>
-                                        <li><a href="./login.jsp">Entrar</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span4">
-                                    <h4>Minha conta</h4>
-                                    <ul class="nav">
-                                        <li><a href="#">Minha conta</a></li>
-                                        <li><a href="#">Histórico de pedidos</a></li>
-                                        <li><a href="#">Lista de desejos</a></li>
-                                        <li><a href="#">Newsletter</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span5">
-                                    <p class="logo"><img src="static/themes/images/logo_horizontal.png" class="site_logo" alt=""></p>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
-                                    <br/>
-                                    <span class="social_icons">
-                                <a class="facebook" href="#">Facebook</a>
-                                <a class="twitter" href="#">Twitter</a>
-                                <a class="skype" href="#">Skype</a>
-                                <a class="vimeo" href="#">Vimeo</a>
-                            </span>
-                                </div>
-                            </div>
-                        </section>
-                        <section id="copyright">
-                            <span>Copyright 2013 bootstrappage template  All right reserved.</span>
-                        </section>
+
+                        <c:import url="./static/webparts/footer.jsp" var="cFooter" charEncoding="UTF-8" />
+                        <c:out value="${cFooter}" escapeXml="false" />
+
                     </div>
                     <script src="themes/js/common.js"></script>
                     <script>

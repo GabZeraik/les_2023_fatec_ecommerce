@@ -50,6 +50,10 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/ExcluirCartao", new CartaoViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/ConsultarProduto", new ProdutoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/CadastrarCarrinho", new CarrinhoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/CadastrarItemCarrinho", new ItemCarrinhoViewHelper());
 	}
 	
 	@Override
@@ -124,7 +128,20 @@ public class Controller extends HttpServlet{
 		
 		//Executa o command passando o objeto (entidade) para realizar a operacao
 		Resultado resultado = commandRequisitado.execute(entidade);
-				
+		
 		viewHelperRequisitada.setView(resultado, req, resp);
+		
+		//CRIA CARRINHO APOS ENTRAR
+		if(uriDeOrigem.equals("/ecommerce_les/EntrarCliente")) {
+			operacaoForm = "SALVAR";
+			uriDeOrigem = "/ecommerce_les/CadastrarCarrinho";
+			viewHelperRequisitada = mapViewHelpers.get(uriDeOrigem);
+			entidade = viewHelperRequisitada.obterEntidade(req);
+			commandRequisitado = mapCommands.get(operacaoForm);
+			resultado = commandRequisitado.execute(entidade);
+			viewHelperRequisitada.setView(resultado, req, resp);
+		}
+				
+		
 	}
 }

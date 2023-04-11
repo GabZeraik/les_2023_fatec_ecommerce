@@ -2,6 +2,7 @@
     <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
         <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
             <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"  %>
+
                 <!--DADOS PESSOAIS-->
                 <section class="cadastro_cliente js-liberar-edicao">
                     <form id="formAlterarCadastroParcial" action="AlterarClienteParcial" method="POST">
