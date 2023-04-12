@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import ecommerce_les2023.controle.ConsultarCommand;
 import ecommerce_les2023.controle.ICommand;
+import ecommerce_les2023.controle.SalvarCommand;
 import ecommerce_les2023.modelo.Carrinho;
+import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.ItemCarrinho;
 import ecommerce_les2023.utils.Resultado;
@@ -19,21 +21,45 @@ public class ItemCarrinhoViewHelper implements IViewHelper {
 		String item_tipo = req.getParameter("tipo_tabela_item");
 		String item_quantidade = req.getParameter("item_carrinho_quantidade");
 		String item_preco_unitario = req.getParameter("item_carrinho_preco_unitario");
-		String item_produtos_pro_id = req.getParameter("item_produto_id");
+		String item_produto_pro_id = req.getParameter("item_produto_id");
 		String item_fk_id = req.getParameter(item_tipo.concat("_id"));
+		String item_id = req.getParameter("item_id");
 		
-		EntidadeDominio item = new ItemCarrinho(Integer.parseInt(item_quantidade), Float.parseFloat(item_preco_unitario), Integer.parseInt(item_produtos_pro_id), Integer.parseInt(item_fk_id));
+		if(item_fk_id.equals("") || item_fk_id == null) {
+			EntidadeDominio carrinho;
+			
+			if(req.getParameter("usuario_logado") != null) {
+				Cliente cli = (Cliente) req.getSession().getAttribute("usuario_logado");
+				carrinho = (Carrinho) new Carrinho(req.getSession(false).getId(), cli.getId());
+			}else carrinho = (Carrinho) new Carrinho(req.getSession(false).getId(), 0);
+			
+			ICommand command = new SalvarCommand();
+			Resultado resultado_carrinho = new Resultado();
+			resultado_carrinho = command.execute(carrinho);
+			Carrinho carrinho_criado = (Carrinho) resultado_carrinho.getDados().get(0);
+			item_fk_id = String.valueOf(carrinho_criado.getId());
+			
+			req.getSession().setAttribute("carrinho", carrinho_criado);
+		}
+		
+		EntidadeDominio item = new ItemCarrinho(Integer.parseInt(item_quantidade), Float.parseFloat(item_preco_unitario), Integer.parseInt(item_produto_pro_id), Integer.parseInt(item_fk_id));
+		
+		if(req.getParameter("item_id") != null){
+			item.setId(Integer.parseInt(item_id));
+		}
 		
 		return item;
 	}
 	
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
-		ICommand command = new ConsultarCommand();
-		EntidadeDominio carrinho = (Carrinho) req.getSession().getAttribute("carrinho");
-		Resultado resultado_continuacao = command.execute(carrinho);		
 		
-		req.getSession().setAttribute("carrinho", resultado_continuacao.getDados().get(0));
+		//RETORNA O CARRINHO ATUALIZADO
+		ICommand command = new ConsultarCommand();
+		EntidadeDominio carrinho = (Carrinho) new Carrinho(req.getSession(false).getId(), 0);
+		Resultado resultado_carrinho = command.execute(carrinho);
+		
+		req.getSession().setAttribute("carrinho", resultado_carrinho.getDados().get(0));
 			
 		//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
 		try {

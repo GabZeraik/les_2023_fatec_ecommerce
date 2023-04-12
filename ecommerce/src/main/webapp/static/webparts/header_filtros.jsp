@@ -17,7 +17,6 @@
                                 <div class="account pull-right">
                                     <ul class="user-menu">
                                         <li><a href="cart.jsp">Carrinho</a></li>
-                                        <li><a href="checkout.jsp">Finalizar Compra</a></li>
                                         <c:choose>
                                             <c:when test="${empty usuario_logado}">
                                                 <li><a href="login.jsp">Entrar</a></li>

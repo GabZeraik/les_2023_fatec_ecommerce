@@ -22,6 +22,7 @@
                         <section class="main-content">
                             <div class="row">
                                 <div class="span9">
+                                    <h4 class="title"><span class="text"><strong>Meu</strong> Carrinho</span></h4>
 
                                     <c:import url="./static/webparts/section_carrinho_detalhes.jsp" var="cCarrinhoDetalhes" charEncoding="UTF-8" />
                                     <c:out value="${cCarrinhoDetalhes}" escapeXml="false" />

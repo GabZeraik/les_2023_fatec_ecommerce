@@ -64,6 +64,11 @@
   
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/CadastrarEnderecoCheckout</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/EntrarCliente</url-pattern>
   </servlet-mapping>
   
@@ -100,6 +105,16 @@
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
     <url-pattern>/CadastrarItemCarrinho</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/ExcluirItemCarrinho</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/CheckoutCarrinho</url-pattern>
   </servlet-mapping>
       
 </web-app>

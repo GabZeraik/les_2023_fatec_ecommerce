@@ -38,85 +38,39 @@
                                                 <div class="row-fluid">
                                                     <div class="span6">
                                                         <h4 class="title"><span class="text"><strong>Resumo</strong> da compra</span></h4>
-                                                        <table class="table table-striped table-hover">
-                                                            <thead>
-                                                                <tr>
 
-                                                                    <th>Imagem</th>
-                                                                    <th>Produto</th>
-                                                                    <th>Quantidade</th>
-                                                                    <th>Preço Unitário</th>
-                                                                    <th>Total</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
+                                                        <c:import url="./static/webparts/section_carrinho_detalhes.jsp" var="cCarrinhoDetalhes" charEncoding="UTF-8">
+                                                            <c:param name="cCarrinho" value="false" />
+                                                        </c:import>
+                                                        <c:out value="${cCarrinhoDetalhes}" escapeXml="false" />
 
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Fusce id molestie massa</td>
-                                                                    <td><input type="text" value="1" class="input-mini"></td>
-                                                                    <td>R$2.350,00</td>
-                                                                    <td>R$2.350,00</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Luctus quam ultrices rutrum</td>
-                                                                    <td><input type="text" placeholder="2" value="2" class="input-mini"></td>
-                                                                    <td>R$1.150,00</td>
-                                                                    <td>R$2.450,00</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Wuam ultrices rutrum</td>
-                                                                    <td><input type="text" placeholder="1" value="1" class="input-mini"></td>
-                                                                    <td>R$1.210,00</td>
-                                                                    <td>R$1.123,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td><strong>R$3.600,00</strong></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
                                                     </div>
                                                     <div class="span6">
                                                         <h4 class="title"><span class="text"><strong>Utilizar</strong> cupom</span></h4>
                                                         <fieldset>
                                                             <div class="control-group">
                                                                 <label class="checkbox" for="cupom_1">
-                                                        <input type="checkbox" value="cupom_1" id="cupom_1">R$50,00
-                                                    </label>
+                                                                    <input type="checkbox" value="cupom_1" id="cupom_1">R$50,00
+                                                                </label>
                                                                 <label class="checkbox" for="cupom_2">
-                                                        <input type="checkbox" value="cupom_2" id="cupom_2">R$123,20
-                                                    </label>
+                                                                    <input type="checkbox" value="cupom_2" id="cupom_2">R$123,20
+                                                                </label>
                                                             </div>
                                                         </fieldset>
                                                         <fieldset>
                                                             <h4 class="title"><span class="text"><strong>Forma</strong> de pagamento</span></h4>
                                                             <label class="control-group card">
-                                                    <input type="checkbox" value="cartao_1" id="cartao_1">
-                                                    <div class="thumbnails small">
-                                                        <img src="https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png" alt="">
-                                                    </div>
-                                                    <div>
-                                                        <span class="text"><strong>**** **** **** 1060</strong></span>
-                                                    </div>
-                                                    <div>
-                                                        <span class="text"><strong>Válido até: </strong>10/26</span>
-                                                        <span class="text"><strong>Nome: </strong>Lorem ipsum</span>
-                                                    </div>
+                                                            <input type="checkbox" value="cartao_1" id="cartao_1">
+                                                            <div class="thumbnails small">
+                                                                <img src="https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png" alt="">
+                                                            </div>
+                                                            <div>
+                                                                <span class="text"><strong>**** **** **** 1060</strong></span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="text"><strong>Válido até: </strong>10/26</span>
+                                                                <span class="text"><strong>Nome: </strong>Lorem ipsum</span>
+                                                            </div>
                                                     <div class="control-group">
                                                         <label class="control-label">Valor a ser pago*:</label>
                                                             <div class="controls">
@@ -197,7 +151,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-inverse pull-right">Finalizar compra</button>
+                                        <div class="row">
+                                            <div class="span12" style="margin-top: 25px; display: flex; flex-direction: row; justify-content: space-evenly;">
+                                                <button class="btn" type="button"><a href="index.jsp">Continuar comprando</a></button>
+                                                <button class="btn btn-inverse right" type="submit" id="checkout"><a href="CheckoutCarrinho?operacao=FINALIZAR&logado=${usuario_logado.id}">Finalizar Compra</a></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +187,6 @@
                     const formStatus = document.querySelector('#editar_status_cliente');
                     const json_resultado = JSON.parse('${usuario_logado.json}');
                     const container_enderecos_entrega = document.querySelector('.js-container-enderecos-entrega');
-                    const container_enderecos_cobranca = document.querySelector('.js-container-enderecos-cobranca');
                     const cliente_id_inputs = document.querySelectorAll('input[name*="cliente_id"]');
 
                     const liberarEdicaoAccordion = (button) => {
@@ -242,14 +200,12 @@
 
                     const preencheEnderecos = (dados_cliente) => {
                         container_enderecos_entrega.innerHTML = '';
-                        container_enderecos_cobranca.innerHTML = '';
-
                         dados_cliente.endereco.forEach(end => {
                             console.log(end);
                             let linha_endereco = new LinhaEndereco(end).criaLinhaEndereco();
                             if (end.tipo == "ENTREGA") {
                                 container_enderecos_entrega.insertAdjacentHTML('beforeend', linha_endereco);
-                            } else container_enderecos_cobranca.insertAdjacentHTML('beforeend', linha_endereco);
+                            }
                         })
                     }
 
@@ -258,46 +214,7 @@
                         formStatus.classList.toggle('hidden', false);
                     }
 
-                    const funcaoExcluir = (form, id) => {
-                        form.action = "ExcluirCliente";
-                        let operacao_id = "form_operacao_" + id;
-                        document.getElementById(operacao_id).value = "EXCLUIR";
-                        form.submit();
-                    }
-
-                    const funcaoAlterar = (form, id) => {
-                        let selector = 'input[id*="form_' + id + '"], select[id*="form_' + id + '"]';
-                        let inputs = document.querySelectorAll(selector);
-                        let inputs_form_alterar = document.querySelectorAll('#formAlterarCadastroParcial input, #formAlterarCadastroParcial select')
-
-                        inputs_form_alterar.forEach(input => {
-                            let filtered = Array.from(inputs).filter((value) => value.getAttribute('name') == input.getAttribute('name'));
-                            if (filtered.length) {
-                                input.value = filtered[0].value;
-                            }
-                        });
-                    }
-
-                    const buttonHandler = (botao) => {
-                        let id = botao.id.split('_')[1];
-                        let form_id = 'formDadosCliente_' + id;
-                        let form = document.getElementById(form_id);
-                        switch (botao.value) {
-                            case "EXCLUIR":
-                                funcaoExcluir(form, id);
-                                break;
-                            case "ALTERAR":
-                                //pegar os itens de cada input do form e preencher os inputs do formulário específico
-                                funcaoAlterar(form, id);
-                                break;
-                        }
-                    }
-
                     preencheEnderecos(json_resultado);
-
-                    const getValor = (item) => {
-                        console.log(item);
-                    }
                 </script>
 
                 </html>

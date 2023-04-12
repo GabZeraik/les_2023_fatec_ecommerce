@@ -12,17 +12,11 @@ import ecommerce_les2023.utils.Resultado;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class EntrarClienteViewHelper implements IViewHelper {
+public class FinalizarCompraViewHelper implements IViewHelper {
 
 	@Override
 	public EntidadeDominio obterEntidade(HttpServletRequest req) {
-		
-		String senha_cliente = req.getParameter("senha_cliente");
-		String email_cliente = req.getParameter("email_cliente");
-				
-		EntidadeDominio cliente = new Cliente(email_cliente, senha_cliente);
-				
-		return cliente;
+		return null;
 	}
 
 	@Override
@@ -36,32 +30,23 @@ public class EntrarClienteViewHelper implements IViewHelper {
 			
 			//SE EXISTIR CARRINHO PARA A SESSAO, VINCULA AO CLIENTE
 			ICommand command = new ConsultarCommand();
-			EntidadeDominio carrinho = new Carrinho(req.getSession(false).getId(), 0);
+			EntidadeDominio carrinho = (Carrinho) new Carrinho(req.getSession(false).getId(), 0);
 			Resultado resultado_continuacao = command.execute(carrinho);
 			
 			if(resultado_continuacao.getDados().size() > 0) {
 				command = new AlterarCommand();
-				Carrinho carrinho_salvo = (Carrinho) resultado_continuacao.getDados().get(0);
-				carrinho_salvo.setCliente_id(cliente.getId());
-				resultado_continuacao = command.execute(carrinho_salvo);
+				EntidadeDominio carrinho_vinculado = new Carrinho(req.getSession(false).getId(), cliente.getId());
+				carrinho_vinculado.setId(carrinho.getId());
+				resultado_continuacao = command.execute(carrinho_vinculado);
 			}
 			
 			req.getSession().setAttribute("carrinho", resultado_continuacao.getDados().get(0));
 			
-			if(req.getParameter("operacao") == "FINALIZAR") {
-				try {
-					resp.sendRedirect("checkout.jsp");
-					return;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				try {
-					resp.sendRedirect("cart.jsp");
-					return;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			try {
+				resp.sendRedirect("index.jsp");
+				return;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}else {
 			

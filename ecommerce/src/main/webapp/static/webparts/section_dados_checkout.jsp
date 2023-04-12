@@ -5,6 +5,7 @@
 
                 <!--CHECKOUT DADOS-->
                 <section>
+                    <h4>Revise suas informações e seu pedido</h4>
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
                             <h4 class="title"><span class="text">Dados e endereço de entrega</span></h4>
@@ -49,7 +50,7 @@
                                 <div class="row-fluid">
                                     <div class="span6 col">
 
-                                        <c:import url="./static/webparts/section_enderecos_cliente.jsp" var="cEnderecosCliente" charEncoding="UTF-8" />
+                                        <c:import url="./static/webparts/section_dados_checkout_endereco.jsp" var="cEnderecosCliente" charEncoding="UTF-8" />
                                         <c:out value="${cEnderecosCliente}" escapeXml="false" />
 
                                     </div>

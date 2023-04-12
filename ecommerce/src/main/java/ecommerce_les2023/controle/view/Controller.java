@@ -44,6 +44,8 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/CadastrarEndereco", new EnderecoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarEndereco", new EnderecoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ExcluirEndereco", new EnderecoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/CadastrarEnderecoCheckout", new EnderecoViewHelper());
+		
 		
 		mapViewHelpers.put("/ecommerce_les/CadastrarCartao", new CartaoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarCartao", new CartaoViewHelper());
@@ -51,9 +53,12 @@ public class Controller extends HttpServlet{
 		
 		mapViewHelpers.put("/ecommerce_les/ConsultarProduto", new ProdutoViewHelper());
 		
-		mapViewHelpers.put("/ecommerce_les/CadastrarCarrinho", new CarrinhoViewHelper());
+		//mapViewHelpers.put("/ecommerce_les/CadastrarCarrinho", new CarrinhoViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/CadastrarItemCarrinho", new ItemCarrinhoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/ExcluirItemCarrinho", new ItemCarrinhoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/CheckoutCarrinho", new CheckoutCarrinhoViewHelper());
 	}
 	
 	@Override
@@ -91,8 +96,14 @@ public class Controller extends HttpServlet{
 		//Obtém a view específica mapeada para a uri(chave do map)
 		IViewHelper viewHelperRequisitada = mapViewHelpers.get(uriDeOrigem);
 		
-		//LIMPAR SESSAO
+		//LOGOUT
 		if(operacaoForm.equals("SAIR")) {
+			viewHelperRequisitada.setView(null, req, resp);
+			return;
+		}
+		
+		//LOGOUT
+		if(operacaoForm.equals("FINALIZAR")) {
 			viewHelperRequisitada.setView(null, req, resp);
 			return;
 		}
@@ -130,18 +141,5 @@ public class Controller extends HttpServlet{
 		Resultado resultado = commandRequisitado.execute(entidade);
 		
 		viewHelperRequisitada.setView(resultado, req, resp);
-		
-		//CRIA CARRINHO APOS ENTRAR
-		if(uriDeOrigem.equals("/ecommerce_les/EntrarCliente")) {
-			operacaoForm = "SALVAR";
-			uriDeOrigem = "/ecommerce_les/CadastrarCarrinho";
-			viewHelperRequisitada = mapViewHelpers.get(uriDeOrigem);
-			entidade = viewHelperRequisitada.obterEntidade(req);
-			commandRequisitado = mapCommands.get(operacaoForm);
-			resultado = commandRequisitado.execute(entidade);
-			viewHelperRequisitada.setView(resultado, req, resp);
-		}
-				
-		
 	}
 }

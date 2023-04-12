@@ -135,7 +135,7 @@ ALTER TABLE produto_categorias ADD CONSTRAINT produtos_categorias_pk PRIMARY KEY
 CREATE TABLE carrinhos (
     shop_id           SERIAL,
     shop_session_id   VARCHAR(50),
-    clientes_cli_id   INTEGER NOT NULL
+    clientes_cli_id   INTEGER
 );
 
 ALTER TABLE carrinhos ADD CONSTRAINT carrinhos_pk PRIMARY KEY ( shop_id );

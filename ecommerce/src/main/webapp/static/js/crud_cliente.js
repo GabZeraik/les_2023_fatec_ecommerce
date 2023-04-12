@@ -17,9 +17,12 @@ class LinhaEndereco {
     }
 
     criaLinhaEndereco() {
-        return `<a class="accordion-toggle" data-toggle="collapse" href="#endereco_${this.id}">
-                    <h4><span class="text"><strong>${this.frase}</strong></span></h4>
-                </a>
+        return `<div style="display: flex; flex-direction: row; align-items: center; justify-content: flex-start;">
+                    <a class="accordion-toggle" data-toggle="collapse" href="#endereco_${this.id}">
+                        <h4><span class="text"><strong>${this.frase}</strong></span></h4>
+                    </a>
+                    <input style="height: 15px; margin-left: 25px" type="radio" id="endereco_selecionado_${this.id}" name="endereco_selecionado_id" value="${this.id}">
+                </div>
         <div id="endereco_${this.id}" class="accordion-body collapse js-liberar-edicao">
         <form id="formAlterarEndereco_${this.id}" action="AlterarEndereco" method="POST">
             <input value="${this.tipo}" type="hidden" name="endereco_tipo">

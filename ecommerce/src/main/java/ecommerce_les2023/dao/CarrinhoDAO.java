@@ -35,7 +35,8 @@ public class CarrinhoDAO extends AbstractDAO {
 			
 			comandoSQL = this.conexao.prepareStatement(sb.toString(), Statement.RETURN_GENERATED_KEYS);
 			comandoSQL.setString(1, carrinho.getSession_id());
-			comandoSQL.setInt(2, carrinho.getCliente_id());
+			if(carrinho.getCliente_id() == 0) comandoSQL.setObject(2, null);
+			else comandoSQL.setInt(2, carrinho.getCliente_id());
 						
 			comandoSQL.executeUpdate();
 			
@@ -69,14 +70,53 @@ public class CarrinhoDAO extends AbstractDAO {
 
 	@Override
 	public void alterar(EntidadeDominio entidade) {
-		return;
+		openConnection();
+		PreparedStatement comandoSQL = null;
+		Carrinho carrinho = (Carrinho) entidade;
+		
+		try {
+			this.conexao.setAutoCommit(false);
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE ");
+			sb.append(this.tabela);
+			
+			sb.append(" SET shop_session_id = ?, clientes_cli_id = ?");
+			sb.append(" WHERE ");
+			sb.append(this.idTabela + " = ?;");
+			comandoSQL = this.conexao.prepareStatement(sb.toString());
+			comandoSQL.setString(1, carrinho.getSession_id());
+			comandoSQL.setInt(2, carrinho.getCliente_id());
+			comandoSQL.setInt(3, carrinho.getId());
+				
+			comandoSQL.executeUpdate();
+			
+			conexao.commit();			
+			System.out.println(new Log().gerarLog(carrinho, "ALTERAÇÃO"));
+			
+		} catch (SQLException e) {
+			try {
+				conexao.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			try {
+				comandoSQL.close();
+				conexao.close();
+				System.out.println("CONEXÃO FINALIZADA!");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		openConnection();
 		PreparedStatement comandoSQL = null;
-		EntidadeDominio carrinho = (Carrinho) entidade;
+		Carrinho carrinho = (Carrinho) entidade;
 		List<EntidadeDominio> carrinhos = new ArrayList<EntidadeDominio>();
 				
 		try {
@@ -85,12 +125,23 @@ public class CarrinhoDAO extends AbstractDAO {
 			StringBuilder sb = new StringBuilder();
 			sb.append("SELECT * FROM ");
 			sb.append(this.tabela);
-			sb.append(" WHERE shop_id = ");
-			sb.append(carrinho.getId());
 			
-			comandoSQL = this.conexao.prepareStatement(sb.toString());
+			if(carrinho.getId() > 0) {
+				sb.append(" WHERE shop_id = ");
+				sb.append(carrinho.getId());
+				comandoSQL = this.conexao.prepareStatement(sb.toString());
+			}else if(carrinho.getCliente_id() > 0){
+				sb.append(" WHERE shop_session_id = ? AND clientes_cli_id = ?");
+				comandoSQL = this.conexao.prepareStatement(sb.toString());
+				comandoSQL.setString(1, carrinho.getSession_id());
+				comandoSQL.setInt(2, carrinho.getCliente_id());
+			}else{
+				sb.append(" WHERE shop_session_id = ?");
+				comandoSQL = this.conexao.prepareStatement(sb.toString());
+				comandoSQL.setString(1, carrinho.getSession_id());
+			}
 				
-			sb.append(" ORDER BY ban_id ASC;");
+			sb.append(" ORDER BY shop_id ASC;");
 					
 			ResultSet rs = comandoSQL.executeQuery();
 			
@@ -133,6 +184,7 @@ public class CarrinhoDAO extends AbstractDAO {
 		while (rs.next()) {
 			ItemCarrinho item = new ItemCarrinho(rs.getInt("item_quantidade"), rs.getFloat("item_preco_unitario"), rs.getInt("produtos_pro_id"), rs.getInt("carrinhos_shop_id"));
 			item.setNome(rs.getString("pro_nome"));
+			item.setId(rs.getInt("item_id"));
 			car.adicionaItens(item);
 		}
 		return;

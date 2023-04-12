@@ -18,6 +18,7 @@ public class Carrinho extends EntidadeDominio {
 	public Carrinho(String session_id, int cliente_id) {
 		this.session_id = session_id;
 		this.cliente_id = cliente_id;
+		this.itens = new ArrayList<ItemCarrinho>();
 	}
 
 	public String getSession_id() {
