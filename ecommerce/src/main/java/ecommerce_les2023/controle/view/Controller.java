@@ -50,15 +50,16 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/CadastrarCartao", new CartaoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarCartao", new CartaoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ExcluirCartao", new CartaoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/CadastrarCartaoCheckout", new CartaoViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/ConsultarProduto", new ProdutoViewHelper());
-		
-		//mapViewHelpers.put("/ecommerce_les/CadastrarCarrinho", new CarrinhoViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/CadastrarItemCarrinho", new ItemCarrinhoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ExcluirItemCarrinho", new ItemCarrinhoViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/CheckoutCarrinho", new CheckoutCarrinhoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/FinalizarCompra", new FinalizarCompraViewHelper());
 	}
 	
 	@Override
@@ -83,6 +84,7 @@ public class Controller extends HttpServlet{
 		
 		getServletContext().setAttribute("produtos", resultado.getDados());
 		getServletContext().setAttribute("bandeiras", resultado.getBandeiras());
+		getServletContext().setAttribute("fretes", resultado.getFretes());
 	}
 	
 	@Override
@@ -102,8 +104,15 @@ public class Controller extends HttpServlet{
 			return;
 		}
 		
-		//LOGOUT
+		//IR AO CHECKOUT
+		if(operacaoForm.equals("CHECKOUT")) {
+			viewHelperRequisitada.setView(null, req, resp);
+			return;
+		}
+		
+		//FINALIZAR COMPRA
 		if(operacaoForm.equals("FINALIZAR")) {
+			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
 			return;
 		}
@@ -130,6 +139,13 @@ public class Controller extends HttpServlet{
 		
 		//Obtém a view específica mapeada para a uri(chave do map)
 		IViewHelper viewHelperRequisitada = mapViewHelpers.get(uriDeOrigem);
+		
+		//FINALIZAR COMPRA
+		if(operacaoForm.equals("FINALIZAR")) {
+			viewHelperRequisitada.obterEntidade(req);
+			viewHelperRequisitada.setView(null, req, resp);
+			return;
+		}
 		
 		//Cria entidade da viewHelper específica
 		EntidadeDominio entidade = viewHelperRequisitada.obterEntidade(req);

@@ -32,10 +32,10 @@
                                                 <div class="control-group">
                                                     <label class="control-label">Tipo de residência*:</label>
                                                     <select class="form-control-plaintext" name="endereco_entrega_tipo_residencia_cliente">
-                                            <option value="casa">Casa</option>
-                                            <option value="apartamento">Apartamento</option>
-                                            <option value="outro">Outro</option>
-                                        </select>
+                                                        <option value="casa">Casa</option>
+                                                        <option value="apartamento">Apartamento</option>
+                                                        <option value="outro">Outro</option>
+                                                    </select>
                                                 </div>
                                                 <div class="control-group">
                                                     <label class="control-label">CEP*:</label>
@@ -46,13 +46,13 @@
                                                 <div class="control-group">
                                                     <label class="control-label">Tipo de logradouro*:</label>
                                                     <select class="form-control-plaintext" name="endereco_entrega_tipo_logradouro_cliente">
-                                            <option value="rua">Rua</option>
-                                            <option value="avenida">Avenida</option>
-                                            <option value="travessa">Travessa</option>
-                                            <option value="viela">Viela</option>
-                                            <option value="rodovia">Rodovia</option>
-                                            <option value="outro">Outro</option>
-                                        </select>
+                                                        <option value="rua">Rua</option>
+                                                        <option value="avenida">Avenida</option>
+                                                        <option value="travessa">Travessa</option>
+                                                        <option value="viela">Viela</option>
+                                                        <option value="rodovia">Rodovia</option>
+                                                        <option value="outro">Outro</option>
+                                                    </select>
                                                 </div>
                                                 <div class="control-group">
                                                     <label class="control-label">Logradouro*:</label>

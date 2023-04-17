@@ -28,50 +28,10 @@
                                     <c:out value="${cProdutosLista}" escapeXml="false" />
 
                                 </div>
-                                <div class="span3 col">
-                                    <div class="block">
-                                        <ul class="nav nav-list">
-                                            <li class="nav-header">CATEGORIAS</li>
-                                            <li><a href="products.jsp">Nullam semper elementum</a></li>
-                                            <li class="active"><a href="products.jsp">Phasellus ultricies</a></li>
-                                            <li><a href="products.jsp">Donec laoreet dui</a></li>
-                                            <li><a href="products.jsp">Nullam semper elementum</a></li>
-                                            <li><a href="products.jsp">Phasellus ultricies</a></li>
-                                            <li><a href="products.jsp">Donec laoreet dui</a></li>
-                                        </ul>
-                                        <br/>
-                                        <ul class="nav nav-list below">
-                                            <li class="nav-header">MARCAS</li>
-                                            <li><a href="products.jsp">Adidas</a></li>
-                                            <li><a href="products.jsp">Nike</a></li>
-                                            <li><a href="products.jsp">Dunlop</a></li>
-                                            <li><a href="products.jsp">Yamaha</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="block">
-                                        <h4 class="title"><strong>Mais</strong> Vendidos</h4>
-                                        <ul class="small-product">
-                                            <li>
-                                                <a href="#" title="Praesent tempor sem sodales">
-                                                    <img src="static/themes/images/ladies/3.jpg" alt="Praesent tempor sem sodales">
-                                                </a>
-                                                <a href="#">Praesent tempor sem</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" title="Luctus quam ultrices rutrum">
-                                                    <img src="static/themes/images/ladies/4.jpg" alt="Luctus quam ultrices rutrum">
-                                                </a>
-                                                <a href="#">Luctus quam ultrices rutrum</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" title="Fusce id molestie massa">
-                                                    <img src="static/themes/images/ladies/5.jpg" alt="Fusce id molestie massa">
-                                                </a>
-                                                <a href="#">Fusce id molestie massa</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+
+                                <c:import url="./static/webparts/section_produtos_side_nav.jsp" var="cSideNav" charEncoding="UTF-8" />
+                                <c:out value="${cSideNav}" escapeXml="false" />
+
                             </div>
                         </section>
 

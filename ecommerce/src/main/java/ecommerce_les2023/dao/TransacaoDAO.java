@@ -7,20 +7,20 @@ import java.sql.Statement;
 import java.util.List;
 
 import ecommerce_les2023.modelo.EntidadeDominio;
-import ecommerce_les2023.modelo.ItemPedido;
+import ecommerce_les2023.modelo.Transacao;
 import ecommerce_les2023.utils.Log;
 
-public class ItemPedidoDAO extends AbstractDAO {
+public class TransacaoDAO extends AbstractDAO {
 	
-	public ItemPedidoDAO() {
-		super("itens_pedidos", "item_id");
+	public TransacaoDAO() {
+		super("transacoes", "tra_id");
 	}
 
 	@Override
 	public void salvar(EntidadeDominio entidade) {
 		openConnection();
 		PreparedStatement comandoSQL = null;
-		ItemPedido item = (ItemPedido) entidade;
+		Transacao transacao = (Transacao) entidade;
 				
 		try {
 			this.conexao.setAutoCommit(false);
@@ -28,14 +28,13 @@ public class ItemPedidoDAO extends AbstractDAO {
 			StringBuilder sb = new StringBuilder();
 			sb.append("INSERT INTO ");
 			sb.append(this.tabela);
-			sb.append("(item_quantidade, item_preco_unitario, produtos_pro_id, pedidos_ped_id) ");
-			sb.append("VALUES (?, ?, ?, ?)");
+			sb.append("(tra_valor_pago, cartoes_car_id, pedidos_ped_id) ");
+			sb.append("VALUES (?, ?, ?)");
 			
 			comandoSQL = this.conexao.prepareStatement(sb.toString(), Statement.RETURN_GENERATED_KEYS);
-			comandoSQL.setInt(1, item.getQuantidade());
-			comandoSQL.setFloat(2, item.getPreco_unitario());
-			comandoSQL.setInt(3, item.getProduto_id());
-			comandoSQL.setInt(4, item.getPedido_id());
+			comandoSQL.setFloat(1, transacao.getValor_pago());
+			comandoSQL.setInt(2, transacao.getCartao_id());
+			comandoSQL.setInt(3, transacao.getPedido_id());
 						
 			comandoSQL.executeUpdate();
 			
@@ -45,9 +44,9 @@ public class ItemPedidoDAO extends AbstractDAO {
 			int id = 0;
 			if(keysTabela.next())
 				id = keysTabela.getInt(1);
-			item.setId(id);
+			transacao.setId(id);
 			
-			System.out.println(new Log().gerarLog(item, "Cadastro"));
+			System.out.println(new Log().gerarLog(transacao, "Cadastro"));
 			
 		} catch (SQLException e) {
 			try {

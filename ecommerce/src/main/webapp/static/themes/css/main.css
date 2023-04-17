@@ -177,21 +177,64 @@ iframe {
 }
 
 .card {
-    border: 1px #333 solid;
+    cursor: pointer;
+    margin: 0px auto 10px auto;
+    width: 380px;
+    height: fit-content;
+    background: rgba(108, 108, 108, 0.3);
     border-radius: 10px;
+    z-index: 1;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    position: relative;
+}
+
+.card.selected {
+    border: 3px solid #1eeb00;
+}
+
+.visa_logo {
+    float: right;
+    padding: 10px;
+}
+
+.visa_logo img {
+    width: 70px;
+    height: 40px;
+}
+
+.visa_info {
+    padding: 10px;
+    margin: 15px 0;
+}
+
+.visa_info img {
+    width: 60px;
+    height: 45px;
+}
+
+.visa_info p {
+    font-size: 22px;
+    padding: 10px 0;
+    letter-spacing: 2px;
+    color: #333;
+}
+
+.visa_crinfo {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    color: #333;
+    font-size: 18px;
 }
 
-.card:hover,
-.card:focus {
-    border: 2px #eb4800 solid;
+.visa_valor {
+    margin: auto;
 }
 
-.card .thumbnails.small img {
-    vertical-align: inherit !important;
+.visa_valor label {
+    font-weight: 700;
 }
 
 

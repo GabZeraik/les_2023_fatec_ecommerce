@@ -64,18 +64,18 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-                            <h4>Calcular frete</h4>
-                            <fieldset>
-                                <div class="control-group">
-                                    <label class="control-label">CEP:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="Digite o CEP" id="calcular-frete" class="input-large">
-                                        <button class="btn" type="button" style="margin-bottom: 10px;">Calcular frete</button>
-                                    </div>
-                                </div>
-                            </fieldset>
                             <c:choose>
                                 <c:when test="${param.cCarrinho}">
+                                    <h4>Calcular frete</h4>
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <label class="control-label">CEP:</label>
+                                            <div class="controls">
+                                                <input type="text" placeholder="Digite o CEP" id="calcular-frete" class="input-large">
+                                                <button class="btn" type="button" style="margin-bottom: 10px;">Calcular frete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
                                     <h4>Adicionar cupom</h4>
                                     <fieldset>
                                         <div class="control-group">
@@ -90,17 +90,17 @@
                                 </c:when>
                             </c:choose>
                             <p class="cart-total right" style="font-size: 14px;">
-                                <strong>Sub-Total</strong>: R$${fn:replace(valor_total_itens, '.', ',')}<br>
-                                <strong>Frete</strong>: NÃO IMPLEMENTADO<br>
-                                <strong>Cupom</strong>: NÃO IMPLEMENTADO<br>
-                                <strong>Total</strong>: R$${fn:replace(valor_total_itens, '.', ',')}<br>
+                                <strong>Sub-Total: </strong><span id="span_resumo_sub_total">R$${fn:replace(valor_total_itens, '.', ',')}</span><br>
+                                <strong>Frete: </strong><span id="span_resumo_frete"></span><br>
+                                <strong>Cupom: </strong><span id="span_resumo_cupom"></span><br>
+                                <strong>Total: </strong><span id="span_resumo_total_final">R$${fn:replace(valor_total_itens, '.', ',')}</span><br>
                             </p>
                             <c:choose>
                                 <c:when test="${param.cCarrinho}">
                                     <hr>
                                     <p class="buttons right">
                                         <button class="btn" type="button"><a href="index.jsp">Continuar comprando</a></button>
-                                        <button class="btn btn-inverse right" type="submit" id="checkout"><a href="CheckoutCarrinho?operacao=FINALIZAR&logado=${usuario_logado.id}">Finalizar Compra</a></button>
+                                        <button class="btn btn-inverse right" type="submit" id="checkout"><a href="CheckoutCarrinho?operacao=CHECKOUT&logado=${usuario_logado.id}">Finalizar Compra</a></button>
                                     </p>
                                 </c:when>
                             </c:choose>

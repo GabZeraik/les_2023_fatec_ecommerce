@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.google.gson.Gson;
-
 public class Produto extends EntidadeDominio {
 	
 	private String codigo;
@@ -18,7 +16,6 @@ public class Produto extends EntidadeDominio {
 	private String codigo_barras;
 	private String justificativa;
 	private List<Categoria> categoria;
-	private String json;
 	
 	public Produto() {};
 	
@@ -119,20 +116,6 @@ public class Produto extends EntidadeDominio {
 	public String gerarCodigoUnico() {
 		UUID codigo_unico = UUID.randomUUID();
 		return codigo_unico.toString();
-	}
-
-	public String getJson() {
-		return this.json;
-	}
-
-	public void setJson() {
-		this.json = this.objetoToJson();
-	}
-
-	public String objetoToJson() {
-		Gson gson = new Gson();
-		String json = gson.toJson(this);
-		return json;
 	}
 	
 	public void adicionaCategoria(Categoria categoria) {

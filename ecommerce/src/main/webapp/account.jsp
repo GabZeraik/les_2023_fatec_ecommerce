@@ -57,7 +57,7 @@
 
                                     <br>
 
-                                    <c:import url="./static/webparts/section_cartoes_cliente.jsp" var="cSectionCartoesCliente" charEncoding="UTF-8" />
+                                    <c:import url="./static/webparts/section_cartoes_cliente_2.jsp" var="cSectionCartoesCliente" charEncoding="UTF-8" />
                                     <c:out value="${cSectionCartoesCliente}" escapeXml="false" />
 
                                 </div>
@@ -73,10 +73,11 @@
                     <script type="text/javascript">
                         const formAlteracao = document.querySelector('#editar_cadastro_cliente');
                         const formStatus = document.querySelector('#editar_status_cliente');
-                        const json_resultado = JSON.parse('${usuario_logado.json}');
                         const container_enderecos_entrega = document.querySelector('.js-container-enderecos-entrega');
                         const container_enderecos_cobranca = document.querySelector('.js-container-enderecos-cobranca');
                         const cliente_id_inputs = document.querySelectorAll('input[name*="cliente_id"]');
+                        const usuario_logado = JSON.parse('${usuario_logado.json}');
+
 
                         const liberarEdicaoAccordion = (button) => {
                             let inputs = button.closest('.js-liberar-edicao').querySelectorAll('input, select, textarea');
@@ -90,7 +91,7 @@
                         const preencheEnderecos = (dados_cliente) => {
                             container_enderecos_entrega.innerHTML = '';
                             container_enderecos_cobranca.innerHTML = '';
-                            console.log(dados_cliente);
+
                             dados_cliente.endereco.forEach(end => {
                                 let linha_endereco = new LinhaEndereco(end).criaLinhaEndereco();
                                 if (end.tipo == "ENTREGA") {
@@ -103,9 +104,9 @@
                             if (formStatus) formStatus.classList.toggle('hidden', true);
                             formAlteracao.classList.toggle('hidden', false);
 
-                            cliente_id_inputs.forEach(input => input.value = json_resultado.id);
+                            cliente_id_inputs.forEach(input => input.value = usuario_logado.id);
 
-                            preencheEnderecos(json_resultado);
+                            preencheEnderecos(usuario_logado);
                             //buttonHandler(botao);
                         }
 

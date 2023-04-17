@@ -27,3 +27,18 @@ INSERT INTO produto_categorias (produtos_pro_id, categorias_cat_id) VALUES (3, 2
 INSERT INTO produto_categorias (produtos_pro_id, categorias_cat_id) VALUES (4, 3);
 INSERT INTO produto_categorias (produtos_pro_id, categorias_cat_id) VALUES (5, 1);
 
+/*CUPONS*/
+INSERT INTO cupons (cup_codigo, cup_valor, cup_tipo, clientes_cli_id, cup_valido)	
+    VALUES (155, 20.00, 'DESCONTO', 17, 1);
+INSERT INTO cupons (cup_codigo, cup_valor, cup_tipo, clientes_cli_id, cup_valido)	
+    VALUES (154, 15.00, 'DESCONTO', 17, 1);
+INSERT INTO cupons (cup_codigo, cup_valor, cup_tipo, clientes_cli_id, cup_valido)	
+    VALUES (157, 10.00, 'PROMOCIONAL', 17, 0);
+
+/*FRETE*/
+INSERT INTO fretes (fre_codigo, fre_porcentagem) VALUES (087, 0.10);
+INSERT INTO fretes (fre_codigo, fre_porcentagem) VALUES (086, 0.11);
+INSERT INTO fretes (fre_codigo, fre_porcentagem) VALUES (084, 0.15);
+INSERT INTO fretes (fre_codigo, fre_porcentagem) VALUES (184, 0.20);
+
+

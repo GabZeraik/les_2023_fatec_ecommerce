@@ -85,7 +85,7 @@ public class ClienteViewHelper implements IViewHelper {
 		list_enderecos.add(endereco_entrega);
 		list_enderecos.add(endereco_cobranca);
 				
-		EntidadeDominio cliente = new Cliente(nome_cliente, cpf_cliente, email_cliente, genero_cliente, list_enderecos, data_nascimento_cliente, "ATIVO", "", usuario_cliente, senha_cliente, null, new Telefone(telefone_ddd_cliente, telefone_numero_cliente, telefone_tipo_cliente), null);	
+		EntidadeDominio cliente = new Cliente(nome_cliente, cpf_cliente, email_cliente, genero_cliente, list_enderecos, data_nascimento_cliente, "ATIVO", "", usuario_cliente, senha_cliente, null, new Telefone(telefone_ddd_cliente, telefone_numero_cliente, telefone_tipo_cliente));	
 		
 		try {
 			cliente.setId(Integer.parseInt(req.getParameter("id_cliente")));

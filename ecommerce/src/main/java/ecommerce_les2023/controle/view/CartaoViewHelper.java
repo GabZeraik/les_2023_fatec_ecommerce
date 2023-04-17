@@ -2,8 +2,11 @@ package ecommerce_les2023.controle.view;
 
 import java.io.IOException;
 
+import ecommerce_les2023.controle.ConsultarCommand;
+import ecommerce_les2023.controle.ICommand;
 import ecommerce_les2023.modelo.Bandeira;
 import ecommerce_les2023.modelo.Cartao;
+import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.utils.Resultado;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,12 +32,29 @@ public class CartaoViewHelper implements IViewHelper {
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().setAttribute("resultado", resultado);
-		//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
-		try {
-			resp.sendRedirect("resultado.jsp");
-			return;
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		if(req.getRequestURI().equals("/ecommerce_les/CadastrarCartaoCheckout")) {
+			ICommand command = new ConsultarCommand();
+			
+			Cliente usuario_logado = (Cliente) req.getSession(false).getAttribute("usuario_logado");
+			Resultado resultado_atualizado = command.execute(usuario_logado);
+			usuario_logado = (Cliente) resultado_atualizado.getDados().get(0);
+			usuario_logado.setJson();
+			req.getSession().setAttribute("usuario_logado", usuario_logado);
+			
+			try {
+				resp.sendRedirect("checkout.jsp");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				resp.sendRedirect("resultado.jsp");
+				return;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

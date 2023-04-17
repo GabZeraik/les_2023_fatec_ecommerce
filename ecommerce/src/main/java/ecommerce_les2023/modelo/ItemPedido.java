@@ -2,6 +2,7 @@ package ecommerce_les2023.modelo;
 
 public class ItemPedido extends EntidadeDominio{
 	
+	private String nome;
 	private int quantidade;
 	private float preco_unitario;
 	private int produto_id;
@@ -14,6 +15,10 @@ public class ItemPedido extends EntidadeDominio{
 		this.pedido_id = pedido_id;
 	}
 	
+	public ItemPedido() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -37,6 +42,14 @@ public class ItemPedido extends EntidadeDominio{
 	}
 	public void setPedido_id(int pedido_id) {
 		this.pedido_id = pedido_id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

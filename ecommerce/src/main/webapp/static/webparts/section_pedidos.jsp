@@ -10,226 +10,80 @@
                             <thead>
                                 <tr>
                                     <th>Cód. Pedido</th>
-                                    <th>Valor</th>
+                                    <th>Valor Total</th>
                                     <th>Data</th>
                                     <th>Situação</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <form action="/action_page.php" method="post">
-                                    <tr>
-                                        <td>
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#item_1">
-                                                <span class="text"><strong>122</strong></span>
-                                            </a>
-                                            <div id="item_1" class="accordion-body collapse">
-                                                <div class="accordion-inner">
-                                                    <div class="row-fluid">
-                                                        <h5 class="title"><span class="text"><strong>Resumo</strong> da compra</span></h5>
-                                                        <table class="table table-striped table-hover" style="background-color: transparent;">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th>Produto</th>
-                                                                    <th>Quantidade</th>
-                                                                    <th>Preço Unitário</th>
-                                                                    <th>Total</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="hidden"><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Fusce id molestie massa</td>
-                                                                    <td><input type="text" value="1" class="input-mini" readonly></td>
-                                                                    <td>R$2.350,00</td>
-                                                                    <td>R$2.350,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="hidden"><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Luctus quam ultrices rutrum</td>
-                                                                    <td><input type="text" value="2" class="input-mini" readonly></td>
-                                                                    <td>R$1.150,00</td>
-                                                                    <td>R$2.450,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="hidden"><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Wuam ultrices rutrum</td>
-                                                                    <td><input type="text" value="1" class="input-mini" readonly></td>
-                                                                    <td>R$1.210,00</td>
-                                                                    <td>R$1.123,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td><strong>R$3.600,00</strong></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <div class="hidden actions" style="float: left">
-                                                            <p>Para solicitar troca ou devolução, selecione o item e digite a quantidade a ser trocada/devolvida</p><input tabindex="9" class="btn btn-inverse large" type="submit" value="Solicitar troca/devolução"></div>
+                                    <c:forEach items="${usuario_logado.pedido}" var="pedido" varStatus="loop">
+                                        <tr>
+                                            <td>
+                                                <a class="accordion-toggle" data-toggle="collapse" data-target="#pedido_${pedido.id}" href="#pedido_${pedido.id}">
+                                                    <span class="text"><strong>${pedido.id}</strong></span>
+                                                </a>
+                                                <div id="pedido_${pedido.id}" class="accordion-body collapse">
+                                                    <div class="accordion-inner">
+                                                        <div class="row-fluid">
+                                                            <h5 class="title"><span class="text"><strong>Resumo</strong> da compra</span></h5>
+                                                            <table class="table table-striped table-hover" style="background-color: transparent;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th>Produto</th>
+                                                                        <th>Quantidade</th>
+                                                                        <th>Preço Unitário</th>
+                                                                        <th>Total</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <c:forEach items="${pedido.item_pedido}" var="item" varStatus="loop">
+                                                                        <tr>
+                                                                            <td class="hidden"><input type="checkbox" onchange="handlerCheckItem(this)"></td>
+                                                                            <td>
+                                                                                <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.produto_id}" target="_blank"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
+                                                                            </td>
+                                                                            <td>${item.nome}</td>
+                                                                            <td><input type="text" value="${item.quantidade}" class="input-mini" readonly></td>
+                                                                            <td>R$${fn:replace(item.preco_unitario, '.', ',')}</td>
+                                                                            <c:set var="valor_unitario_item">
+                                                                                <fmt:formatNumber type="number" maxFractionDigits="2" value="${item.preco_unitario * item.quantidade}" />
+                                                                            </c:set>
+                                                                            <td>R$${fn:replace(valor_unitario_item, '.', ',')}</td>
+                                                                        </tr>
+                                                                    </c:forEach>
+                                                                    <c:choose>
+                                                                        <c:when test="${loop.last}">
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td><strong>R$${fn:replace(pedido.valor_total, '.', ',')}</strong></td>
+                                                                            </tr>
+                                                                        </c:when>
+                                                                    </c:choose>
+                                                                </tbody>
+                                                            </table>
+                                                            <c:choose>
+                                                                <c:when test='${pedido.situacao == "ENTREGUE"}'>
+                                                                    <div class="hidden actions" style="float: left">
+                                                                        <p>Para solicitar troca ou devolução, selecione o item e digite a quantidade a ser trocada/devolvida</p>
+                                                                        <input tabindex="9" class="btn btn-inverse large" type="submit" value="Solicitar troca/devolução">
+                                                                    </div>
+                                                                </c:when>
+                                                            </c:choose>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>R$350,00</td>
-                                        <td>27/02/2023</td>
-                                        <td>EM PROCESSAMENTO</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#item_2">
-                                                <span class="text"><strong>105</strong></span>
-                                            </a>
-                                            <div id="item_2" class="accordion-body collapse">
-                                                <div class="accordion-inner">
-                                                    <div class="row-fluid">
-                                                        <h6 class="title"><span class="text"><strong>Resumo</strong> da compra</span></h6>
-                                                        <table class="table table-striped table-hover" style="background-color: transparent;">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th>Produto</th>
-                                                                    <th>Quantidade</th>
-                                                                    <th>Preço Unitário</th>
-                                                                    <th>Total</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="hidden"><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Fusce id molestie massa</td>
-                                                                    <td><input type="text" value="1" class="input-mini"></td>
-                                                                    <td>R$2.350,00</td>
-                                                                    <td>R$2.350,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="hidden"><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Luctus quam ultrices rutrum</td>
-                                                                    <td><input type="text" placeholder="2" value="2" class="input-mini"></td>
-                                                                    <td>R$1.150,00</td>
-                                                                    <td>R$2.450,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="hidden"><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Wuam ultrices rutrum</td>
-                                                                    <td><input type="text" placeholder="1" value="1" class="input-mini"></td>
-                                                                    <td>R$1.210,00</td>
-                                                                    <td>R$1.123,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td><strong>R$3.600,00</strong></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <div class="hidden actions" style="float: left">
-                                                            <p>Para solicitar troca ou devolução, selecione o item e digite confirme a quantidade a ser trocada/devolvida</p><input tabindex="9" class="btn btn-inverse large" type="submit" value="Solicitar troca/devolução"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>R$350,00</td>
-                                        <td>27/02/2023</td>
-                                        <td>EM TRÂNSITO</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#item_3">
-                                                <span class="text"><strong>98</strong></span>
-                                            </a>
-                                            <div id="item_3" class="accordion-body collapse">
-                                                <div class="accordion-inner">
-                                                    <div class="row-fluid">
-                                                        <h6 class="title"><span class="text"><strong>Resumo</strong> da compra</span></h6>
-                                                        <table class="table table-striped table-hover" style="background-color: transparent;">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th>Produto</th>
-                                                                    <th>Quantidade</th>
-                                                                    <th>Preço Unitário</th>
-                                                                    <th>Total</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Fusce id molestie massa</td>
-                                                                    <td><input type="text" value="1" class="input-mini"></td>
-                                                                    <td>R$2.350,00</td>
-                                                                    <td>R$2.350,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Luctus quam ultrices rutrum</td>
-                                                                    <td><input type="text" placeholder="2" value="2" class="input-mini"></td>
-                                                                    <td>R$1.150,00</td>
-                                                                    <td>R$2.450,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><input type="checkbox" onchange="handlerCheckItem(this)"></td>
-                                                                    <td>
-                                                                        <a href="product_detail.jsp"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                    </td>
-                                                                    <td>Wuam ultrices rutrum</td>
-                                                                    <td><input type="text" placeholder="1" value="1" class="input-mini"></td>
-                                                                    <td>R$1.210,00</td>
-                                                                    <td>R$1.123,00</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td><strong>R$3.600,00</strong></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <div class="actions" style="float: left">
-                                                            <p>Para solicitar troca ou devolução, selecione o item e digite confirme a quantidade a ser trocada/devolvida</p><input tabindex="9" class="btn btn-inverse large" type="submit" value="Solicitar troca/devolução"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>R$350,00</td>
-                                        <td>27/02/2022</td>
-                                        <td>ENTREGUE</td>
-                                    </tr>
+                                            </td>
+                                            <td>R$${fn:replace(pedido.valor_total, '.', ',')}</td>
+                                            <td>${pedido.data_pedido}</td>
+                                            <td>${pedido.situacao}</td>
+                                        </tr>
+                                    </c:forEach>
                                 </form>
                             </tbody>
                         </table>

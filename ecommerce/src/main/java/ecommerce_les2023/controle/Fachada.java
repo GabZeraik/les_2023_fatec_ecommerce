@@ -9,18 +9,28 @@ import ecommerce_les2023.dao.BandeiraDAO;
 import ecommerce_les2023.dao.CarrinhoDAO;
 import ecommerce_les2023.dao.CartaoDAO;
 import ecommerce_les2023.dao.ClienteDAO;
+import ecommerce_les2023.dao.CupomDAO;
 import ecommerce_les2023.dao.EnderecoDAO;
+import ecommerce_les2023.dao.FreteDAO;
 import ecommerce_les2023.dao.IDAO;
 import ecommerce_les2023.dao.ItemCarrinhoDAO;
+import ecommerce_les2023.dao.ItemPedidoDAO;
+import ecommerce_les2023.dao.PedidoDAO;
 import ecommerce_les2023.dao.ProdutoDAO;
+import ecommerce_les2023.dao.TransacaoDAO;
 import ecommerce_les2023.modelo.Bandeira;
 import ecommerce_les2023.modelo.Carrinho;
 import ecommerce_les2023.modelo.Cartao;
 import ecommerce_les2023.modelo.Cliente;
+import ecommerce_les2023.modelo.Cupom;
 import ecommerce_les2023.modelo.Endereco;
 import ecommerce_les2023.modelo.EntidadeDominio;
+import ecommerce_les2023.modelo.Frete;
 import ecommerce_les2023.modelo.ItemCarrinho;
+import ecommerce_les2023.modelo.ItemPedido;
+import ecommerce_les2023.modelo.Pedido;
 import ecommerce_les2023.modelo.Produto;
+import ecommerce_les2023.modelo.Transacao;
 import ecommerce_les2023.negocio.IStrategy;
 import ecommerce_les2023.negocio.VerificadorDigitosCpfStrategy;
 import ecommerce_les2023.negocio.VerificadorEmailCadastradoStrategy;
@@ -78,10 +88,15 @@ public class Fachada implements IFachada {
 		this.mapDaos.put(Cliente.class.getName(), new ClienteDAO());
 		this.mapDaos.put(Endereco.class.getName(), new EnderecoDAO());
 		this.mapDaos.put(Bandeira.class.getName(), new BandeiraDAO());
+		this.mapDaos.put(Cupom.class.getName(), new CupomDAO());
+		this.mapDaos.put(Frete.class.getName(), new FreteDAO());
 		this.mapDaos.put(Cartao.class.getName(), new CartaoDAO());
 		this.mapDaos.put(Produto.class.getName(), new ProdutoDAO());
 		this.mapDaos.put(Carrinho.class.getName(), new CarrinhoDAO());
 		this.mapDaos.put(ItemCarrinho.class.getName(), new ItemCarrinhoDAO());
+		this.mapDaos.put(Pedido.class.getName(), new PedidoDAO());
+		this.mapDaos.put(ItemPedido.class.getName(), new ItemPedidoDAO());
+		this.mapDaos.put(Transacao.class.getName(), new TransacaoDAO());
 	}
 
 	@Override
@@ -146,9 +161,17 @@ public class Fachada implements IFachada {
 	@Override
 	public Resultado consultar(EntidadeDominio entidade) {
 		List<EntidadeDominio> lista = mapDaos.get(entidade.getClass().getName()).consultar(entidade);
+		
+		//CONSULTA AS BANDEIRAS
 		Bandeira band = new Bandeira();
 		List<EntidadeDominio> bandeiras = mapDaos.get(band.getClass().getName()).consultar(band);
-		Resultado resultado = new Resultado("Consulta realizada com sucesso", true, "CONSULTAR", entidade.getClass().getName(), lista, bandeiras);  
+		
+		//CONSULTA OS FRETES
+		Frete frete = new Frete();
+		List<EntidadeDominio> fretes = mapDaos.get(frete.getClass().getName()).consultar(frete);
+		
+		
+		Resultado resultado = new Resultado("Consulta realizada com sucesso", true, "CONSULTAR", entidade.getClass().getName(), lista, bandeiras, fretes);  
 		resultado.objetoToJson();
 		return resultado;
 	}

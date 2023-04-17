@@ -3,7 +3,10 @@ package ecommerce_les2023.modelo;
 public class Tipo {
 	private String cod_tipo;
 	private String nome_tipo;
-	
+
+	public Tipo(String nome_tipo) {
+		this.nome_tipo = nome_tipo;
+	}
 	public String getCod_tipo() {
 		return cod_tipo;
 	}

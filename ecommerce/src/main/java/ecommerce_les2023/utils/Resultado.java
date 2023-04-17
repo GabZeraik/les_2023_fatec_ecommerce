@@ -13,17 +13,19 @@ public class Resultado {
 	private String nomeEntidade;
 	private List<EntidadeDominio> dados;
 	private List<EntidadeDominio> bandeiras;
+	private List<EntidadeDominio> fretes;
 	private String json;
 	
 	
-	public Resultado(String mensagem, boolean sucesso, String operacao, String nomeEntidade, List<EntidadeDominio> dados, List<EntidadeDominio> bandeiras){
+	public Resultado(String mensagem, boolean sucesso, String operacao, String nomeEntidade, List<EntidadeDominio> dados, List<EntidadeDominio> bandeiras, List<EntidadeDominio> fretes){
 		this.mensagem = mensagem;
 		this.sucesso = sucesso;
 		this.nomeEntidade = nomeEntidade;
 		this.operacao = operacao;
 		this.dados = dados;
 		this.bandeiras = bandeiras;
-		this.json = this.objetoToJson();
+		this.fretes = fretes;
+		this.setJson();
 	}
 	
 	public Resultado() {
@@ -74,11 +76,20 @@ public class Resultado {
 		this.sucesso = sucesso;
 	}
 	
+	public List<EntidadeDominio> getFretes() {
+		return fretes;
+	}
+
+	public void setFretes(List<EntidadeDominio> fretes) {
+		this.fretes = fretes;
+	}
+	
 	public String getJson() {
 		return json;
 	}
 
 	public void setJson() {
+		this.json = "";
 		this.json = this.objetoToJson();
 	}
 

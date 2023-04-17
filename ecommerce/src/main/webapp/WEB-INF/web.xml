@@ -19,7 +19,7 @@
   
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
-    <url-pattern>/Controle</url-pattern>
+    <url-pattern>/Controller</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>
@@ -84,6 +84,11 @@
   
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/CadastrarCartaoCheckout</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/AlterarCartao</url-pattern>
   </servlet-mapping>
   
@@ -116,5 +121,10 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>/CheckoutCarrinho</url-pattern>
   </servlet-mapping>
-      
+  
+   <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/FinalizarCompra</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

@@ -51,6 +51,7 @@ CREATE TABLE cupons (
     cup_codigo      VARCHAR(40),
     cup_valor       NUMERIC(10,2),
     cup_tipo  		VARCHAR(30),
+    cup_valido      INTEGER NOT NULL,
     clientes_cli_id INTEGER
 );
 
@@ -105,6 +106,7 @@ CREATE TABLE pedidos (
     ped_situacao           VARCHAR(50),
     ped_modificado_por     VARCHAR(150),
     ped_ultima_atualizacao DATE,
+    cupons_cup_id          INTEGER
     clientes_cli_id        INTEGER NOT NULL
 );
 
@@ -150,6 +152,23 @@ CREATE TABLE itens_carrinhos (
 
 ALTER TABLE itens_carrinhos ADD CONSTRAINT itens_carrinhos_pk PRIMARY KEY ( item_id );
 
+CREATE TABLE transacoes (
+    tra_id             SERIAL,
+    tra_valor_pago     NUMERIC(10,2),
+    pedidos_ped_id     INTEGER NOT NULL,
+    cartoes_car_id     INTEGER NOT NULL
+);
+
+ALTER TABLE transacoes ADD CONSTRAINT transacoes_pk PRIMARY KEY ( tra_id );
+
+CREATE TABLE fretes (
+    fre_id             SERIAL,
+    fre_codigo         INTEGER,
+    fre_porcentagem    NUMERIC(4,3)
+);
+
+ALTER TABLE fretes ADD CONSTRAINT fretes_pk PRIMARY KEY ( fre_id );
+
 ALTER TABLE cartoes
     ADD CONSTRAINT cartoes_bandeiras_fk FOREIGN KEY ( bandeiras_ban_id )
         REFERENCES bandeiras ( ban_id );
@@ -190,6 +209,18 @@ ALTER TABLE pedidos
     ADD CONSTRAINT pedidos_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
 
+ALTER TABLE pedidos
+    ADD CONSTRAINT pedidos_cupom_fk FOREIGN KEY ( cupons_cup_id )
+        REFERENCES cupons ( cup_id );
+
 ALTER TABLE carrinhos
     ADD CONSTRAINT carrinhos_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
+
+ALTER TABLE transacoes
+    ADD CONSTRAINT transacoes_cartoes_fk FOREIGN KEY ( cartoes_car_id )
+        REFERENCES cartoes ( car_id );
+
+ALTER TABLE transacoes
+    ADD CONSTRAINT transacoes_pedidos_fk FOREIGN KEY ( pedidos_ped_id )
+        REFERENCES pedidos ( ped_id ) ON DELETE CASCADE;

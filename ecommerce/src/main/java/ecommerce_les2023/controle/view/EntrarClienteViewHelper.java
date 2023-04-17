@@ -44,9 +44,8 @@ public class EntrarClienteViewHelper implements IViewHelper {
 				Carrinho carrinho_salvo = (Carrinho) resultado_continuacao.getDados().get(0);
 				carrinho_salvo.setCliente_id(cliente.getId());
 				resultado_continuacao = command.execute(carrinho_salvo);
+				req.getSession().setAttribute("carrinho", resultado_continuacao.getDados().get(0));
 			}
-			
-			req.getSession().setAttribute("carrinho", resultado_continuacao.getDados().get(0));
 			
 			if(req.getParameter("operacao") == "FINALIZAR") {
 				try {
@@ -55,18 +54,24 @@ public class EntrarClienteViewHelper implements IViewHelper {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			} else {
+			} else if(req.getSession().getAttribute("carrinho") != null) {
 				try {
 					resp.sendRedirect("cart.jsp");
 					return;
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}else {
+				try {
+					resp.sendRedirect("index.jsp");
+					return;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}else {
-			
 			try {
-				resp.sendRedirect("account.jsp");
+				resp.sendRedirect("register.jsp");
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

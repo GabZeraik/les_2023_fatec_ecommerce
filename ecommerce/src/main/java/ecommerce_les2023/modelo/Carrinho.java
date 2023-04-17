@@ -11,7 +11,6 @@ public class Carrinho extends EntidadeDominio {
 	private String session_id;
 	private int cliente_id;
 	private List<ItemCarrinho> itens;
-	private String json;
 	
 	public Carrinho() {};
 	
@@ -48,20 +47,6 @@ public class Carrinho extends EntidadeDominio {
 	public String gerarCodigoUnico() {
 		UUID codigo_unico = UUID.randomUUID();
 		return codigo_unico.toString();
-	}
-
-	public String getJson() {
-		return this.json;
-	}
-
-	public void setJson() {
-		this.json = this.objetoToJson();
-	}
-
-	public String objetoToJson() {
-		Gson gson = new Gson();
-		String json = gson.toJson(this);
-		return json;
 	}
 	
 	public void adicionaItens(ItemCarrinho item) {

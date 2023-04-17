@@ -1,5 +1,5 @@
 class LinhaEndereco {
-    constructor(dados_endereco) {
+    constructor(dados_endereco, radioRequired = "") {
         this.id = dados_endereco.id;
         this.frase = dados_endereco.frase;
         this.residencia = dados_endereco.residencia;
@@ -14,6 +14,7 @@ class LinhaEndereco {
         this.observacao = dados_endereco.observacao;
         this.tipo = dados_endereco.tipo;
         this.cliente_id = dados_endereco.cliente_id;
+        this.radioRequired = radioRequired;
     }
 
     criaLinhaEndereco() {
@@ -21,7 +22,7 @@ class LinhaEndereco {
                     <a class="accordion-toggle" data-toggle="collapse" href="#endereco_${this.id}">
                         <h4><span class="text"><strong>${this.frase}</strong></span></h4>
                     </a>
-                    <input style="height: 15px; margin-left: 25px" type="radio" id="endereco_selecionado_${this.id}" name="endereco_selecionado_id" value="${this.id}">
+                    <input style="height: 15px; margin-left: 25px" type="radio" id="endereco_selecionado_${this.id}" name="endereco_selecionado_id" value="${this.id}" ${this.radioRequired} onclick="calculaValorTotalFinal()">
                 </div>
         <div id="endereco_${this.id}" class="accordion-body collapse js-liberar-edicao">
         <form id="formAlterarEndereco_${this.id}" action="AlterarEndereco" method="POST">

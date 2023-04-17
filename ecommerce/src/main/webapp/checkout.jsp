@@ -27,137 +27,48 @@
                                     <c:import url="./static/webparts/section_dados_checkout.jsp" var="cDados" charEncoding="UTF-8" />
                                     <c:out value="${cDados}" escapeXml="false" />
 
-                                    <div class="accordion-group">
-                                        <div class="accordion-heading">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-                                                <h4 class="title"><span class="text"><strong>Finalizar compra</strong></span></h4>
-                                            </a>
-                                        </div>
-                                        <div id="collapseThree" class="accordion-body collapse">
-                                            <div class="accordion-inner">
-                                                <div class="row-fluid">
-                                                    <div class="span6">
-                                                        <h4 class="title"><span class="text"><strong>Resumo</strong> da compra</span></h4>
+                                    <section class="finalizar-compra">
+                                        <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                                                    <h4 class="title"><span class="text"><strong>Finalizar compra</strong></span></h4>
+                                                </a>
+                                            </div>
+                                            <div id="collapseThree" class="accordion-body collapse">
+                                                <div class="accordion-inner">
+                                                    <div class="row-fluid">
+                                                        <div class="span6">
+                                                            <h4 class="title"><span class="text"><strong>Resumo</strong> da compra</span></h4>
 
-                                                        <c:import url="./static/webparts/section_carrinho_detalhes.jsp" var="cCarrinhoDetalhes" charEncoding="UTF-8">
-                                                            <c:param name="cCarrinho" value="false" />
-                                                        </c:import>
-                                                        <c:out value="${cCarrinhoDetalhes}" escapeXml="false" />
+                                                            <c:import url="./static/webparts/section_carrinho_detalhes.jsp" var="cCarrinhoDetalhes" charEncoding="UTF-8">
+                                                                <c:param name="cCarrinho" value="false" />
+                                                            </c:import>
+                                                            <c:out value="${cCarrinhoDetalhes}" escapeXml="false" />
 
-                                                    </div>
-                                                    <div class="span6">
-                                                        <h4 class="title"><span class="text"><strong>Utilizar</strong> cupom</span></h4>
-                                                        <fieldset>
-                                                            <div class="control-group">
-                                                                <label class="checkbox" for="cupom_1">
-                                                                    <input type="checkbox" value="cupom_1" id="cupom_1">R$50,00
-                                                                </label>
-                                                                <label class="checkbox" for="cupom_2">
-                                                                    <input type="checkbox" value="cupom_2" id="cupom_2">R$123,20
-                                                                </label>
-                                                            </div>
-                                                        </fieldset>
-                                                        <fieldset>
-                                                            <h4 class="title"><span class="text"><strong>Forma</strong> de pagamento</span></h4>
-                                                            <label class="control-group card">
-                                                            <input type="checkbox" value="cartao_1" id="cartao_1">
-                                                            <div class="thumbnails small">
-                                                                <img src="https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png" alt="">
-                                                            </div>
-                                                            <div>
-                                                                <span class="text"><strong>**** **** **** 1060</strong></span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="text"><strong>Válido até: </strong>10/26</span>
-                                                                <span class="text"><strong>Nome: </strong>Lorem ipsum</span>
-                                                            </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Valor a ser pago*:</label>
-                                                            <div class="controls">
-                                                                <input type="text" placeholder="R$" id="valor_a_ser_pago_cartao_1" class="input-small" required>
-                                                            </div>
-                                                    </div>
-                                                    </label>
-                                                    <label class="control-group card">
-                                                    <input type="checkbox" value="cartao_2" id="cartao_2">
-                                                    <div class="thumbnails small">
-                                                        <img src="https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png" alt="">
-                                                    </div>
-                                                    <div>
-                                                        <span class="text"><strong>**** **** **** 9989</strong></span>
-                                                    </div>
-                                                    <div>
-                                                        <span class="text"><strong>Válido até: </strong>10/23</span>
-                                                        <span class="text"><strong>Nome: </strong>Lorem ipsum Lorem</span>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Valor a ser pago*:</label>
-                                                    <div class="controls">
-                                                        <input type="text" placeholder="R$" id="valor_a_ser_pago_cartao_2" class="input-small" required>
-                                                    </div>
-                                                </div>
-                                                </label>
-                                                </fieldset>
-                                                <div class="card">
-                                                    <label class="radio" for="cb_cadastrar_novo_cartao">
-                                                    <input type="checkbox" value="cadastrar_novo_card" id="cb_cadastrar_novo_cartao" onchange="radioHandlerCartao(this);">Cadastrar novo cartão
-                                                </label>
-                                                    <div class="hidden" id="div_novo_cartao">
-                                                        <form action="#" method="post" id="form_cadastrar_cartao">
-                                                            <fieldset>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Número do cartão*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" id="cartao_numero" class="input-xlarge" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Bandeira*:</label>
-                                                                    <select class="controls" id="cartao_bandeira" required>
-                                                                    <option value="visa">VISA</option>
-                                                                    <option value="mastercard">MasterCard</option>
-                                                                    <option value="elo">Elo</option>
-                                                                </select>
-                                                                </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Validade*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="MM/AA" id="cartao_validade" class="input-mini" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">CVV*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="CVV" id="cartao_cvv" class="input-mini" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="control-group">
-                                                                    <label class="control-label">Nome no cartão*:</label>
-                                                                    <div class="controls">
-                                                                        <input type="text" placeholder="Digite o nome impresso" id="cartao_nome" class="input-xlarge" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="actions" style="float: right" id="btn_cadastrar_cartao"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Vincular cartão"></div>
-                                                            </fieldset>
-                                                        </form>
-                                                        <div class="control-group">
-                                                            <label class="control-label">Valor a ser pago*:</label>
-                                                            <div class="controls">
-                                                                <input type="text" placeholder="R$" id="valor_a_ser_pago_novo_cartao" class="input-small" required>
-                                                            </div>
                                                         </div>
-                                                        </label>
+                                                        <div class="span6">
+
+                                                            <c:import url="./static/webparts/section_checkout_cupons.jsp" var="cCheckoutCupons" charEncoding="UTF-8" />
+                                                            <c:out value="${cCheckoutCupons}" escapeXml="false" />
+
+
+                                                            <fieldset>
+                                                                <h4 class="title"><span class="text"><strong>Forma</strong> de pagamento</span></h4>
+
+                                                                <c:import url="./static/webparts/section_checkout_cartoes.jsp" var="cCheckoutCartoes" charEncoding="UTF-8" />
+                                                                <c:out value="${cCheckoutCartoes}" escapeXml="false" />
+
+                                                            </fieldset>
+                                                        </div>
                                                     </div>
                                                 </div>
+
+                                                <c:import url="./static/webparts/section_checkout_form_finalizar.jsp" var="cFormFinalizar" charEncoding="UTF-8" />
+                                                <c:out value="${cFormFinalizar}" escapeXml="false" />
+
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="span12" style="margin-top: 25px; display: flex; flex-direction: row; justify-content: space-evenly;">
-                                                <button class="btn" type="button"><a href="index.jsp">Continuar comprando</a></button>
-                                                <button class="btn btn-inverse right" type="submit" id="checkout"><a href="CheckoutCarrinho?operacao=FINALIZAR&logado=${usuario_logado.id}">Finalizar Compra</a></button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </section>
                                 </div>
                             </div>
                         </section>
@@ -174,20 +85,89 @@
                     const btnContinuar = document.querySelector('#btn_continuar');
                     const formCartao = document.querySelector('#div_novo_cartao');
 
-                    let radioHandlerEndereco = (myRadio) => {
+                    const radioHandlerEndereco = (myRadio) => {
                         formEntrega.classList.toggle('hidden', myRadio.value.includes("endereco"));
                         btnContinuar.classList.toggle('hidden', !myRadio.value.includes("endereco"));
                     }
 
-                    let radioHandlerCartao = (myRadio) => {
+                    const radioHandlerCartao = (myRadio) => {
                         formCartao.classList.toggle('hidden');
+                    }
+
+                    const calculaValorTotalFinal = (valorCupomChecked) => {
+                        //VALOR FINAL
+                        let valorFinalCarrinho = 0;
+                        let valorFinalCalculoPedido = 0;
+                        let valorFrete = 0;
+                        let valorCupom = 0;
+
+                        //CARRINHO
+                        valorFinalCarrinho = Number(span_sub_total.textContent.split("R$")[1].replace(',', '.'));
+                        valorFinalCalculoPedido = valorFinalCarrinho;
+
+                        //FRETE
+                        try {
+                            let endereco_selecionado_id = [...document.querySelectorAll('input[name="endereco_selecionado_id"')].filter(el => el.checked)[0].value;
+                            let cep_selecionado = document.querySelector('#formAlterarEndereco_' + CSS.escape(endereco_selecionado_id) + ' input[name="endereco_entrega_cep_cliente"]').value;
+                            let porcentagem_frete = fretes.filter(frete => String(frete.codigo).padStart(3, 0) === cep_selecionado.slice(0, 3))[0].porcentagem;
+                            valorFrete = valorFinalCarrinho * Number(porcentagem_frete);
+                            valorFinalCalculoPedido += valorFrete;
+                            valorFrete = "R$ " + valorFrete.toFixed(2);
+                        } catch (error) {
+                            valorFrete = "";
+                        }
+
+                        //CUPOM
+                        if (valorCupomChecked) {
+                            valorCupom = Number(valorCupomChecked);
+                            valorFinalCalculoPedido = valorFinalCalculoPedido - valorCupom;
+                            valorCupom = "-R$ " + valorCupom.toFixed(2);
+                        } else {
+                            valorCupom = "";
+                        }
+
+                        span_frete.textContent = valorFrete.replace('.', ',');
+                        span_cupom.textContent = valorCupom.replace('.', ',');
+                        span_total_final.textContent = "R$" + valorFinalCalculoPedido.toFixed(2).replace('.', ',');
+                        input_valor_total_pedido_final.value = Number(valorFinalCalculoPedido.toFixed(2));
+                    }
+
+                    let checkboxCuponsHandler = (checkbox) => {
+                        //SELECIONA O PRÓPRIO E DESSELECIONA OS OUTROS
+                        inputs_cupons_disponiveis.forEach(el => el.addEventListener("click", ev => {
+                            inputs_cupons_disponiveis.forEach(input => {
+                                if (input !== el) input.checked = false;
+                            })
+                        }))
+
+                        if (checkbox.checked) {
+                            calculaValorTotalFinal(checkbox.value);
+                            input_cupom_selecionado_form.value = Number(checkbox.id.split('_')[1]);
+                        } else {
+                            calculaValorTotalFinal();
+                            input_cupom_selecionado_form.value = 0;
+                        }
                     }
 
                     const formAlteracao = document.querySelector('#editar_cadastro_cliente');
                     const formStatus = document.querySelector('#editar_status_cliente');
-                    const json_resultado = JSON.parse('${usuario_logado.json}');
                     const container_enderecos_entrega = document.querySelector('.js-container-enderecos-entrega');
                     const cliente_id_inputs = document.querySelectorAll('input[name*="cliente_id"]');
+                    const input_quantidade_cartoes_selecionados = document.querySelector('#input_quantidade_cartoes_selecionados');
+                    const json_resultado = JSON.parse('${usuario_logado.json}');
+                    const carrinho = JSON.parse('${carrinho.json}');
+                    const fretes = JSON.parse('${fretes}');
+
+                    const span_sub_total = document.querySelector('#span_resumo_sub_total');
+                    const span_frete = document.querySelector('#span_resumo_frete');
+                    const span_cupom = document.querySelector('#span_resumo_cupom');
+                    const span_total_final = document.querySelector('#span_resumo_total_final');
+
+                    const form_finalizar = document.querySelector('#formFinalizarCompra');
+                    const inputs_cupons_disponiveis = document.querySelectorAll('section.cupons_disponiveis input[type="checkbox"]');
+                    const input_cupom_selecionado_form = document.querySelector('#cupom_selecionado');
+                    const input_valor_total_pedido_final = document.querySelector('#valor_total_pedido_final');
+
 
                     const liberarEdicaoAccordion = (button) => {
                         let inputs = button.closest('.js-liberar-edicao').querySelectorAll('input, select, textarea');
@@ -201,8 +181,7 @@
                     const preencheEnderecos = (dados_cliente) => {
                         container_enderecos_entrega.innerHTML = '';
                         dados_cliente.endereco.forEach(end => {
-                            console.log(end);
-                            let linha_endereco = new LinhaEndereco(end).criaLinhaEndereco();
+                            let linha_endereco = new LinhaEndereco(end, "required").criaLinhaEndereco();
                             if (end.tipo == "ENTREGA") {
                                 container_enderecos_entrega.insertAdjacentHTML('beforeend', linha_endereco);
                             }
@@ -215,6 +194,44 @@
                     }
 
                     preencheEnderecos(json_resultado);
+
+                    const selecionaCartao = (checkboxCartao) => {
+                        checkboxCartao.href = '#';
+                        checkboxCartao.firstElementChild.checked = !checkboxCartao.firstElementChild.checked;
+                        checkboxCartao.classList.toggle('selected');
+                        checkboxCartao.nextElementSibling.classList.toggle('hidden', checkboxCartao.selected);
+
+                        let id = checkboxCartao.firstElementChild.id.split('_')[1];
+
+                        if (checkboxCartao.firstElementChild.checked) {
+                            form_finalizar.appendChild(checkboxCartao.firstElementChild.cloneNode(true));
+                            let input_valor_cartao = document.querySelector('#valor_a_ser_pago_' + CSS.escape(id)).cloneNode(true);
+                            input_valor_cartao.type = "hidden";
+                            form_finalizar.appendChild(input_valor_cartao);
+                        } else {
+                            try {
+                                let input_cartao_selecionado = document.querySelector('#formFinalizarCompra #cartao_' + CSS.escape(id));
+                                let input_valor_cartao = document.querySelector('#formFinalizarCompra #valor_a_ser_pago_' + CSS.escape(id));
+                                input_cartao_selecionado.remove();
+                                input_valor_cartao.remove();
+                            } catch (error) {
+
+                            };
+                        }
+                    }
+
+                    const submitFormulario = (botaoSubmit) => {
+                        let inputs_cartoes = [...document.querySelectorAll('section.cartoes_disponiveis input')];
+                        inputs_cartoes = inputs_cartoes.filter((el, index) =>
+                            (el.id.includes('cartao') && el.checked) || (!el.id.includes('cartao') && !el.parentElement.parentElement.classList.contains("hidden"))
+                        );
+
+                        inputs_cartoes.forEach(el => {
+                            document.querySelector('#formFinalizarCompra #' + CSS.escape(el.id)).value = el.value;
+                        });
+
+                        document.querySelector('#formFinalizarCompra').submit();
+                    }
                 </script>
 
                 </html>
