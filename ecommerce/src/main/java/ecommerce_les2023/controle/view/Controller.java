@@ -60,6 +60,8 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/CheckoutCarrinho", new CheckoutCarrinhoViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/FinalizarCompra", new FinalizarCompraViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/LimparCarrinho", new LimparCarrinhoViewHelper());
 	}
 	
 	@Override
@@ -142,6 +144,13 @@ public class Controller extends HttpServlet{
 		
 		//FINALIZAR COMPRA
 		if(operacaoForm.equals("FINALIZAR")) {
+			viewHelperRequisitada.obterEntidade(req);
+			viewHelperRequisitada.setView(null, req, resp);
+			return;
+		}
+		
+		//INVALIDAR CARRINHO
+		if(operacaoForm.equals("INVALIDAR")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
 			return;

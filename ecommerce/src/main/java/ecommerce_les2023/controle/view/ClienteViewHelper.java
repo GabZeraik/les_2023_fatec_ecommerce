@@ -111,6 +111,7 @@ public class ClienteViewHelper implements IViewHelper {
 			
 		} else {
 			req.getSession().removeAttribute("clientes");
+			resultado.setJson();
 			req.getSession().setAttribute("clientes", resultado);
 			//Encaminha à página clientes
 			try {

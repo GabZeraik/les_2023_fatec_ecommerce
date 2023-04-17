@@ -2,6 +2,7 @@ package ecommerce_les2023.controle.view;
 
 import java.io.IOException;
 
+import ecommerce_les2023.controle.AlterarCommand;
 import ecommerce_les2023.controle.ConsultarCommand;
 import ecommerce_les2023.controle.ICommand;
 import ecommerce_les2023.controle.SalvarCommand;
@@ -9,6 +10,7 @@ import ecommerce_les2023.modelo.Carrinho;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.ItemCarrinho;
+import ecommerce_les2023.modelo.Produto;
 import ecommerce_les2023.utils.Resultado;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -47,6 +49,15 @@ public class ItemCarrinhoViewHelper implements IViewHelper {
 		if(req.getParameter("item_id") != null){
 			item.setId(Integer.parseInt(item_id));
 		}
+		
+		//DAR BAIXA NO ESTOQUE MÃO DO PRODUTO
+		ICommand command = new ConsultarCommand();
+		Produto produto_baixa_estoque = new Produto();
+		produto_baixa_estoque.setId(Integer.parseInt(item_produto_pro_id));
+		Produto produto_final = (Produto) command.execute(produto_baixa_estoque).getDados().get(0);
+		command = new AlterarCommand();
+		produto_final.setEstoque_mao(produto_final.getEstoque_mao() - Integer.parseInt(item_quantidade));
+		command.execute(produto_final);
 		
 		return item;
 	}

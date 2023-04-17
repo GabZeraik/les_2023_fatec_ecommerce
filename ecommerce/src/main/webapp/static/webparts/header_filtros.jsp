@@ -5,6 +5,31 @@
 
                 <!--HEADER FILTROS-->
                 <section id="header-bar">
+                    <form action="LimparCarrinho" method="POST" id="formInvalidarSessao">
+                        <input type="hidden" name="operacao" value="INVALIDAR">
+                        <input type="hidden" name="carrinho_id" value="${carrinho_id}">
+                    </form>
+                    <c:if test="${carrinho.id > 0 || carrinho != null}">
+                        <script>
+                            let hora_expira = new Date().toLocaleDateString("pt-BR").split('/');
+                            let hora_split = String('${carrinho.expira_em}').split('.')[0].split(':');
+                            hora_expira = new Date(hora_expira[2], String(Number(hora_expira[1]) - 1), hora_expira[0], hora_split[0], hora_split[1], hora_split[2]);
+
+
+                            let contador = () => {
+                                let hora_agora = new Date().toLocaleString("pt-BR").split(', ');
+                                let data_agora_split = hora_agora[0].split('/');
+                                let hora_agora_split = hora_agora[1].split(':');
+                                hora_agora = new Date(data_agora_split[2], Number(data_agora_split[1]) - 1, data_agora_split[0], hora_agora_split[0], hora_agora_split[1], hora_agora_split[2]);
+
+                                if (hora_agora > hora_expira) {
+                                    document.querySelector('#formInvalidarSessao').submit();
+                                    clearInterval(contador);
+                                }
+                            }
+                            setInterval(contador, 30000);
+                        </script>
+                    </c:if>
                     <div id="top-bar" class="container">
                         <div class="row">
                             <div class="span4">
@@ -16,6 +41,7 @@
                             <div class="span8">
                                 <div class="account pull-right">
                                     <ul class="user-menu">
+                                        <c:if test="${carrinho.id > 0 || carrinho != null}"><span>Seu carrinho expira às: <strong>${carrinho.expira_em}</strong></span></c:if>
                                         <li><a href="cart.jsp">Carrinho</a></li>
                                         <c:choose>
                                             <c:when test="${empty usuario_logado}">
@@ -24,6 +50,7 @@
                                             <c:otherwise>
                                                 <div class="span3">
                                                     <span style="font-weight: bold;">Bem vindo ${usuario_logado.nome}</span>
+                                                    <br>
                                                 </div>
                                                 <li><a href="account.jsp">Minha conta</a></li>
                                                 <li>

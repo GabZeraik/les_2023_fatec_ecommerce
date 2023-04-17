@@ -122,6 +122,7 @@ CREATE TABLE produtos (
     pro_grupo_preco   VARCHAR(10),
     pro_preco_atual   NUMERIC(10,2),
     pro_codigo_barras VARCHAR(50),
+    pro_estoque_mao   INTEGER,
     pro_justificativa VARCHAR(250)
 );
 
@@ -141,6 +142,8 @@ CREATE TABLE carrinhos (
 );
 
 ALTER TABLE carrinhos ADD CONSTRAINT carrinhos_pk PRIMARY KEY ( shop_id );
+ALTER TABLE carrinhos
+    ADD COLUMN shop_expira_em time with time zone NOT NULL DEFAULT (now() - '00:10:00'::interval);
 
 CREATE TABLE itens_carrinhos (
     item_id             SERIAL,

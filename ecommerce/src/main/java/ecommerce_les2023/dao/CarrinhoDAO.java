@@ -81,14 +81,45 @@ public class CarrinhoDAO extends AbstractDAO {
 			sb.append("UPDATE ");
 			sb.append(this.tabela);
 			
-			sb.append(" SET shop_session_id = ?, clientes_cli_id = ?");
-			sb.append(" WHERE ");
-			sb.append(this.idTabela + " = ?;");
-			comandoSQL = this.conexao.prepareStatement(sb.toString());
-			comandoSQL.setString(1, carrinho.getSession_id());
-			comandoSQL.setInt(2, carrinho.getCliente_id());
-			comandoSQL.setInt(3, carrinho.getId());
-				
+			if(carrinho.getCliente_id() > 0) {
+				if(carrinho.getExpira_em() != null) {
+					sb.append(" SET shop_session_id = ?, clientes_cli_id = ?, shop_expira_em = ?");
+					sb.append(" WHERE ");
+					sb.append(this.idTabela + " = ?;");
+					comandoSQL = this.conexao.prepareStatement(sb.toString());
+					comandoSQL.setString(1, carrinho.getSession_id());
+					comandoSQL.setInt(2, carrinho.getCliente_id());
+					comandoSQL.setInt(3, carrinho.getId());
+					comandoSQL.setString(4, carrinho.getExpira_em());
+				}else {
+					sb.append(" SET shop_session_id = ?, clientes_cli_id = ?");
+					sb.append(" WHERE ");
+					sb.append(this.idTabela + " = ?;");
+					comandoSQL = this.conexao.prepareStatement(sb.toString());
+					comandoSQL.setString(1, carrinho.getSession_id());
+					comandoSQL.setInt(2, carrinho.getCliente_id());
+					comandoSQL.setInt(3, carrinho.getId());
+				}
+			}else {
+				if(carrinho.getExpira_em() != null) {
+					sb.append(" SET shop_session_id = ?, shop_expira_em = ?");
+					sb.append(" WHERE ");
+					sb.append(this.idTabela + " = ?;");
+					comandoSQL = this.conexao.prepareStatement(sb.toString());
+					comandoSQL.setString(1, carrinho.getSession_id());
+					comandoSQL.setInt(2, carrinho.getCliente_id());
+					comandoSQL.setInt(3, carrinho.getId());
+					comandoSQL.setString(4, carrinho.getExpira_em());
+				}else {
+					sb.append(" SET shop_session_id = ?");
+					sb.append(" WHERE ");
+					sb.append(this.idTabela + " = ?;");
+					comandoSQL = this.conexao.prepareStatement(sb.toString());
+					comandoSQL.setString(1, carrinho.getSession_id());
+					comandoSQL.setInt(2, carrinho.getId());
+				}
+			}
+			
 			comandoSQL.executeUpdate();
 			
 			conexao.commit();			
@@ -148,6 +179,7 @@ public class CarrinhoDAO extends AbstractDAO {
 			while (rs.next()) {
 				Carrinho car = new Carrinho(rs.getString("shop_session_id"), rs.getInt("clientes_cli_id"));
 				car.setId(rs.getInt("shop_id"));
+				car.setExpira_em(rs.getString("shop_expira_em"));
 				adicionaItensResultSet(car);
 				car.setJson();
 				carrinhos.add(car);

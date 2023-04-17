@@ -15,6 +15,7 @@ public class Produto extends EntidadeDominio {
 	private float preco_atual;
 	private String codigo_barras;
 	private String justificativa;
+	private int estoque_mao;
 	private List<Categoria> categoria;
 	
 	public Produto() {};
@@ -124,4 +125,13 @@ public class Produto extends EntidadeDominio {
 		}
 		this.categoria.add(categoria);
 	}
+
+	public int getEstoque_mao() {
+		return estoque_mao;
+	}
+
+	public void setEstoque_mao(int estoque_mao) {
+		this.estoque_mao = estoque_mao;
+	}
+
 }

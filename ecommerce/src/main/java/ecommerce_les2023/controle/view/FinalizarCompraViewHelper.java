@@ -83,7 +83,7 @@ public class FinalizarCompraViewHelper implements IViewHelper {
 		command = new ConsultarCommand();
 		Resultado resultado_usuario_logado = command.execute(cli);
 		cli = (Cliente) resultado_usuario_logado.getDados().get(0);
-		cli.setJson();
+		cli.setJson();	
 		
 		req.getSession().setAttribute("resultado", resultado_pedido);
 		req.getSession().setAttribute("carrinho", resultado_carrinho.getDados().get(0));

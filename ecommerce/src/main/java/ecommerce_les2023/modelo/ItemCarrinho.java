@@ -15,6 +15,10 @@ public class ItemCarrinho extends EntidadeDominio{
 		this.carrinho_id = carrinho_id;
 	}
 	
+	public ItemCarrinho() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getNome() {
 		return nome;
 	}

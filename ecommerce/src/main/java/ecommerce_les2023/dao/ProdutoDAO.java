@@ -9,6 +9,7 @@ import java.util.List;
 import ecommerce_les2023.modelo.Categoria;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Produto;
+import ecommerce_les2023.utils.Log;
 
 public class ProdutoDAO extends AbstractDAO {
 	
@@ -23,7 +24,45 @@ public class ProdutoDAO extends AbstractDAO {
 
 	@Override
 	public void alterar(EntidadeDominio entidade) {
-		return;
+		openConnection();
+		PreparedStatement comandoSQL = null;
+		Produto produto = (Produto) entidade;
+				
+		try {
+			this.conexao.setAutoCommit(false);
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE ");
+			sb.append(this.tabela);
+			sb.append(" SET pro_estoque_mao = ?");
+			sb.append(" WHERE pro_id = ?");
+			
+			comandoSQL = this.conexao.prepareStatement(sb.toString());
+			comandoSQL.setInt(1, produto.getEstoque_mao());
+			comandoSQL.setInt(2, produto.getId());
+						
+			comandoSQL.executeUpdate();
+			
+			conexao.commit();
+			
+			System.out.println(new Log().gerarLog(produto, "Alteração"));
+			
+		} catch (SQLException e) {
+			try {
+				conexao.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			try {
+				comandoSQL.close();
+				conexao.close();
+				System.out.println("CONEXÃO FINALIZADA!");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -56,6 +95,7 @@ public class ProdutoDAO extends AbstractDAO {
 			while (rs.next()) {
 				Produto produto = new Produto(rs.getString("pro_codigo"), rs.getString("pro_nome"), rs.getString("pro_tamanho"), rs.getString("pro_cor"), rs.getString("pro_genero"), rs.getString("pro_grupo_preco"), rs.getFloat("pro_preco_atual"), rs.getString("pro_codigo_barras"), rs.getString("pro_justificativa"));
 				produto.setId(rs.getInt("pro_id"));
+				produto.setEstoque_mao(rs.getInt("pro_estoque_mao"));
 				adicionaCategoriasResultSet(produto);
 				produtos.add(produto);
 			}

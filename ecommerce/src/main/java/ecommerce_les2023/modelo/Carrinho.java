@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.google.gson.Gson;
-
 public class Carrinho extends EntidadeDominio {
 	
 	private String session_id;
 	private int cliente_id;
 	private List<ItemCarrinho> itens;
+	private String expira_em;
 	
 	public Carrinho() {};
 	
@@ -54,5 +53,13 @@ public class Carrinho extends EntidadeDominio {
 			this.itens = new ArrayList<ItemCarrinho>();
 		}
 		this.itens.add(item);
+	}
+
+	public String getExpira_em() {
+		return expira_em;
+	}
+
+	public void setExpira_em(String expira_em) {
+		this.expira_em = expira_em;
 	}
 }
