@@ -132,4 +132,14 @@
     <url-pattern>/LimparCarrinho</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/ConsultarPedido</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/AlterarSituacaoPedido</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

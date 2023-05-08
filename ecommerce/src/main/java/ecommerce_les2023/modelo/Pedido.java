@@ -38,6 +38,13 @@ public class Pedido extends EntidadeDominio {
 		this.data_pedido = data_pedido;
 	}
 	
+	public Pedido(String codigo, String situacao, int cliente_id) {
+		this.codigo = codigo;
+		this.situacao = situacao;
+		this.cliente_id = cliente_id;
+		
+	}
+	
 	public Pedido(String codigo) {
 		this.codigo = codigo;
 	}

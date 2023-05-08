@@ -62,6 +62,9 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/FinalizarCompra", new FinalizarCompraViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/LimparCarrinho", new LimparCarrinhoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/ConsultarPedido", new PedidoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/AlterarSituacaoPedido", new PedidoViewHelper());
 	}
 	
 	@Override

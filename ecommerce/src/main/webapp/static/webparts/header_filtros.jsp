@@ -10,7 +10,11 @@
                         <input type="hidden" name="carrinho_id" value="${carrinho_id}">
                     </form>
                     <c:if test="${carrinho.id > 0 || carrinho != null}">
-                        <script>
+                        <!-- <script>
+
+                            FAZER NO BACKEND!!!!!
+
+
                             let hora_expira = new Date().toLocaleDateString("pt-BR").split('/');
                             let hora_split = String('${carrinho.expira_em}').split('.')[0].split(':');
                             hora_expira = new Date(hora_expira[2], String(Number(hora_expira[1]) - 1), hora_expira[0], hora_split[0], hora_split[1], hora_split[2]);
@@ -28,7 +32,7 @@
                                 }
                             }
                             setInterval(contador, 30000);
-                        </script>
+                        </script> -->
                     </c:if>
                     <div id="top-bar" class="container">
                         <div class="row">

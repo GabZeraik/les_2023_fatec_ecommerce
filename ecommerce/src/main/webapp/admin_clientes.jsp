@@ -55,10 +55,10 @@
                                         </thead>
                                         <tbody>
                                             <c:choose>
-                                                <c:when test="${clientes != null && clientes.operacao == 'CONSULTAR'}">
+                                                <c:when test="${resultado != null && resultado.operacao == 'CONSULTAR'}">
                                                     <c:choose>
-                                                        <c:when test="${clientes.dados.size() > 0}">
-                                                            <c:forEach items="${clientes.dados}" var="item">
+                                                        <c:when test="${resultado.dados.size() > 0}">
+                                                            <c:forEach items="${resultado.dados}" var="item">
                                                                 <tr>
                                                                     <td>${item.situacao}</td>
                                                                     <td>${item.usuario}</td>
@@ -125,10 +125,29 @@
                         <section class="hidden" id="editar_cadastro_cliente">
                             <div class="row">
                                 <div class="span12">
-
-                                    <c:import url="./static/webparts/section_pedidos.jsp" var="cSectionPedidos" charEncoding="UTF-8" />
-                                    <c:out value="${cSectionPedidos}" escapeXml="false" />
-
+                                    <section id="pedidos_cliente">
+                                        <h4 class="title"><span class="text"><strong>Pedidos</strong> Cliente</span></h4>
+                                        <div class="js-container-pedidos-cliente js-liberar-edicao">
+                                            <form action="AlterarSituacaoPedido" id="formAlterarSituacaoPedido" method="POST">
+                                                <input type="hidden" name="pedido_id" id="formAlterarSituacaoPedido_pedido_id">
+                                                <input type="hidden" name="situacao_pedido" id="formAlterarSituacaoPedido_pedido_situacao">
+                                            </form>
+                                            <table class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cód. Pedido</th>
+                                                        <th>Cód. Cliente</th>
+                                                        <th>Data Pedido</th>
+                                                        <th>Valor Final</th>
+                                                        <th>Última atualização</th>
+                                                        <th>Situação</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </section>
                                     <section class="cadastro_cliente js-liberar-edicao">
                                         <form id="formAlterarCadastroParcial" action="AlterarClienteParcial" method="POST">
                                             <input type="hidden" id="formAlterarCadastroParcial_id" name="id_cliente" class="input-xlarge">
@@ -420,27 +439,21 @@
                                     <br>
                                     <section class="cupons_cliente">
                                         <h4 class="title"><span class="text"><strong>Cupons</strong> Cadastrados</span></h4>
-                                        <table class="table table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Cód. Cupom</th>
-                                                    <th>Valor</th>
-                                                    <th>Tipo</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>123456</td>
-                                                    <td>R$350,00</td>
-                                                    <td>Troca</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>124588</td>
-                                                    <td>R$350,00</td>
-                                                    <td>Promocional</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="js-container-cupons-cliente">
+                                            <table class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cód. Cupom</th>
+                                                        <th>Valor</th>
+                                                        <th>Tipo</th>
+                                                        <th>Válido</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </section>
                                     <section class="hidden" id="editar_status_cliente">
                                         <div class="row">
@@ -481,52 +494,21 @@
                                 </div>
                             </div>
                         </section>
-                        <section id="footer-bar">
-                            <div class="row">
-                                <div class="span3">
-                                    <h4>Navegação</h4>
-                                    <ul class="nav">
-                                        <li><a href="./index.jsp">HOME</a></li>
-                                        <li><a href="./about.jsp">Sobre</a></li>
-                                        <li><a href="./contact.jsp">Contato</a></li>
-                                        <li><a href="./cart.jsp">Carrinho</a></li>
-                                        <li><a href="./login.jsp">Entrar</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span4">
-                                    <h4>Minha conta</h4>
-                                    <ul class="nav">
-                                        <li><a href="#">Minha conta</a></li>
-                                        <li><a href="#">Histórico de pedidos</a></li>
-                                        <li><a href="#">Lista de desejos</a></li>
-                                        <li><a href="#">Newsletter</a></li>
-                                    </ul>
-                                </div>
-                                <div class="span5">
-                                    <p class="logo"><img src="static/themes/images/logo_horizontal.png" class="site_logo" alt=""></p>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
-                                    <br/>
-                                    <span class="social_icons">
-                                    <a class="facebook" href="#">Facebook</a>
-                                    <a class="twitter" href="#">Twitter</a>
-                                    <a class="skype" href="#">Skype</a>
-                                    <a class="vimeo" href="#">Vimeo</a>
-						        </span>
-                                </div>
-                            </div>
-                        </section>
-                        <section id="copyright">
-                            <span>Copyright 2013 bootstrappage template  All right reserved.</span>
-                        </section>
+
+                        <c:import url="./static/webparts/footer.jsp" var="cFooter" charEncoding="UTF-8" />
+                        <c:out value="${cFooter}" escapeXml="false" />
+
                     </div>
                     <script src="static/js/crud_cliente.js"></script>
                     <script type="text/javascript">
                         const formAlteracao = document.querySelector('#editar_cadastro_cliente');
                         const formStatus = document.querySelector('#editar_status_cliente');
-                        const json_resultado = JSON.parse('${clientes}');
+                        const json_clientes = JSON.parse('${clientes}');
                         const container_enderecos_entrega = document.querySelector('.js-container-enderecos-entrega');
                         const container_enderecos_cobranca = document.querySelector('.js-container-enderecos-cobranca');
-                        const container_pedidos_cliente = document.querySelector('.js-container-pedidos-cliente');
+                        const container_pedidos_cliente = document.querySelector('.js-container-pedidos-cliente table tbody');
+                        const container_cupons_cliente = document.querySelector('.js-container-cupons-cliente table tbody');
+                        const formAlterarSituacaoPedido = document.querySelector('#formAlterarSituacaoPedido');
                         const cliente_id_inputs = document.querySelectorAll('input[name*="cliente_id"]');
 
                         const liberarEdicaoAccordion = (button) => {
@@ -538,12 +520,27 @@
                             });
                         }
 
+                        const liberarEdicaoStatusPedido = (button) => {
+                            let inputs = button.closest('.js-liberar-edicao').querySelectorAll('input, select, textarea');
+                            inputs.forEach(input => {
+                                if (input.type == "submit")
+                                    input.classList.toggle('hidden')
+                                else if (input.tagName == "SELECT")
+                                    input.toggleAttribute('disabled');
+                                else input.toggleAttribute('readonly');
+                            });
+                        }
+
+                        const alteraFormSituacaoPedido = (select) => {
+                            formAlterarSituacaoPedido.firstElementChild.setAttribute('value', select.id.split('_')[1]);
+                            formAlterarSituacaoPedido.lastElementChild.setAttribute('value', select.value);
+                        }
+
                         const preencheEnderecos = (dados_cliente) => {
                             container_enderecos_entrega.innerHTML = '';
                             container_enderecos_cobranca.innerHTML = '';
 
                             dados_cliente.endereco.forEach(end => {
-                                console.log(end);
                                 let linha_endereco = new LinhaEndereco(end).criaLinhaEndereco();
                                 if (end.tipo == "ENTREGA") {
                                     container_enderecos_entrega.insertAdjacentHTML('beforeend', linha_endereco);
@@ -555,10 +552,21 @@
                             container_pedidos_cliente.innerHTML = '';
 
                             dados_cliente.pedido.forEach(ped => {
-                                let linha_endereco = new LinhaEndereco(end).criaLinhaEndereco();
-                                if (end.tipo == "ENTREGA") {
-                                    container_enderecos_entrega.insertAdjacentHTML('beforeend', linha_endereco);
-                                } else container_enderecos_cobranca.insertAdjacentHTML('beforeend', linha_endereco);
+                                let linha_pedido = new LinhaPedido(ped).criaLinhaPedido();
+                                container_pedidos_cliente.insertAdjacentHTML('beforeend', linha_pedido);
+                            })
+
+                            document.querySelectorAll('select[name="situacao_pedido"]').forEach((sel, index) => {
+                                sel.value = sel.getAttribute('value');
+                            });
+                        }
+
+                        const preencheCupons = (dados_cliente) => {
+                            container_cupons_cliente.innerHTML = '';
+
+                            dados_cliente.cupom.forEach(cup => {
+                                let linha_cupom = new LinhaCupom(cup).criaLinhaCupom();
+                                container_cupons_cliente.insertAdjacentHTML('beforeend', linha_cupom);
                             })
                         }
 
@@ -566,13 +574,15 @@
                             formStatus.classList.toggle('hidden', true);
                             formAlteracao.classList.toggle('hidden', false);
 
-                            let dados_cliente = json_resultado.dados.filter((value) =>
+                            let dados_cliente = json_clientes.filter((value) =>
                                 value.id == cli_id
                             )[0];
 
                             cliente_id_inputs.forEach(input => input.value = cli_id);
 
                             preencheEnderecos(dados_cliente);
+                            preenchePedidos(dados_cliente);
+                            preencheCupons(dados_cliente);
                             buttonHandler(botao);
                         }
 

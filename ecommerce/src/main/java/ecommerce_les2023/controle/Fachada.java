@@ -117,7 +117,7 @@ public class Fachada implements IFachada {
 			resultado.setSucesso(false);
 			resultado.setMensagem(retornoStrategies);
 		}
-		resultado.objetoToJson();
+		resultado.setJson();
 		return resultado;	
 	}
 
@@ -132,7 +132,7 @@ public class Fachada implements IFachada {
 		resultado.setDados(lista);
 		resultado.setMensagem("Cadastro excluído com sucesso!");
 		resultado.setSucesso(true);
-		resultado.objetoToJson();
+		resultado.setJson();
 		return resultado;	
 	}
 
@@ -154,7 +154,7 @@ public class Fachada implements IFachada {
 			resultado.setSucesso(false);
 			resultado.setMensagem(retornoStrategies);
 		}
-		resultado.objetoToJson();
+		resultado.setJson();
 		return resultado;	
 	}
 
@@ -172,7 +172,7 @@ public class Fachada implements IFachada {
 		
 		
 		Resultado resultado = new Resultado("Consulta realizada com sucesso", true, "CONSULTAR", entidade.getClass().getName(), lista, bandeiras, fretes);  
-		resultado.objetoToJson();
+		resultado.setJson();
 		return resultado;
 	}
 	

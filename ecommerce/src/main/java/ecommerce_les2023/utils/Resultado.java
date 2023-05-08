@@ -15,8 +15,8 @@ public class Resultado {
 	private List<EntidadeDominio> bandeiras;
 	private List<EntidadeDominio> fretes;
 	private String json;
-	
-	
+	private String json_dados;
+
 	public Resultado(String mensagem, boolean sucesso, String operacao, String nomeEntidade, List<EntidadeDominio> dados, List<EntidadeDominio> bandeiras, List<EntidadeDominio> fretes){
 		this.mensagem = mensagem;
 		this.sucesso = sucesso;
@@ -26,6 +26,7 @@ public class Resultado {
 		this.bandeiras = bandeiras;
 		this.fretes = fretes;
 		this.setJson();
+		this.setJson_dados();
 	}
 	
 	public Resultado() {
@@ -102,5 +103,19 @@ public class Resultado {
 	@Override
 	public String toString() {
 		return this.json;
+	}
+	
+	public String getJson_dados() {
+		return json_dados;
+	}
+
+	public void setJson_dados() {
+		this.json_dados = "[";
+		for(int i = 0; i < this.dados.size(); i++){
+			if(i != this.dados.size() - 1) {
+				this.json_dados += this.dados.get(i).objetoToJson() + ',';
+			}else this.json_dados += this.dados.get(i).objetoToJson();
+		}
+		this.json_dados += "]";
 	}
 }

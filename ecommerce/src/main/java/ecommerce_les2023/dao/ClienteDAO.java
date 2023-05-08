@@ -289,9 +289,7 @@ public class ClienteDAO extends AbstractDAO {
 		cli.setSituacao(rs.getString("cli_situacao"));
 		cli.setTelefone(new Telefone(rs.getString("cli_ddd_telefone"), rs.getString("cli_numero_telefone"), rs.getString("cli_tipo_telefone")));
 		cli.setJustificativa(rs.getString("cli_justificativa"));
-		System.out.println("CRIA CLIENTE RESULT SET:");
-		cli.setJson();
-		System.out.println(cli.getJson());
+		
 		return cli;
 	}
 	

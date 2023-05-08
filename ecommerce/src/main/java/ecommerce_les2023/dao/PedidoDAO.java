@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.ItemPedido;
 import ecommerce_les2023.modelo.Pedido;
@@ -82,7 +81,7 @@ public class PedidoDAO extends AbstractDAO {
 	public void alterar(EntidadeDominio entidade) {
 		openConnection();
 		PreparedStatement comandoSQL = null;
-		Cliente cliente = (Cliente) entidade;
+		Pedido pedido = (Pedido) entidade;
 		
 		try {
 			this.conexao.setAutoCommit(false);
@@ -91,39 +90,19 @@ public class PedidoDAO extends AbstractDAO {
 			sb.append("UPDATE ");
 			sb.append(this.tabela);
 			
-			if(cliente.getEndereco() == null) {
-				if(cliente.getSituacao() == null) {
-					sb.append(" SET cli_usuario = ?, cli_senha = ?, cli_nome_completo = ?, cli_genero = ?, cli_data_nascimento = ?, cli_cpf = ?, cli_email = ?, cli_ddd_telefone = ?, cli_numero_telefone = ?, cli_tipo_telefone = ?");
-					sb.append(" WHERE ");
-					sb.append(this.idTabela + " = ?;");
-					comandoSQL = this.conexao.prepareStatement(sb.toString());
-					comandoSQL.setString(1, cliente.getUsuario());
-					comandoSQL.setString(2, cliente.getSenha());
-					comandoSQL.setString(3, cliente.getNome());
-					comandoSQL.setString(4, cliente.getGenero());
-					comandoSQL.setString(5, cliente.getDta_nascimento());
-					comandoSQL.setString(6, cliente.getCpf());
-					comandoSQL.setString(7, cliente.getEmail());
-					comandoSQL.setString(8, cliente.getTelefone().getDdd());
-					comandoSQL.setString(9, cliente.getTelefone().getNumero());
-					comandoSQL.setString(10, cliente.getTelefone().getTipo());
-					comandoSQL.setInt(11, cliente.getId());
-				}else{
-					sb.append(" SET cli_situacao = ?, cli_justificativa = ?");
-					sb.append(" WHERE ");
-					sb.append(this.idTabela + " = ?;");
-					comandoSQL = this.conexao.prepareStatement(sb.toString());
-					comandoSQL.setString(1, cliente.getSituacao());
-					comandoSQL.setString(2, cliente.getJustificativa());
-					comandoSQL.setInt(3, cliente.getId());
-				}
-			}else {
-				//alteração total de cadastro
+			if(pedido.getId() != 0) {
+				sb.append(" SET ped_situacao = ?");
+				sb.append(" WHERE ");
+				sb.append(this.idTabela + " = ?;");
+				comandoSQL = this.conexao.prepareStatement(sb.toString());
+				comandoSQL.setString(1, pedido.getSituacao());
+				comandoSQL.setInt(2, pedido.getId());
 			}
+			
 			comandoSQL.executeUpdate();
 			
 			conexao.commit();			
-			System.out.println(new Log().gerarLog(cliente, "ALTERAÇÃO"));
+			System.out.println(new Log().gerarLog(pedido, "ALTERAÇÃO"));
 			
 		} catch (SQLException e) {
 			try {
@@ -234,11 +213,12 @@ public class PedidoDAO extends AbstractDAO {
 		ped.setId(rs.getInt("ped_id"));
 		ped.setCodigo(rs.getString("ped_codigo"));
 		ped.setValor_total(Float.parseFloat(rs.getString("ped_valor_total")));
+		ped.setData_pedido(rs.getDate("ped_data_pedido").toLocalDate().toString());
 		ped.setSituacao(rs.getString("ped_situacao"));
 		ped.setModificado_por(rs.getString("ped_modificado_por"));
-		ped.setUltima_atualizacao(rs.getString("ped_ultima_atualizacao"));
+		ped.setUltima_atualizacao(rs.getDate("ped_ultima_atualizacao").toLocalDate().toString());
 		ped.setCliente_id(Integer.parseInt(rs.getString("clientes_cli_id")));
-		ped.setCupom_id(Integer.parseInt(rs.getString("cupons_cup_id")));
+		ped.setCupom_id(rs.getInt("cupons_cup_id"));
 		
 		return ped;
 	}

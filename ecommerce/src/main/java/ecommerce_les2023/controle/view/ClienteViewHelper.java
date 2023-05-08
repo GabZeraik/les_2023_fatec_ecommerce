@@ -23,7 +23,7 @@ public class ClienteViewHelper implements IViewHelper {
 		String senha_cliente = req.getParameter("senha_cliente");
 		String nome_cliente = req.getParameter("nome_cliente");
 		String genero_cliente = req.getParameter("genero_cliente");
-		String data_nascimento_cliente = req.getParameter("data_nascimento_cliente").toString();
+		String data_nascimento_cliente = req.getParameter("data_nascimento_cliente");
 		String cpf_cliente = req.getParameter("cpf_cliente");
 		String email_cliente = req.getParameter("email_cliente");
 		String telefone_ddd_cliente = req.getParameter("telefone_ddd_cliente");
@@ -111,8 +111,13 @@ public class ClienteViewHelper implements IViewHelper {
 			
 		} else {
 			req.getSession().removeAttribute("clientes");
-			resultado.setJson();
-			req.getSession().setAttribute("clientes", resultado);
+			req.getSession().removeAttribute("resultado");
+			
+			req.getSession().setAttribute("resultado", resultado);
+			resultado.setJson_dados();
+			
+			req.getSession().setAttribute("clientes", resultado.getJson_dados());
+			
 			//Encaminha à página clientes
 			try {
 				req.getRequestDispatcher("admin_clientes.jsp").forward(req, resp);
