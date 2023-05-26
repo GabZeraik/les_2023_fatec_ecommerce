@@ -37,6 +37,7 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/ConsultarCliente", new ClienteViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarClienteParcial", new AlterarClienteParcialViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ExcluirCliente", new ClienteViewHelper());
+		mapViewHelpers.put("/ecommerce_les/InativarCliente", new InativarClienteViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/EntrarCliente", new EntrarClienteViewHelper());
 		mapViewHelpers.put("/ecommerce_les/SairCliente", new SairClienteViewHelper());
@@ -45,7 +46,6 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/AlterarEndereco", new EnderecoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/ExcluirEndereco", new EnderecoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/CadastrarEnderecoCheckout", new EnderecoViewHelper());
-		
 		
 		mapViewHelpers.put("/ecommerce_les/CadastrarCartao", new CartaoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarCartao", new CartaoViewHelper());

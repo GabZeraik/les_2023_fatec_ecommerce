@@ -73,7 +73,7 @@
                                                                     <td></td>
                                                                     <td><button onclick="editHandler(this, '${item.id}')" data-form="formDadosCliente_${item.id}" id="alterar_${item.id}" value="ALTERAR">Editar</button></td>
                                                                     <td><button onclick="buttonHandler(this)" data-form="formDadosCliente_${item.id}" id="excluir_${item.id}" value="EXCLUIR">Excluir</button></td>
-                                                                    <td><button onclick="statusHandler(this)">Inativar</button></td>
+                                                                    <td><button onclick="statusHandler(this, '${item.id}')">Inativar</button></td>
                                                                 </tr>
                                                                 <form id="formDadosCliente_${item.id}" action="" method="post">
                                                                     <input type="hidden" id="form_operacao_${item.id}" name="operacao" class="input-xlarge hidden" value="">
@@ -455,43 +455,46 @@
                                             </table>
                                         </div>
                                     </section>
-                                    <section class="hidden" id="editar_status_cliente">
-                                        <div class="row">
-                                            <form action="#" method="post">
-                                                <div class="span12">
-                                                    <h4 class="title"><span class="text"><strong>Ativar/Inativar</strong> Cliente</span></h4>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Código Único:</label>
-                                                        <div class="controls">
-                                                            <input type="text" id="codigo_produto" class="input-small" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Selecione o Status desejado*:</label>
-                                                        <select class="controls" id="status_produto">
-                                            <option value="ativo">Ativo</option>
-                                            <option value="inativo">Inativo</option>
-                                        </select>
-                                                    </div>
-                                                    <div class="hidden control-group">
-                                                        <label class="control-label">Selecione a categoria desejada*:</label>
-                                                        <select class="controls" id="categoria_status_produto">
-                                            <option value="dados_incorretos">DADOS INCORRETOS</option>
-                                            <option value="outro">OUTRO</option>
-                                        </select>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Justificativa*:</label>
-                                                        <div class="controls">
-                                                            <textarea id="justificativa_produto" placeholder="Justificativa obrigatória" class="input-xlarge"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="actions" style="float: right"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Editar status Cliente"></div>
-                                            </form>
-                                        </div>
-                                    </section>
+
                                 </div>
+                            </div>
+                        </section>
+                        <section class="hidden" id="editar_status_cliente">
+                            <div class="row">
+                                <form action="InativarCliente" method="post">
+                                    <input type="hidden" name="operacao" value="ALTERAR">
+                                    <div class="span12">
+                                        <h4 class="title"><span class="text"><strong>Ativar/Inativar</strong> Cliente</span></h4>
+                                        <div class="control-group">
+                                            <label class="control-label">Código Único:</label>
+                                            <div class="controls">
+                                                <input type="text" name="codigo_status_cliente" id="codigo_status_cliente" class="input-small" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Selecione o Status desejado*:</label>
+                                            <select class="controls" name="status_cliente" id="status_cliente">
+                                                <option value="ATIVO">Ativo</option>
+                                                <option value="INATIVO">Inativo</option>
+                                            </select>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Selecione a categoria desejada*:</label>
+                                            <select class="controls" name="categoria_status_cliente" id="categoria_status_cliente">
+                                                <option value="DADOS INCORRETOS">DADOS INCORRETOS</option>
+                                                <option value="DADOS CORRIGIDOS">DADOS CORRIGIDOS</option>
+                                                <option value="OUTRO">OUTRO</option>
+                                            </select>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Justificativa*:</label>
+                                            <div class="controls">
+                                                <textarea id="justificativa_status_cliente" name="justificativa_status_cliente" placeholder="Justificativa obrigatória" class="input-xlarge"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="actions" style="float: right"><input tabindex="9" class="btn btn-inverse large" type="submit" value="ALTERAR"></div>
+                                </form>
                             </div>
                         </section>
 
@@ -503,6 +506,7 @@
                     <script type="text/javascript">
                         const formAlteracao = document.querySelector('#editar_cadastro_cliente');
                         const formStatus = document.querySelector('#editar_status_cliente');
+                        const codigo_status_cliente = document.querySelector('#codigo_status_cliente');
                         const json_clientes = JSON.parse('${clientes}');
                         const container_enderecos_entrega = document.querySelector('.js-container-enderecos-entrega');
                         const container_enderecos_cobranca = document.querySelector('.js-container-enderecos-cobranca');
@@ -586,9 +590,10 @@
                             buttonHandler(botao);
                         }
 
-                        const statusHandler = (botao) => {
+                        const statusHandler = (botao, item_id) => {
                             formAlteracao.classList.toggle('hidden', true);
                             formStatus.classList.toggle('hidden', false);
+                            codigo_status_cliente.value = item_id;
                         }
 
                         const funcaoExcluir = (form, id) => {

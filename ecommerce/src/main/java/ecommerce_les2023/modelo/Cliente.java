@@ -56,6 +56,12 @@ public class Cliente extends Pessoa {
 		this.senha = senha;
 	}
 	
+	/*Usado para alterar status***/
+	public Cliente(String situacao, String categoria, String justificativa) {
+		this.situacao = situacao;
+		this.justificativa = categoria + " - " + justificativa;
+	}
+	
 	public Cliente() {};
 	
 	public String getDta_nascimento() {

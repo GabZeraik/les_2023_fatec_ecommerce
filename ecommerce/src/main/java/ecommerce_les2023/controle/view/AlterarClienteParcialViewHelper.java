@@ -33,7 +33,6 @@ public class AlterarClienteParcialViewHelper implements IViewHelper {
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().setAttribute("resultado", resultado);
-		//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
 		try {
 			resp.sendRedirect("resultado.jsp");
 			return;
