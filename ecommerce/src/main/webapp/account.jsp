@@ -79,6 +79,11 @@
                         const usuario_logado = JSON.parse('${usuario_logado.json}');
 
 
+                        const calculaValorTotalTrocaItem = (button) => {
+                            let valor_unitario = button.parentElement.nextElementSibling.textContent.split("R$")[1].replace(',', '.');
+                            button.parent.nextElementSibling.nextElementSibling.value = `R$${button.value * Number(valor_unitario)}`;
+                        }
+
                         const liberarEdicaoAccordion = (button) => {
                             let inputs = button.closest('.js-liberar-edicao').querySelectorAll('input, select, textarea');
                             inputs.forEach(input => {

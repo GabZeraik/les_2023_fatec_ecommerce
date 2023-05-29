@@ -35,7 +35,6 @@ public class PedidoViewHelper implements IViewHelper {
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().setAttribute("resultado", resultado);
-		
 		resultado.setJson_dados();
 		req.getSession().setAttribute("pedidos", resultado.getJson_dados());
 		
@@ -44,6 +43,6 @@ public class PedidoViewHelper implements IViewHelper {
 			return;
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}		
 	}
 }
