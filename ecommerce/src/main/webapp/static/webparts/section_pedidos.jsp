@@ -81,39 +81,45 @@
                                                                                         <h3 class="modal-title" id="exampleModalLabel">Pedido #${pedido.id}</h3>
                                                                                     </div>
                                                                                     <div class="modal-body">
-                                                                                        <table class="table table-striped table-hover" style="background-color: transparent;">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th></th>
-                                                                                                    <th></th>
-                                                                                                    <th>Produto</th>
-                                                                                                    <th>Quantidade</th>
-                                                                                                    <th>Preço Unitário</th>
-                                                                                                    <th>Total</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                <c:forEach items="${pedido.item_pedido}" var="item_troca" varStatus="loop">
+                                                                                        <h5>Selecione o item e altere a quantidade a ser trocada/devolvida.</h5>
+                                                                                        <form id="formSolicitarTroca_${pedido.id}" method="POST" action="SolicitarTroca">
+                                                                                            <table class="table table-striped table-hover" style="background-color: transparent;">
+                                                                                                <thead>
                                                                                                     <tr>
-                                                                                                        <td><input type="checkbox" name="item_selecionado" onchange="handlerCheckItem(this)"></td>
-                                                                                                        <td>
-                                                                                                            <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item_troca.produto_id}" target="_blank"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
-                                                                                                        </td>
-                                                                                                        <td>${item_troca.nome}</td>
-                                                                                                        <td><input type="number" value="${item_troca.quantidade}" class="input-mini" max="${item_troca.quantidade}" min="1" onchange="calculaValorTotalTrocaItem(this)"></td>
-                                                                                                        <td>R$${fn:replace(item_troca.preco_unitario, '.', ',')}</td>
-                                                                                                        <c:set var="valor_unitario_item_troca">
-                                                                                                            <fmt:formatNumber type="number" maxFractionDigits="2" value="${item_troca.preco_unitario * item_troca.quantidade}" />
-                                                                                                        </c:set>
-                                                                                                        <td>R$${fn:replace(valor_unitario_item_troca, '.', ',')}</td>
+                                                                                                        <th></th>
+                                                                                                        <th></th>
+                                                                                                        <th>Produto</th>
+                                                                                                        <th>Quantidade</th>
+                                                                                                        <th>Preço Unitário</th>
+                                                                                                        <th>Total</th>
                                                                                                     </tr>
-                                                                                                </c:forEach>
-                                                                                            </tbody>
-                                                                                        </table>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <input type="hidden" name="operacao" value="TROCAR">
+                                                                                                    <c:forEach items="${pedido.item_pedido}" var="item_troca" varStatus="loop">
+                                                                                                        <tr>
+                                                                                                            <td><input type="checkbox" name="item_selecionado_troca" value="${item_troca.id}"></td>
+                                                                                                            <td>
+                                                                                                                <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item_troca.produto_id}" target="_blank"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
+                                                                                                            </td>
+                                                                                                            <td>${item_troca.nome}</td>
+                                                                                                            <td><input type="number" name="item_quantidade_troca_${item_troca.id}" value="${item_troca.quantidade}" class="input-mini" max="${item_troca.quantidade}"
+                                                                                                                    min="1" onchange="calculaValorTotalTrocaItem(this)"></td>
+                                                                                                            <td>R$${fn:replace(item_troca.preco_unitario, '.', ',')}</td>
+                                                                                                            <c:set var="valor_unitario_item_troca">
+                                                                                                                <fmt:formatNumber type="number" maxFractionDigits="2" value="${item_troca.preco_unitario * item_troca.quantidade}" />
+                                                                                                            </c:set>
+                                                                                                            <td>R$${fn:replace(valor_unitario_item_troca, '.', ',')}</td>
+                                                                                                        </tr>
+                                                                                                    </c:forEach>
+
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </form>
                                                                                     </div>
                                                                                     <div class="modal-footer">
                                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                                                        <button type="button" class="btn btn-primary">Solicitar</button>
+                                                                                        <button type="submit" form="formSolicitarTroca_${pedido.id}" class="btn btn-primary">Solicitar</button>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

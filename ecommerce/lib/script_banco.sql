@@ -172,6 +172,50 @@ CREATE TABLE fretes (
 
 ALTER TABLE fretes ADD CONSTRAINT fretes_pk PRIMARY KEY ( fre_id );
 
+-- ****** ALTERAÇÃO PARA CRIAR TROCAS *******
+
+CREATE TABLE pedidos_trocas (
+    tro_id                 SERIAL,
+    tro_codigo             VARCHAR(40),
+    tro_valor_total        NUMERIC(10,2),
+    tro_data_pedido        DATE,
+    tro_situacao           VARCHAR(50),
+    tro_modificado_por     VARCHAR(150),
+    tro_ultima_atualizacao DATE,
+    cupons_cup_id          INTEGER
+    clientes_cli_id        INTEGER NOT NULL
+);
+
+ALTER TABLE pedidos_trocas ADD CONSTRAINT pedidos_trocas_pk PRIMARY KEY ( tro_id );
+
+CREATE TABLE itens_trocas (
+    item_id             SERIAL,
+    item_quantidade     INTEGER,
+    item_preco_unitario NUMERIC(10,2),
+    itens_pedidos_item_id     INTEGER NOT NULL,
+    pedidos_trocas_tro_id     INTEGER NOT NULL
+);
+
+ALTER TABLE itens_trocas ADD CONSTRAINT itens_trocas_pk PRIMARY KEY ( item_id );
+
+ALTER TABLE pedidos_trocas
+    ADD CONSTRAINT pedidos_trocas_clientes_fk FOREIGN KEY ( clientes_cli_id )
+        REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
+
+ALTER TABLE pedidos_trocas
+    ADD CONSTRAINT pedidos_trocas_cupom_fk FOREIGN KEY ( cupons_cup_id )
+        REFERENCES cupons ( cup_id );
+
+ALTER TABLE itens_trocas
+    ADD CONSTRAINT itens_trocas_pedidos_trocas_fk FOREIGN KEY ( pedidos_trocas_tro_id )
+        REFERENCES pedidos_trocas ( tro_id ) ON DELETE CASCADE;
+
+ALTER TABLE itens_trocas
+    ADD CONSTRAINT itens_trocas_itens_pedidos_fk FOREIGN KEY ( itens_pedidos_item_id )
+        REFERENCES itens_pedidos ( item_id );
+
+-- ****** FIM ALTERAÇÂO ******
+
 ALTER TABLE cartoes
     ADD CONSTRAINT cartoes_bandeiras_fk FOREIGN KEY ( bandeiras_ban_id )
         REFERENCES bandeiras ( ban_id );
@@ -227,3 +271,4 @@ ALTER TABLE transacoes
 ALTER TABLE transacoes
     ADD CONSTRAINT transacoes_pedidos_fk FOREIGN KEY ( pedidos_ped_id )
         REFERENCES pedidos ( ped_id ) ON DELETE CASCADE;
+

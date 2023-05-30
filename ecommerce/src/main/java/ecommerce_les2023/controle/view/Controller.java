@@ -65,6 +65,8 @@ public class Controller extends HttpServlet{
 		
 		mapViewHelpers.put("/ecommerce_les/ConsultarPedido", new PedidoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarSituacaoPedido", new PedidoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/SolicitarTroca", new TrocaPedidoViewHelper());
 	}
 	
 	@Override
@@ -147,6 +149,13 @@ public class Controller extends HttpServlet{
 		
 		//FINALIZAR COMPRA
 		if(operacaoForm.equals("FINALIZAR")) {
+			viewHelperRequisitada.obterEntidade(req);
+			viewHelperRequisitada.setView(null, req, resp);
+			return;
+		}
+		
+		//SOLICITAR TROCA COMPRA
+		if(operacaoForm.equals("TROCAR")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
 			return;

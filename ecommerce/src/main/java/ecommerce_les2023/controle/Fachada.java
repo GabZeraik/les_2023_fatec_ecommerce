@@ -15,7 +15,9 @@ import ecommerce_les2023.dao.FreteDAO;
 import ecommerce_les2023.dao.IDAO;
 import ecommerce_les2023.dao.ItemCarrinhoDAO;
 import ecommerce_les2023.dao.ItemPedidoDAO;
+import ecommerce_les2023.dao.ItemTrocaDAO;
 import ecommerce_les2023.dao.PedidoDAO;
+import ecommerce_les2023.dao.PedidoTrocaDAO;
 import ecommerce_les2023.dao.ProdutoDAO;
 import ecommerce_les2023.dao.TransacaoDAO;
 import ecommerce_les2023.modelo.Bandeira;
@@ -28,7 +30,9 @@ import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.Frete;
 import ecommerce_les2023.modelo.ItemCarrinho;
 import ecommerce_les2023.modelo.ItemPedido;
+import ecommerce_les2023.modelo.ItemTroca;
 import ecommerce_les2023.modelo.Pedido;
+import ecommerce_les2023.modelo.PedidoTroca;
 import ecommerce_les2023.modelo.Produto;
 import ecommerce_les2023.modelo.Transacao;
 import ecommerce_les2023.negocio.IStrategy;
@@ -94,6 +98,8 @@ public class Fachada implements IFachada {
 		this.mapDaos.put(Pedido.class.getName(), new PedidoDAO());
 		this.mapDaos.put(ItemPedido.class.getName(), new ItemPedidoDAO());
 		this.mapDaos.put(Transacao.class.getName(), new TransacaoDAO());
+		this.mapDaos.put(PedidoTroca.class.getName(), new PedidoTrocaDAO());
+		this.mapDaos.put(ItemTroca.class.getName(), new ItemTrocaDAO());
 	}
 
 	@Override

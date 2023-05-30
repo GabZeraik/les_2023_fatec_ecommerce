@@ -80,8 +80,9 @@
 
 
                         const calculaValorTotalTrocaItem = (button) => {
-                            let valor_unitario = button.parentElement.nextElementSibling.textContent.split("R$")[1].replace(',', '.');
-                            button.parent.nextElementSibling.nextElementSibling.value = `R$${button.value * Number(valor_unitario)}`;
+                            let valor_unitario = Number(button.parentElement.nextElementSibling.textContent.split("R$")[1].replace(',', '.'));
+                            let valor_total = Number(button.value * valor_unitario).toFixed(2).replace('.', ',');
+                            button.parentElement.nextElementSibling.nextElementSibling.textContent = "R$" + valor_total;
                         }
 
                         const liberarEdicaoAccordion = (button) => {

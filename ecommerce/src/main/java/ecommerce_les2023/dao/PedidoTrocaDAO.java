@@ -4,24 +4,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.util.List;
 
 import ecommerce_les2023.modelo.EntidadeDominio;
-import ecommerce_les2023.modelo.ItemPedido;
+import ecommerce_les2023.modelo.PedidoTroca;
 import ecommerce_les2023.utils.Log;
 
-public class ItemPedidoDAO extends AbstractDAO {
-	
-	public ItemPedidoDAO() {
-		super("itens_pedidos", "item_id");
-	}
+public class PedidoTrocaDAO extends AbstractDAO {
 
+	public PedidoTrocaDAO() {
+		super("pedidos_trocas", "tro_id");
+	}
+	
 	@Override
 	public void salvar(EntidadeDominio entidade) {
 		openConnection();
 		PreparedStatement comandoSQL = null;
-		ItemPedido item = (ItemPedido) entidade;
+		PedidoTroca pedido = (PedidoTroca) entidade;
 				
 		try {
 			this.conexao.setAutoCommit(false);
@@ -29,15 +29,19 @@ public class ItemPedidoDAO extends AbstractDAO {
 			StringBuilder sb = new StringBuilder();
 			sb.append("INSERT INTO ");
 			sb.append(this.tabela);
-			sb.append("(item_quantidade, item_preco_unitario, produtos_pro_id, pedidos_ped_id) ");
-			sb.append("VALUES (?, ?, ?, ?)");
+			sb.append("(tro_codigo, tro_valor_total, tro_data_pedido, tro_situacao, tro_modificado_por, tro_ultima_atualizacao, clientes_cli_id)");
+			sb.append("VALUES (?,?,?,?,?,?,?)");
 			
+			Timestamp ts = Timestamp.from(pedido.getDta_cadastro().toInstant());
 			comandoSQL = this.conexao.prepareStatement(sb.toString(), Statement.RETURN_GENERATED_KEYS);
-			comandoSQL.setInt(1, item.getQuantidade());
-			comandoSQL.setFloat(2, item.getPreco_unitario());
-			comandoSQL.setInt(3, item.getProduto_id());
-			comandoSQL.setInt(4, item.getPedido_id());
-						
+			comandoSQL.setString(1, pedido.getCodigo());
+			comandoSQL.setFloat(2, pedido.getValor_total());
+			comandoSQL.setTimestamp(3, ts, pedido.getDta_cadastro());
+			comandoSQL.setString(4, pedido.getSituacao());
+			comandoSQL.setString(5, pedido.getModificado_por());
+			comandoSQL.setTimestamp(6, ts, pedido.getDta_cadastro());
+			comandoSQL.setInt(7, pedido.getCliente_id());
+				
 			comandoSQL.executeUpdate();
 			
 			conexao.commit();
@@ -46,9 +50,9 @@ public class ItemPedidoDAO extends AbstractDAO {
 			int id = 0;
 			if(keysTabela.next())
 				id = keysTabela.getInt(1);
-			item.setId(id);
-			
-			System.out.println(new Log().gerarLog(item, "Cadastro"));
+			pedido.setId(id);
+						
+			System.out.println(new Log().gerarLog(pedido, "Cadastro"));
 			
 		} catch (SQLException e) {
 			try {
@@ -70,36 +74,30 @@ public class ItemPedidoDAO extends AbstractDAO {
 
 	@Override
 	public void alterar(EntidadeDominio entidade) {
-		return;
-	}
-
-	@Override
-	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		openConnection();
 		PreparedStatement comandoSQL = null;
-		List<EntidadeDominio> itens_pedidos = new ArrayList<EntidadeDominio>();
-				
+		PedidoTroca pedido = (PedidoTroca) entidade;
+		
 		try {
 			this.conexao.setAutoCommit(false);
-						
-			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT * FROM ");
-			sb.append(this.tabela);
-			sb.append(" WHERE ");
-			sb.append(this.idTabela);
-			sb.append(" = " + entidade.getId());
-		
-			comandoSQL = this.conexao.prepareStatement(sb.toString());
-				
-			sb.append(" ORDER BY item_id ASC;");
-					
-			ResultSet rs = comandoSQL.executeQuery();
 			
-			while (rs.next()) {
-				ItemPedido item_pedido = new ItemPedido(rs.getInt("item_quantidade"), rs.getFloat("item_preco_unitario"), rs.getInt("produtos_pro_id"), rs.getInt("pedidos_ped_id"));
-				item_pedido.setId(rs.getInt("item_id"));
-				itens_pedidos.add(item_pedido);
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE ");
+			sb.append(this.tabela);
+			
+			if(pedido.getId() != 0) {
+				sb.append(" SET ped_situacao = ?");
+				sb.append(" WHERE ");
+				sb.append(this.idTabela + " = ?;");
+				comandoSQL = this.conexao.prepareStatement(sb.toString());
+				comandoSQL.setString(1, pedido.getSituacao());
+				comandoSQL.setInt(2, pedido.getId());
 			}
+			
+			comandoSQL.executeUpdate();
+			
+			conexao.commit();			
+			System.out.println(new Log().gerarLog(pedido, "ALTERAÇÃO"));
 			
 		} catch (SQLException e) {
 			try {
@@ -117,7 +115,18 @@ public class ItemPedidoDAO extends AbstractDAO {
 				e.printStackTrace();
 			}
 		}
-		
-		return itens_pedidos;
 	}
+
+	@Override
+	public void deletar(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
