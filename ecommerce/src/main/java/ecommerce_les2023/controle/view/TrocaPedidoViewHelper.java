@@ -2,6 +2,7 @@ package ecommerce_les2023.controle.view;
 
 import java.io.IOException;
 
+import ecommerce_les2023.controle.AlterarCommand;
 import ecommerce_les2023.controle.ConsultarCommand;
 import ecommerce_les2023.controle.ICommand;
 import ecommerce_les2023.controle.SalvarCommand;
@@ -61,7 +62,11 @@ public class TrocaPedidoViewHelper implements IViewHelper {
 			command.execute(item_troca);
 		}
 		
-		req.getSession().setAttribute("resultado", resultado_pedido_troca);
+		command = new AlterarCommand();
+		pedido.setSituacao(pedido_situacao);
+		Resultado resultado_alteração_pedido = command.execute(pedido);
+		req.getSession().setAttribute("resultado", resultado_alteração_pedido);
+		
 		return null;
 	}
 

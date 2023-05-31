@@ -10,7 +10,9 @@ import java.util.List;
 
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.ItemPedido;
+import ecommerce_les2023.modelo.ItemTroca;
 import ecommerce_les2023.modelo.Pedido;
+import ecommerce_les2023.modelo.PedidoTroca;
 import ecommerce_les2023.modelo.Transacao;
 import ecommerce_les2023.utils.Log;
 
@@ -180,9 +182,9 @@ public class PedidoDAO extends AbstractDAO {
 				
 				while (rs.next()) {
 					ped = criaPedidoResultSet(rs);
-					adicionaItensPedidoResultSet(ped);
-					adicionaTransacaoResultSet(ped);
-					
+					this.adicionaItensPedidoResultSet(ped);
+					this.adicionaTransacaoResultSet(ped);
+					this.adicionaPedidosTrocas(ped);
 					if (ped != null) pedidos.add(ped);
 				}
 			}
@@ -226,7 +228,7 @@ public class PedidoDAO extends AbstractDAO {
 	private void adicionaItensPedidoResultSet(Pedido ped) throws SQLException {
 		PreparedStatement comandoSQL = null;
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT * FROM itens_pedidos WHERE pedidos_ped_id = ");
+		sb.append("SELECT IP.*, P.pro_nome as item_nome FROM itens_pedidos IP INNER JOIN produtos P ON P.pro_id = IP.produtos_pro_id WHERE pedidos_ped_id = ");
 		sb.append(ped.getId());
 		comandoSQL = this.conexao.prepareStatement(sb.toString());
 		ResultSet rs = comandoSQL.executeQuery();
@@ -234,6 +236,7 @@ public class PedidoDAO extends AbstractDAO {
 		while (rs.next()) {
 			ItemPedido item_pedido = new ItemPedido(rs.getInt("item_quantidade"), rs.getFloat("item_preco_unitario"), rs.getInt("produtos_pro_id"), rs.getInt("pedidos_ped_id"));
 			item_pedido.setId(rs.getInt("item_id"));
+			item_pedido.setNome(rs.getString("item_nome"));
 			ped.adicionaItemPedido(item_pedido);
 		}
 		return;
@@ -253,5 +256,77 @@ public class PedidoDAO extends AbstractDAO {
 			ped.adicionaTransacao(transacao);
 		}
 		return;
+	}
+	
+	private void adicionaItensTrocas(PedidoTroca pedido_troca) throws SQLException {
+		PreparedStatement comandoSQL = null;
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT * FROM itens_trocas WHERE pedidos_trocas_tro_id = " + pedido_troca.getId());		
+		comandoSQL = this.conexao.prepareStatement(sb.toString());
+		ResultSet rs = comandoSQL.executeQuery();
+		
+		while (rs.next()) {
+			ItemTroca item_troca = new ItemTroca(rs.getInt("item_quantidade"), rs.getFloat("item_preco_unitario"), rs.getInt("itens_pedidos_item_id"), rs.getInt("pedidos_trocas_tro_id"));
+			item_troca.setId(rs.getInt("item_id"));
+			pedido_troca.adicionaItemTroca(item_troca);
+		}
+		return;
+	}
+	
+	private void adicionaPedidosTrocas(Pedido ped) throws SQLException {
+		PreparedStatement comandoSQL = null;
+		StringBuilder sb = new StringBuilder();
+		
+		if(ped.getItem_pedido().size() > 1) {
+			for(int i=0; i < ped.getItem_pedido().size(); i++) {
+				
+				if(i == 0) sb.append("SELECT DISTINCT PT.*\r\n"
+						+ "FROM pedidos_trocas PT\r\n"
+						+ "JOIN itens_trocas IT \r\n"
+						+ "ON IT.pedidos_trocas_tro_id = PT.tro_id\r\n"
+						+ "JOIN itens_pedidos IP\r\n"
+						+ "ON IP.item_id = IT.itens_pedidos_item_id\r\n"
+						+ "WHERE IT.itens_pedidos_item_id =");
+				else sb.append(" OR IT.itens_pedidos_item_id = ");
+				
+				sb.append(ped.getItem_pedido().get(i).getId());
+			}
+		}else if(ped.getItem_pedido().size() == 1){
+			sb.append("SELECT DISTINCT PT.*\r\n"
+					+ "FROM pedidos_trocas PT\r\n"
+					+ "JOIN itens_trocas IT \r\n"
+					+ "ON IT.pedidos_trocas_tro_id = PT.tro_id\r\n"
+					+ "JOIN itens_pedidos IP\r\n"
+					+ "ON IP.item_id = IT.itens_pedidos_item_id\r\n"
+					+ "WHERE IT.itens_pedidos_item_id =");
+			sb.append(ped.getItem_pedido().get(0).getId());
+		}else return;
+		
+		comandoSQL = this.conexao.prepareStatement(sb.toString());
+		ResultSet rs = comandoSQL.executeQuery();
+		
+		while (rs.next()) {
+			PedidoTroca pedido_troca = criaPedidoTrocaResultSet(rs);
+			pedido_troca.setId(rs.getInt("tro_id"));
+			this.adicionaItensTrocas(pedido_troca);
+			ped.adicionaPedidoTroca(pedido_troca);
+		}
+		return;
+	}
+	
+	private PedidoTroca criaPedidoTrocaResultSet(ResultSet rs) throws SQLException {
+		PedidoTroca ped = new PedidoTroca();
+		ped.setId(rs.getInt("tro_id"));
+		ped.setCodigo(rs.getString("tro_codigo"));
+		ped.setValor_total(Float.parseFloat(rs.getString("tro_valor_total")));
+		ped.setData_pedido(rs.getDate("tro_data_pedido").toLocalDate().toString());
+		ped.setSituacao(rs.getString("tro_situacao"));
+		ped.setModificado_por(rs.getString("tro_modificado_por"));
+		ped.setUltima_atualizacao(rs.getDate("tro_ultima_atualizacao").toLocalDate().toString());
+		ped.setCliente_id(Integer.parseInt(rs.getString("clientes_cli_id")));
+		ped.setCupom_id(rs.getInt("cupons_cup_id"));
+		
+		return ped;
 	}
 }

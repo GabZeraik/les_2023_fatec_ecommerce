@@ -16,6 +16,7 @@ public class Pedido extends EntidadeDominio {
 	private List<ItemPedido> item_pedido;
 	private List<Transacao> transacao;
 	private int cupom_id;
+	private List<PedidoTroca> pedido_troca;
 	
 	public Pedido(float valor_total, String situacao, String modificado_por, String ultima_atualizacao,
 			int cliente_id) {
@@ -150,5 +151,12 @@ public class Pedido extends EntidadeDominio {
 
 	public void setData_pedido(String data_pedido) {
 		this.data_pedido = data_pedido;
+	}
+
+	public void adicionaPedidoTroca(PedidoTroca pedido) {
+		if(this.pedido_troca == null) {
+			this.pedido_troca = new ArrayList<PedidoTroca>();
+		}
+		this.pedido_troca.add(pedido);
 	}
 }

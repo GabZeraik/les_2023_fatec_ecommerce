@@ -1,5 +1,8 @@
 package ecommerce_les2023.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemPedido extends EntidadeDominio{
 	
 	private String nome;
@@ -7,6 +10,7 @@ public class ItemPedido extends EntidadeDominio{
 	private float preco_unitario;
 	private int produto_id;
 	private int pedido_id;
+	private List<ItemTroca> item_troca;
 	
 	public ItemPedido(int quantidade, float preco_unitario, int produto_id, int pedido_id) {
 		this.quantidade = quantidade;
@@ -51,5 +55,11 @@ public class ItemPedido extends EntidadeDominio{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
+	public void adicionaItemTroca(ItemTroca item) {
+		if(this.item_troca == null) {
+			this.item_troca = new ArrayList<ItemTroca>();
+		}
+		this.item_troca.add(item);
+	}
 }

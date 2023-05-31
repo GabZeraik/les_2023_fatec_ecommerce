@@ -137,6 +137,7 @@ class LinhaPedido {
         this.codigo_pedido = dados_pedido.codigo;
         this.codigo_cliente = dados_pedido.cliente_id;
         this.ultima_atualizacao = dados_pedido.ultima_atualizacao;
+        this.pedido_troca = dados_pedido.pedido_troca || [];
     }
 
     criaLinhaPedido() {
@@ -146,10 +147,10 @@ class LinhaPedido {
                         <a >
                             <span class="text"><strong>${this.codigo_pedido}</strong></span>
                         </a>
-                        <div id="pedido_${this.id}" class="accordion-body collapse">
+                        <div id="pedido_${this.id}" class="accordion-body collapse pedido_${this.id}">
                             <div class="accordion-inner">
                                 <div class="row-fluid">
-                                    <h5 class="title"><span class="text"><strong>Resumo</strong> da compra</span></h5>
+                                    <h4 class="title"><strong>Resumo</strong> da compra</h4>
                                     <table class="table table-striped table-hover" style="background-color: transparent;">
                                         <thead>
                                             <tr>
@@ -176,7 +177,7 @@ class LinhaPedido {
                                             })}
                                         </tbody>
                                     </table>
-                                    <div class="actions span3" style="float: right"><input class="btn btn-inverse large hidden" type="submit" name="operacao" value="ALTERAR" form="formAlterarSituacaoPedido"></div>
+                                    ${this.verificaPedidosTroca()}
                                 </div>
                             </div>
                         </div>
@@ -196,9 +197,16 @@ class LinhaPedido {
                             <option value="REPROVADO">REPROVADO</option>
                             <option value="TROCADO">TROCADO</option>
                         </select>
+                        <div class="accordion-body collapse pedido_${this.id}" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                            <div class="accordion-inner">
+                                <div class="row-fluid">
+                                    <div class="actions span3" style="margin: auto"><input class="btn btn-inverse large hidden" type="submit" name="operacao" value="ALTERAR" form="formAlterarSituacaoPedido"></div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-sm rounded-0" type="button" data-toggle="collapse" data-target="#pedido_${this.id}" href="#pedido_${this.id} title="Editar" onclick="liberarEdicaoStatusPedido(this)">
+                        <button class="btn btn-warning btn-sm rounded-0" type="button" data-toggle="collapse" data-target=".pedido_${this.id}" href="#pedido_${this.id}" title="Editar" onclick="liberarEdicaoStatusPedido(this)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                             </svg>
@@ -209,7 +217,7 @@ class LinhaPedido {
     }
 
     criaItemsPedido(item) {
-        console.log(item)
+        if(!item.nome) item.nome = this.item_pedido.find(value => value.id == item.item_pedido_id).nome;
         return `
         <tr>
             <td class="hidden"><input type="checkbox" onchange="handlerCheckItem(this)"></td>
@@ -222,6 +230,77 @@ class LinhaPedido {
             <td>R$${(item.preco_unitario * item.quantidade).toFixed(2).replace('.',',')}</td>
         </tr>
         `;
+    }
+
+    criaTableItensTroca(pedido){
+        return `<table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Preço Unitário</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${pedido.item_troca.map((item, index) => {
+                            if(index == pedido.item_troca.length - 1){
+                                return this.criaItemsPedido(item) + `<tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><strong>R$${pedido.valor_total.toFixed(2).replace('.', ',')}</strong></td>
+                                    </tr>
+                                    `;
+                            } else return this.criaItemsPedido(item);
+                        })}
+                    </tbody>          
+                </table>`
+    }
+
+    criaPedidosTroca(pedido) {
+        return `
+            <tr data-toggle="collapse" data-target="#pedido_troca_${pedido.id}" class="clickable">
+                <td><a type="button" data-toggle="collapse" data-target=".pedido_${pedido.id}" href="#pedido_${pedido.id}">${pedido.id}</a></td>
+                <td>${pedido.data_pedido}</td>
+                <td>${pedido.situacao}</td>
+                <td>R$${pedido.valor_total.toFixed(2).replace('.', ',')}</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div id="pedido_troca_${pedido.id}" class="collapse">
+                        ${this.criaTableItensTroca(pedido)}
+                    </div>
+                </td>
+            </tr>        
+        `;
+    }
+
+
+    verificaPedidosTroca() {
+        if(!this.pedido_troca) return "";
+
+        return `
+            <h4 class="title"><strong>Pedidos</strong> de troca</h4>
+            <table class="table table-striped table-hover" style="background-color: transparent;">
+                <thead>
+                    <tr>
+                        <th>Solicitação</th>
+                        <th>Data Solicitação</th>
+                        <th>Situação</th>
+                        <th>Valor Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${this.pedido_troca.map((pedido, index) => {
+                        return this.criaPedidosTroca(pedido);
+                    })}
+                </tbody>
+            </table>
+
+        `
     }
 }
 

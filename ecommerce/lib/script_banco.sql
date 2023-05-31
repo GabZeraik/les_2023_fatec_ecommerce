@@ -182,7 +182,7 @@ CREATE TABLE pedidos_trocas (
     tro_situacao           VARCHAR(50),
     tro_modificado_por     VARCHAR(150),
     tro_ultima_atualizacao DATE,
-    cupons_cup_id          INTEGER
+    cupons_cup_id          INTEGER,
     clientes_cli_id        INTEGER NOT NULL
 );
 
