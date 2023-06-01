@@ -144,7 +144,7 @@ class LinhaPedido {
             return `
                 <tr>
                     <td>
-                        <a >
+                        <a>
                             <span class="text"><strong>${this.codigo_pedido}</strong></span>
                         </a>
                         <div id="pedido_${this.id}" class="accordion-body collapse pedido_${this.id}">
@@ -176,7 +176,7 @@ class LinhaPedido {
                                                 } else return this.criaItemsPedido(item);
                                             })}
                                         </tbody>
-                                    </table>
+                                    </table>                                    
                                     ${this.verificaPedidosTroca()}
                                 </div>
                             </div>
@@ -261,8 +261,7 @@ class LinhaPedido {
     }
 
     criaPedidosTroca(pedido) {
-        return `
-            <tr data-toggle="collapse" data-target="#pedido_troca_${pedido.id}" class="clickable">
+        return `<tr data-toggle="collapse" data-target="#pedido_troca_${pedido.id}" class="clickable">
                 <td><a type="button" data-toggle="collapse" data-target=".pedido_${pedido.id}" href="#pedido_${pedido.id}">${pedido.id}</a></td>
                 <td>${pedido.data_pedido}</td>
                 <td>${pedido.situacao}</td>
@@ -281,9 +280,7 @@ class LinhaPedido {
 
     verificaPedidosTroca() {
         if(!this.pedido_troca) return "";
-
-        return `
-            <h4 class="title"><strong>Pedidos</strong> de troca</h4>
+        return `<h4 class="title"><strong>Pedidos</strong> de troca</h4>
             <table class="table table-striped table-hover" style="background-color: transparent;">
                 <thead>
                     <tr>
@@ -299,7 +296,6 @@ class LinhaPedido {
                     })}
                 </tbody>
             </table>
-
         `
     }
 }
