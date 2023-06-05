@@ -53,6 +53,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <form id="formAtualizarTroca" method="POST" action="AlterarSituacaoPedidoTroca">
+                                <input type="hidden" name="operacao" value="APROVAR_TROCA">
+                                <input type="hidden" name="situacao_troca" id="ipSituacaoTroca">
+                                <input type="hidden" name="id_troca" id="ipIdTroca">
+                            </form>
                         </section>
 
                         <c:import url="./static/webparts/footer.jsp" var="cFooter" charEncoding="UTF-8" />
@@ -95,6 +100,15 @@
                         }
 
                         preenchePedidos(json_pedidos);
+
+                        const submitFormAtualizarTroca = (obj_pedido, aprova_pedido) => {
+                            if (aprova_pedido) aprova_pedido = "TROCA AUTORIZADA";
+                            else aprova_pedido = "TROCA REJEITADA";
+
+                            document.querySelector('#ipSituacaoTroca').value = aprova_pedido;
+                            document.querySelector('#ipIdTroca').value = obj_pedido.id;
+                            document.querySelector('#formAtualizarTroca').submit();
+                        }
                     </script>
                 </body>
 

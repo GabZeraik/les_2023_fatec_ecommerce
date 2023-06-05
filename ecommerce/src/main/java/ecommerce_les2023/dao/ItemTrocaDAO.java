@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import ecommerce_les2023.modelo.EntidadeDominio;
@@ -74,6 +75,49 @@ public class ItemTrocaDAO extends AbstractDAO {
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		return null;
+		openConnection();
+		PreparedStatement comandoSQL = null;
+		List<EntidadeDominio> itens_trocas = new ArrayList<EntidadeDominio>();
+				
+		try {
+			this.conexao.setAutoCommit(false);
+						
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT * FROM ");
+			sb.append(this.tabela);
+			sb.append(" WHERE ");
+			sb.append(this.idTabela);
+			sb.append(" = " + entidade.getId());
+		
+			comandoSQL = this.conexao.prepareStatement(sb.toString());
+				
+			sb.append(" ORDER BY item_id ASC;");
+					
+			ResultSet rs = comandoSQL.executeQuery();
+			
+			while (rs.next()) {
+				ItemTroca item_troca = new ItemTroca(rs.getInt("item_quantidade"), rs.getFloat("item_preco_unitario"), rs.getInt("itens_pedidos_item_id"), rs.getInt("pedidos_trocas_tro_id"));
+				item_troca.setId(rs.getInt("item_id"));
+				itens_trocas.add(item_troca);
+			}
+			
+		} catch (SQLException e) {
+			try {
+				conexao.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			try {
+				comandoSQL.close();
+				conexao.close();
+				System.out.println("CONEXÃO FINALIZADA!");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return itens_trocas;
 	}
 }

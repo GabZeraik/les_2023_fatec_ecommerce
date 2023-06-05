@@ -112,7 +112,6 @@
                                                                                                             <td>R$${fn:replace(valor_unitario_item_troca, '.', ',')}</td>
                                                                                                         </tr>
                                                                                                     </c:forEach>
-
                                                                                                 </tbody>
                                                                                             </table>
                                                                                         </form>
