@@ -2,6 +2,7 @@ package ecommerce_les2023.controle.view;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ecommerce_les2023.controle.AlterarCommand;
@@ -109,12 +110,14 @@ public class Controller extends HttpServlet{
 		//LOGOUT
 		if(operacaoForm.equals("SAIR")) {
 			viewHelperRequisitada.setView(null, req, resp);
+			getServletContext().setAttribute("produtos", this.atualizaProdutos());
 			return;
 		}
 		
 		//IR AO CHECKOUT
 		if(operacaoForm.equals("CHECKOUT")) {
 			viewHelperRequisitada.setView(null, req, resp);
+			getServletContext().setAttribute("produtos", this.atualizaProdutos());
 			return;
 		}
 		
@@ -122,6 +125,7 @@ public class Controller extends HttpServlet{
 		if(operacaoForm.equals("FINALIZAR")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
+			getServletContext().setAttribute("produtos", this.atualizaProdutos());
 			return;
 		}
 		
@@ -152,6 +156,7 @@ public class Controller extends HttpServlet{
 		if(operacaoForm.equals("FINALIZAR")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
+			getServletContext().setAttribute("produtos", this.atualizaProdutos());
 			return;
 		}
 		
@@ -159,6 +164,7 @@ public class Controller extends HttpServlet{
 		if(operacaoForm.equals("TROCAR")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
+			getServletContext().setAttribute("produtos", this.atualizaProdutos());
 			return;
 		}
 		
@@ -166,6 +172,7 @@ public class Controller extends HttpServlet{
 		if(operacaoForm.equals("APROVAR_TROCA")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
+			getServletContext().setAttribute("produtos", this.atualizaProdutos());
 			return;
 		}
 		
@@ -173,6 +180,7 @@ public class Controller extends HttpServlet{
 		if(operacaoForm.equals("INVALIDAR")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
+			getServletContext().setAttribute("produtos", this.atualizaProdutos());
 			return;
 		}
 		
@@ -186,5 +194,27 @@ public class Controller extends HttpServlet{
 		Resultado resultado = commandRequisitado.execute(entidade);
 		
 		viewHelperRequisitada.setView(resultado, req, resp);
+	}
+	
+	protected List<EntidadeDominio> atualizaProdutos() {
+		//Obtém a operação realizada, como parametro da requisição
+		String operacaoForm = "CONSULTAR";
+		
+		//Obtém a uri que deu origem a requisição
+		String uriDeOrigem = "/ecommerce_les/ConsultarProduto";
+		
+		//Obtém a view específica mapeada para a uri(chave do map)
+		IViewHelper viewHelperRequisitada = mapViewHelpers.get(uriDeOrigem);
+		
+		//Cria entidade da viewHelper específica
+		EntidadeDominio entidade = viewHelperRequisitada.obterEntidade(null);
+				
+		//Obtém o command específico de acordo com o parametro (tipo) operacao do form
+		ICommand commandRequisitado = mapCommands.get(operacaoForm);
+		
+		//Executa o command passando o objeto (entidade) para realizar a operacao
+		Resultado resultado = commandRequisitado.execute(entidade);
+		
+		return resultado.getDados();
 	}
 }

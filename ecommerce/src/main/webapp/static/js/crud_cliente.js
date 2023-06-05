@@ -145,7 +145,7 @@ class LinhaPedido {
                 <tr>
                     <td>
                         <a>
-                            <span class="text"><strong>${this.codigo_pedido}</strong></span>
+                            <span class="text"><strong>${this.id}</strong> - ${this.codigo_pedido}</span>
                         </a>
                         <div id="pedido_${this.id}" class="accordion-body collapse pedido_${this.id}">
                             <div class="accordion-inner">
@@ -263,24 +263,25 @@ class LinhaPedido {
 
     criaPedidosTroca(pedido) {
         return `<tr data-toggle="collapse" data-target="#pedido_troca_${pedido.id}" class="clickable">
-                <td><a type="button" data-toggle="collapse" data-target=".pedido_${pedido.id}" href="#pedido_${pedido.id}">${pedido.id}</a></td>
+                <td><a type="button" data-toggle="collapse" data-target=".pedido_troca_${pedido.id}" href="#pedido_troca_${pedido.id}">${pedido.id}</a></td>
                 <td>${pedido.data_pedido}</td>
                 <td>${pedido.situacao}</td>
                 <td>R$${pedido.valor_total.toFixed(2).replace('.', ',')}</td>
-                <td>
-                    <button class="btn btn-success btn-sm rounded-0" type="submit" title="Aprovar Troca" onclick='submitFormAtualizarTroca(${JSON.stringify(pedido)}, true)'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                        </svg>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-danger btn-sm rounded-0" type="submit" title="Rejeitar Troca" onclick='submitFormAtualizarTroca(${JSON.stringify(pedido)}, false)'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </button>
-                </td>
+                ${!pedido.situacao.includes("EM TROCA")? "": `<td>
+                <button class="btn btn-success btn-sm rounded-0" type="submit" title="Aprovar Troca" onclick='submitFormAtualizarTroca(${JSON.stringify(pedido)}, true)'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                    </svg>
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-danger btn-sm rounded-0" type="submit" title="Rejeitar Troca" onclick='submitFormAtualizarTroca(${JSON.stringify(pedido)}, false)'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </td>`}
+                
             </tr>
             <tr>
                 <td colspan="3">
