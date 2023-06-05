@@ -16,7 +16,7 @@ import ecommerce_les2023.utils.Resultado;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class AprovaTrocaPedidoViewHelper implements IViewHelper {
+public class AprovarTrocaPedidoViewHelper implements IViewHelper {
 
 	@Override
 	public EntidadeDominio obterEntidade(HttpServletRequest req) {
@@ -56,7 +56,12 @@ public class AprovaTrocaPedidoViewHelper implements IViewHelper {
 				
 				//altera quantidade de produto (estoque)
 				command = new AlterarCommand();
+				System.out.println("ESTOQUE: ");
+				System.out.println(produto.getEstoque_mao());
+				System.out.println("QUANTIDADE TROCADA: ");
+				System.out.println(item_trocado.getQuantidade());
 				produto.setEstoque_mao(produto.getEstoque_mao() + item_trocado.getQuantidade());
+				command.execute(produto);
 			}
 			
 			command = new AlterarCommand();
@@ -71,7 +76,7 @@ public class AprovaTrocaPedidoViewHelper implements IViewHelper {
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			resp.sendRedirect("resultado.jsp");
+			resp.sendRedirect("admin_pedidos.jsp");
 			return;
 		} catch (IOException e) {
 			e.printStackTrace();

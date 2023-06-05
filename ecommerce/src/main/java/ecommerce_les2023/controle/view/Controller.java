@@ -68,7 +68,7 @@ public class Controller extends HttpServlet{
 		mapViewHelpers.put("/ecommerce_les/AlterarSituacaoPedido", new PedidoViewHelper());
 		
 		mapViewHelpers.put("/ecommerce_les/SolicitarTroca", new TrocaPedidoViewHelper());
-		mapViewHelpers.put("/ecommerce_les/AlterarSituacaoPedidoTroca", new AprovaTrocaPedidoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/AlterarSituacaoPedidoTroca", new AprovarTrocaPedidoViewHelper());
 	}
 	
 	@Override
@@ -168,7 +168,7 @@ public class Controller extends HttpServlet{
 			return;
 		}
 		
-		//SOLICITAR TROCA COMPRA
+		//APROVAR TROCA COMPRA
 		if(operacaoForm.equals("APROVAR_TROCA")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
