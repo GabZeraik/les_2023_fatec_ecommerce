@@ -6,7 +6,7 @@
                 <section class="pedidos_cliente">
                     <form action="#" method="post">
                         <h4 class="title"><span class="text"><strong>Pedidos</strong> Cliente</span></h4>
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="resultado_tabela_pedidos">
                             <thead>
                                 <tr>
                                     <th>Cód. Pedido</th>
@@ -80,7 +80,7 @@
                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                                         <h3 class="modal-title" id="exampleModalLabel">Pedido #${pedido.id}</h3>
                                                                                     </div>
-                                                                                    <div class="modal-body">
+                                                                                    <div class="modal-body container-modal-teste">
                                                                                         <h5>Selecione o item e altere a quantidade a ser trocada/devolvida.</h5>
                                                                                         <form id="formSolicitarTroca_${pedido.id}" method="POST" action="SolicitarTroca">
                                                                                             <table class="table table-striped table-hover" style="background-color: transparent;">

@@ -36,7 +36,7 @@
                                             <input type="hidden" name="pedido_id" id="formAlterarSituacaoPedido_pedido_id">
                                             <input type="hidden" name="situacao_pedido" id="formAlterarSituacaoPedido_pedido_situacao">
                                         </form>
-                                        <table class="table table-striped table-hover">
+                                        <table class="table table-striped table-hover" id="resultado_tabela_pedidos">
                                             <thead>
                                                 <tr>
                                                     <th>Cód. Pedido</th>
