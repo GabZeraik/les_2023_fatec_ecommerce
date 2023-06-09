@@ -1,21 +1,5 @@
 package test.testes;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.RepetitionInfo;
-import org.junit.jupiter.api.AfterAll;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.io.FileHandler;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -28,9 +12,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class TesteCadastrarCliente {
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class TesteAlterarStatusPedido {
 	private static List<String> massa_cadastro;
-	private static Path path_arquivo = Paths.get("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\massa_testes\\TESTE_ALTERACAO_STATUS_PEDIDO.txt");
+	private static Path path_arquivo = Paths.get("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\massa_testes\\TESTE_ALTERAR_CLIENTE.txt");
 	private static WebDriver driver = new FirefoxDriver();	
 	
 	static {
@@ -43,7 +42,7 @@ public class TesteCadastrarCliente {
 	
 	@BeforeAll
 	public static void init(){
-        System.out.println("*****Teste de alteração de status do pedido*****");
+        System.out.println("*****Teste de alteração de cliente iniciado*****");
     }
 	
 	@BeforeEach
@@ -51,19 +50,38 @@ public class TesteCadastrarCliente {
         System.out.println("Preenchendo formulário");
     }
 			
-    @RepeatedTest(12)
-    @DisplayName("Teste com alteração de pedidos que devem ser concluídos com sucesso.")
+    @RepeatedTest(1)
+    @DisplayName("Teste para alteração de cadastro que deve ser concluídos com sucesso.")
     public void cadastroClientes (RepetitionInfo repetitionInfo){ 
-		int linha = repetitionInfo.getCurrentRepetition();
+		int linha = repetitionInfo.getCurrentRepetition() - 1;
 		String[] valores = massa_cadastro.get(linha).split(";");
 		    	
-    	driver.get("localhost:8080/ecommerce_les/admin_pedidos.jsp");
+    	driver.get("localhost:8080/ecommerce_les/admin_clientes.jsp");
     	
     	driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
     	
-    	driver.findElement(new By.ById("botao_consultar")).click();
+    	driver.findElement(new By.ByCssSelector("input[value='CONSULTAR']")).click();
     	
+    	driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
     	
+    	driver.findElement(new By.ByCssSelector("button[value='ALTERAR']")).click();
+    	
+    	driver.findElement(new By.ByCssSelector("button[title='Editar']")).click();
+    	
+    	//altera nome e telefone
+    	
+    	try {
+			Thread.sleep(5000);
+			driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+			driver.findElement(new By.ById("formAlterarCadastroParcial_nome_completo")).clear();
+			driver.findElement(new By.ById("formAlterarCadastroParcial_telefone_numero")).clear();
+			driver.findElement(new By.ById("formAlterarCadastroParcial_nome_completo")).sendKeys(valores[0]);
+			driver.findElement(new By.ById("formAlterarCadastroParcial_telefone_numero")).sendKeys(valores[1]);
+	    	driver.findElement(new By.ById("btn_alterar_cadastro")).submit();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
@@ -80,7 +98,6 @@ public class TesteCadastrarCliente {
 		}
     	
     	assertTrue(texto_resultado, texto_resultado.contains("sucesso"));
-		
     }
     
     public String obtemDataHoraTeste() {

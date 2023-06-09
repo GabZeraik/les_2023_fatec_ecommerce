@@ -26,7 +26,7 @@
                                 <option value="${resultado.dados[0].cor}">${resultado.dados[0].cor}</option>
                             </select>
                         </div>
-                        <strong>Estoque:</strong> <span>${resultado.dados[0].estoque_mao > 0 ? resultado.dados[0].estoque_mao : "PRODUTO ESGOTADO"}</span><br>								
+                        <strong>Estoque:</strong> <span id="spQuantidadeEstoque">${resultado.dados[0].estoque_mao > 0 ? resultado.dados[0].estoque_mao : "PRODUTO ESGOTADO"}</span><br>								
                     </address>
                     <h4><strong>R$${fn:replace(resultado.dados[0].preco_atual, '.', ',')}</strong></h4>
                 </section>

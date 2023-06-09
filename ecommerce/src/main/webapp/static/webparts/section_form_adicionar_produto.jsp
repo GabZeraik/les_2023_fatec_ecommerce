@@ -13,9 +13,9 @@
                             <input type="hidden" name="item_produto_id" value="${resultado.dados[0].id}">
                             <input type="hidden" name="item_carrinho_preco_unitario" value="${resultado.dados[0].preco_atual}">
                             <c:if test="${resultado.dados[0].estoque_mao > 0}">
-                                <button class="btn btn-inverse" type="submit" form="formAdicionarProdutoCarrinho">Adicionar ao carrinho</button>
+                                <button class="btn btn-inverse" type="submit" form="formAdicionarProdutoCarrinho" id="btnAdicionarAoCarrinho">Adicionar ao carrinho</button>
                                 <label>Quantidade:</label>
-                                <input type="text" class="span1" placeholder="1" value="1" name="item_carrinho_quantidade">
+                                <input type="number" class="span1" placeholder="1" value="1" min="1" max="${resultado.dados[0].estoque_mao}" name="item_carrinho_quantidade">
                             </c:if>
                         </fieldset>
                 </section>

@@ -13,7 +13,7 @@
                                     <p>
                                         <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.id}"><img src="static/themes/images/camiseta.png" alt="item.nome" /></a>
                                     </p>
-                                    <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.id}" class="nome">${item.nome}</a><br/>
+                                    <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.id}" class="nome" id="nome_produto_${item.id}">${item.nome}</a><br/>
                                     <a href="products.jsp" class="genero">${item.genero}</a>
                                     <p class="preco">R$${fn:replace(item.preco_atual, '.', ',')}</p>
                                 </div>
