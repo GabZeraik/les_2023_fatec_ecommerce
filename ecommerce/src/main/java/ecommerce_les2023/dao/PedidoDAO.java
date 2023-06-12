@@ -174,7 +174,7 @@ public class PedidoDAO extends AbstractDAO {
 					}
 				}
 				
-				sb.append(" ORDER BY ped_id ASC;");
+				sb.append(" ORDER BY ped_id DESC;");
 					
 				System.out.println(comandoSQL);
 				ResultSet rs = comandoSQL.executeQuery();

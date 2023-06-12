@@ -15,7 +15,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.assertTrue;
@@ -30,9 +29,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class TesteAlterarStatusPedido {
+public class TesteAlterarStatusTroca {
 	private static List<String> massa_cadastro;
-	private static Path path_arquivo = Paths.get("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\massa_testes\\TESTE_ALTERAR_STATUS_PEDIDO.txt");
+	private static Path path_arquivo = Paths.get("C:\\Users\\gbrie\\Documents\\GitHub\\les_2023_fatec_ecommerce\\ecommerce\\src\\main\\java\\test\\massa_testes\\TESTE_ALTERAR_STATUS_TROCA.txt");
 	private static WebDriver driver = new FirefoxDriver();	
 	
 	static {
@@ -45,7 +44,7 @@ public class TesteAlterarStatusPedido {
 	
 	@BeforeAll
 	public static void init(){
-        System.out.println("*****Teste de alteração de status do pedido*****");
+        System.out.println("*****Teste de alteração de status da troca*****");
     }
 	
 	@BeforeEach
@@ -54,25 +53,22 @@ public class TesteAlterarStatusPedido {
     }
 			
     @RepeatedTest(1)
-    @DisplayName("Teste com alteração de pedidos que devem ser concluídos com sucesso.")
+    @DisplayName("Teste com alteração de troca que devem ser concluídos com sucesso.")
     public void alterarStatusPedido (RepetitionInfo repetitionInfo){ 
-		String valorStatus = "ENTREGUE";
+    	    	
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 		    	
     	driver.get("localhost:8080/ecommerce_les/admin_pedidos.jsp");
     	
     	driver.findElement(new By.ById("botao_consultar")).click();
     	
-    	driver.findElement(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:first-child td button")).click();
+    	driver.findElement(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:last-child td button[title='Editar']")).click();
     	
-    	WebElement select = wait.until(ExpectedConditions.presenceOfElementLocated(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:first-child td select")));
-    	Select dropdown = new Select(select);
-    	driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+    	driver.findElement(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:last-child table:last-child td button[title='Aprovar Troca']")).click();
     	
-    	dropdown.selectByValue(valorStatus);
+    	driver.get("localhost:8080/ecommerce_les/admin_pedidos.jsp");
     	
-    	driver.findElement(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:first-child > td:nth-child(6) > div > div > div > div > input")).click();   	
-		
+    	driver.findElement(new By.ById("botao_consultar")).click();
     }
     
     public String obtemDataHoraTeste() {

@@ -128,7 +128,7 @@ class LinhaEndereco {
 }
 
 class LinhaPedido {
-    constructor(dados_pedido, radioRequired = "") {
+    constructor(dados_pedido, radioRequired = "", isClienteView) {
         this.id = dados_pedido.id;
         this.item_pedido = dados_pedido.item_pedido;
         this.valor_total = dados_pedido.valor_total;
@@ -138,6 +138,7 @@ class LinhaPedido {
         this.codigo_cliente = dados_pedido.cliente_id;
         this.ultima_atualizacao = dados_pedido.ultima_atualizacao;
         this.pedido_troca = dados_pedido.pedido_troca || [];
+        this.isClienteView = isClienteView;
     }
 
     criaLinhaPedido() {
@@ -292,7 +293,6 @@ class LinhaPedido {
             </tr>  
         `;
     }
-
 
     verificaPedidosTroca() {
         if(!this.pedido_troca) return "";

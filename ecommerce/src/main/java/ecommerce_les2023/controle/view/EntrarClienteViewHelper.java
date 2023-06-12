@@ -1,6 +1,7 @@
 package ecommerce_les2023.controle.view;
 
 import java.io.IOException;
+import java.util.List;
 
 import ecommerce_les2023.controle.AlterarCommand;
 import ecommerce_les2023.controle.ConsultarCommand;
@@ -8,6 +9,7 @@ import ecommerce_les2023.controle.ICommand;
 import ecommerce_les2023.modelo.Carrinho;
 import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.EntidadeDominio;
+import ecommerce_les2023.modelo.Pedido;
 import ecommerce_les2023.utils.Resultado;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,13 +31,21 @@ public class EntrarClienteViewHelper implements IViewHelper {
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
 		
 		if(!resultado.getDados().isEmpty()) {
+			ICommand command = new ConsultarCommand();
 			//RETORNA O "LOGIN" DO CLIENTE
 			Cliente cliente = (Cliente) resultado.getDados().get(0);
+			List<Pedido> pedidos = List.copyOf(cliente.getPedido());
+			cliente.setPedido(null);
+			
+			for(Pedido pedido: pedidos) {
+				Pedido ped = (Pedido) command.execute(pedido).getDados().get(0);
+				System.out.println(ped);
+				cliente.adicionaPedido(ped);
+			}
 			cliente.setJson();
 			req.getSession().setAttribute("usuario_logado", cliente);
 			
 			//SE EXISTIR CARRINHO PARA A SESSAO, VINCULA AO CLIENTE
-			ICommand command = new ConsultarCommand();
 			EntidadeDominio carrinho = new Carrinho(req.getSession(false).getId(), 0);
 			Resultado resultado_continuacao = command.execute(carrinho);
 			

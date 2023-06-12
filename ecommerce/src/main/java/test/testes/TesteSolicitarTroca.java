@@ -55,23 +55,23 @@ public class TesteSolicitarTroca {
     	
     	driver.get("localhost:8080/ecommerce_les/account.jsp");  	
   
-    	driver.findElement(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:last-child td a")).click();
-    	WebElement botao_troca = wait.until(ExpectedConditions.visibilityOfElementLocated(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:last-child input[value=\"Solicitar troca/devolução\"]")));
+    	driver.findElement(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:first-child td a")).click();
+    	WebElement botao_troca = wait.until(ExpectedConditions.visibilityOfElementLocated(new By.ByCssSelector("#resultado_tabela_pedidos > tbody > tr:first-child input[value=\"Solicitar troca/devolução\"]")));
     	botao_troca.click();
 		    	
     	//wait.until(ExpectedConditions.visibilityOfElementLocated(new By.ByCssSelector(".container-modal-teste ")));
-    	List<WebElement> checkboxes = driver.findElements(new By.ByCssSelector("#resultado_tabela_pedidos tr:last-child .container-modal-teste input[type=\"checkbox\"]"));
+    	List<WebElement> checkboxes = driver.findElements(new By.ByCssSelector(".modal.fade.in input[type='checkbox']"));
     	for(WebElement cb : checkboxes) {
     		cb.click();
     	}
     	
-    	List<WebElement> inputs_quantidades = driver.findElements(new By.ByCssSelector("#resultado_tabela_pedidos tr:last-child .container-modal-teste input[type=\"number\"]"));
+    	List<WebElement> inputs_quantidades = driver.findElements(new By.ByCssSelector(".modal.fade.in input[type=\"number\"]"));
     	for(WebElement ip : inputs_quantidades) {
     		ip.clear();
     		ip.sendKeys("1");
     	}
     	
-    	driver.findElement(new By.ByCssSelector("#resultado_tabela_pedidos tr:last-child .modal button[type=\"submit\"]")).click();
+    	driver.findElement(new By.ByCssSelector(".modal.fade.in button[type=\"submit\"]")).click();
     	
     	wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mensagem_resultado")));
     	

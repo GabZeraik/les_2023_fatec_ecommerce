@@ -158,7 +158,6 @@
 
                         funcaoAlterar(null, "${usuario_logado.id}");
                         editHandler(null, "${usuario_logado.id}");
-                        console.log("${bandeiras}")
                     </script>
                 </body>
 

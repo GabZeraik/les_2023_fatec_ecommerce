@@ -17,7 +17,7 @@ public class Pedido extends EntidadeDominio {
 	private List<Transacao> transacao;
 	private int cupom_id;
 	private List<PedidoTroca> pedido_troca;
-	
+
 	public Pedido(float valor_total, String situacao, String modificado_por, String ultima_atualizacao,
 			int cliente_id) {
 		this.codigo = this.gerarCodigoUnico();
@@ -158,5 +158,9 @@ public class Pedido extends EntidadeDominio {
 			this.pedido_troca = new ArrayList<PedidoTroca>();
 		}
 		this.pedido_troca.add(pedido);
+	}
+	
+	public List<PedidoTroca> getPedido_troca() {
+		return pedido_troca;
 	}
 }
