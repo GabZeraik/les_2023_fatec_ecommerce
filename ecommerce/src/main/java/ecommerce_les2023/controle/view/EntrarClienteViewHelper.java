@@ -1,6 +1,7 @@
 package ecommerce_les2023.controle.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import ecommerce_les2023.controle.AlterarCommand;
@@ -34,14 +35,17 @@ public class EntrarClienteViewHelper implements IViewHelper {
 			ICommand command = new ConsultarCommand();
 			//RETORNA O "LOGIN" DO CLIENTE
 			Cliente cliente = (Cliente) resultado.getDados().get(0);
-			List<Pedido> pedidos = List.copyOf(cliente.getPedido());
-			cliente.setPedido(null);
+			List<Pedido> pedidos = new ArrayList<>();
 			
-			for(Pedido pedido: pedidos) {
-				Pedido ped = (Pedido) command.execute(pedido).getDados().get(0);
-				System.out.println(ped);
-				cliente.adicionaPedido(ped);
-			}
+			if(!cliente.getPedido().isEmpty()) {
+				pedidos = List.copyOf(cliente.getPedido());
+				cliente.setPedido(null);
+				for(Pedido pedido: pedidos) {
+					Pedido ped = (Pedido) command.execute(pedido).getDados().get(0);
+					cliente.adicionaPedido(ped);
+				}
+			} 
+			
 			cliente.setJson();
 			req.getSession().setAttribute("usuario_logado", cliente);
 			

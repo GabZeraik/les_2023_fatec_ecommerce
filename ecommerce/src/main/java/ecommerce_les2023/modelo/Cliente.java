@@ -16,7 +16,7 @@ public class Cliente extends Pessoa {
 	private Telefone telefone;
 	private List<Cupom> cupom;
 	private List<Cartao> cartao;
-	private List<Pedido> pedido;
+	private List<Pedido> pedido = new ArrayList<>();
 	
 	public Cliente(String nome, String cpf, String email, String genero, List<Endereco> enderecos, String dta_nascimento, String situacao, String ranking, String usuario, String senha, Cartao cartao,
 			Telefone telefone) {
