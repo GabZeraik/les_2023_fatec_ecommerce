@@ -69,6 +69,8 @@ public class Controller extends HttpServlet{
 		
 		mapViewHelpers.put("/ecommerce_les/SolicitarTroca", new TrocaPedidoViewHelper());
 		mapViewHelpers.put("/ecommerce_les/AlterarSituacaoPedidoTroca", new AprovarTrocaPedidoViewHelper());
+		
+		mapViewHelpers.put("/ecommerce_les/ConsultarVendasGrafico", new VendasGraficoViewHelper());
 	}
 	
 	@Override
