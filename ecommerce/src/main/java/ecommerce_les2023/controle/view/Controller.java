@@ -131,6 +131,13 @@ public class Controller extends HttpServlet{
 			return;
 		}
 		
+		//GRÁFICO
+		if(operacaoForm.equals("GERAR_GRAFICO")) {
+			viewHelperRequisitada.obterEntidade(req);
+			viewHelperRequisitada.setView(null, req, resp);
+			return;
+		}
+		
 		//Cria entidade da viewHelper específica
 		EntidadeDominio entidade = viewHelperRequisitada.obterEntidade(req);
 				
@@ -182,7 +189,6 @@ public class Controller extends HttpServlet{
 		if(operacaoForm.equals("INVALIDAR")) {
 			viewHelperRequisitada.obterEntidade(req);
 			viewHelperRequisitada.setView(null, req, resp);
-			getServletContext().setAttribute("produtos", this.atualizaProdutos());
 			return;
 		}
 		

@@ -3,8 +3,6 @@ package ecommerce_les2023.controle.view;
 import java.io.IOException;
 import java.util.List;
 
-import com.google.gson.Gson;
-
 import ecommerce_les2023.controle.ConsultarCommand;
 import ecommerce_les2023.controle.ICommand;
 import ecommerce_les2023.modelo.EntidadeDominio;
@@ -15,10 +13,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class VendasGraficoViewHelper implements IViewHelper {
-
+	
 	@Override
 	public EntidadeDominio obterEntidade(HttpServletRequest req) {
-		
 		EntidadeDominio pedido = new Pedido();
 		EntidadeDominio produto = new Produto();
 		pedido.setId(0);
@@ -30,9 +27,9 @@ public class VendasGraficoViewHelper implements IViewHelper {
 		
 		Resultado resultado_produtos = command.execute(produto);
 		List<EntidadeDominio> produtos = resultado_produtos.getDados();
-		
-		req.setAttribute("produtos", new Gson().toJson(produtos));
-		req.setAttribute("pedidos", new Gson().toJson(pedidos));
+				
+		req.getSession().setAttribute("pedidos", pedidos);
+		req.getSession().setAttribute("produtos", produtos);
 		
 		return null;
 	}

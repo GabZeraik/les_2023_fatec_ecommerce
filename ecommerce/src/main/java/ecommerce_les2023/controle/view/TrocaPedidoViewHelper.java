@@ -26,13 +26,11 @@ public class TrocaPedidoViewHelper implements IViewHelper {
 		PedidoTroca pedido_troca = new PedidoTroca();
 		
 		for(String item_selecionado_id : req.getParameterValues("item_selecionado_troca")) {
-			System.out.println("ID DO ITEM: " + item_selecionado_id);
 			//Consulta o item do pedido
 			ItemPedido item_pedido = new ItemPedido();
 			item_pedido.setId(Integer.parseInt(item_selecionado_id));
 			ICommand command = new ConsultarCommand();
 			Resultado resultado_item_pedido = command.execute(item_pedido);
-			System.out.println("RESULTADO ITEM PEDIDO: " + resultado_item_pedido);
 			item_pedido = (ItemPedido) resultado_item_pedido.getDados().get(0);
 			
 			//Consulta o pedido

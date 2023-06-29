@@ -12,7 +12,6 @@ public class Frete extends EntidadeDominio{
 	public Frete(int codigo, float porcentagem) {
 		this.codigo = codigo;
 		this.porcentagem = porcentagem;
-		this.setJson();
 	}
 	
 	public int getCodigo() {
@@ -27,11 +26,4 @@ public class Frete extends EntidadeDominio{
 	public void setPorcentagem(float porcentagem) {
 		this.porcentagem = porcentagem;
 	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return this.json;
-	}
-		
 }

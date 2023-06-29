@@ -22,10 +22,24 @@
                                     <h4 class="title"><span class="text"><strong>Dados</strong> Vendas</span></h4>
                                 </div>
                             </div>
+                            <div class="actions"><input class="btn btn-inverse large" id="filtrar_por_produto" onclick="criaGrafico('PRODUTO')" value="POR PRODUTO"></div>
+                            <br>
+                            <div class="actions"><input class="btn btn-inverse large" id="filtrar_por_categoria" onclick="criaGrafico('CATEGORIA')" value="POR CATEGORIA"></div>
+                            <br>
+                            <label for="data_inicial_grafico">Data inicial</label>
+                            <input type="date" id="data_inicial_grafico" onchange="filtraPedidosData()">
+                            <label for="data_final_grafico">Data final</label>
+                            <input type="date" id="data_final_grafico" onchange="filtraPedidosData()">
+                            <button type="button" onclick="limpaDatas()">LIMPAR DATAS</button>
                         </section>
                         <section>
-                            <div>
-                                <canvas id="myChart"></canvas>
+                            <div class="chartCard">
+                                <div class="chartBox">
+                                    <canvas id="grafico_quantidade"></canvas>
+                                </div>
+                                <div class="chartBox">
+                                    <canvas id="grafico_valor"></canvas>
+                                </div>
                             </div>
                         </section>
 
@@ -34,35 +48,27 @@
 
                     </div>
                     <script type="text/javascript">
-                        try {
-                            const json_pedidos = JSON.parse('${pedidos}');
-                            const json_clientes = JSON.parse('${clientes}');
-                            const json_produtos = JSON.parse('${produtos}');
-                        } catch (error) {
+                        var json_produtos = JSON.parse('${produtos}');
+                        var json_pedidos = JSON.parse('${pedidos}');
+                        var json_pedidos_filtrado = json_pedidos;
+                        var json_produtos_filtrado = json_produtos;
+                        const elem_data_inicial = document.querySelector('#data_inicial_grafico');
+                        const elem_data_final = document.querySelector('#data_final_grafico');
 
+                        const limpaDatas = () => {
+                            elem_data_inicial.value = "";
+                            elem_data_final.value = "";
                         }
 
-                        const ctx = document.getElementById('myChart');
-
-                        new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                datasets: [{
-                                    label: '# of Votes',
-                                    data: [12, 19, 3, 5, 2, 3],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
+                        const filtraPedidosData = () => {
+                            let elem_data_inicial = document.querySelector('#data_inicial_grafico').value;
+                            let elem_data_final = document.querySelector('#data_final_grafico').value;
+                            if (elem_data_final && elem_data_inicial) {
+                                json_pedidos_filtrado = json_pedidos.filter(pedido => new Date(elem_data_inicial) <= new Date(pedido.data_pedido) && new Date(elem_data_final) >= new Date(pedido.data_pedido));
                             }
-                        });
+                        }
                     </script>
+                    <script src="static/js/graficos.js"></script>
                 </body>
 
                 </html>

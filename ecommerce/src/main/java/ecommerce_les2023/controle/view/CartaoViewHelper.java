@@ -39,7 +39,7 @@ public class CartaoViewHelper implements IViewHelper {
 			Cliente usuario_logado = (Cliente) req.getSession(false).getAttribute("usuario_logado");
 			Resultado resultado_atualizado = command.execute(usuario_logado);
 			usuario_logado = (Cliente) resultado_atualizado.getDados().get(0);
-			usuario_logado.setJson();
+			//usuario_logado.setJson();
 			req.getSession().setAttribute("usuario_logado", usuario_logado);
 			
 			try {

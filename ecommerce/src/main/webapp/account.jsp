@@ -76,7 +76,7 @@
                         const container_enderecos_entrega = document.querySelector('.js-container-enderecos-entrega');
                         const container_enderecos_cobranca = document.querySelector('.js-container-enderecos-cobranca');
                         const cliente_id_inputs = document.querySelectorAll('input[name*="cliente_id"]');
-                        const usuario_logado = JSON.parse('${usuario_logado.json}');
+                        const usuario_logado = JSON.parse('${usuario_logado}');
 
 
                         const calculaValorTotalTrocaItem = (button) => {

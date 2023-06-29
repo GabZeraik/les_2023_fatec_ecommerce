@@ -47,6 +47,7 @@
                     <button><a href="./admin_produtos.jsp">PRODUTOS</a></button>
                     <button><a href="./admin_clientes.jsp">CLIENTES</a></button>
                     <button><a href="./admin_pedidos.jsp">PEDIDOS</a></button>
+                    <button><a href="./ConsultarVendasGrafico?operacao=GERAR_GRAFICO">DADOS</a></button>
                 </div>
             </div>
         </section>

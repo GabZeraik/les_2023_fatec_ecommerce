@@ -46,7 +46,7 @@ public class EntrarClienteViewHelper implements IViewHelper {
 				}
 			} 
 			
-			cliente.setJson();
+			//cliente.setJson();
 			req.getSession().setAttribute("usuario_logado", cliente);
 			
 			//SE EXISTIR CARRINHO PARA A SESSAO, VINCULA AO CLIENTE

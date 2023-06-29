@@ -181,7 +181,7 @@ public class CarrinhoDAO extends AbstractDAO {
 				car.setId(rs.getInt("shop_id"));
 				car.setExpira_em(rs.getString("shop_expira_em"));
 				adicionaItensResultSet(car);
-				car.setJson();
+				//car.setJson();
 				carrinhos.add(car);
 			}
 			

@@ -18,6 +18,7 @@
                     <!-- global styles -->
                     <link href="static/themes/css/flexslider.css" rel="stylesheet" />
                     <link href="static/themes/css/main.css" rel="stylesheet" />
+                    <link href="static/css/charts.css" rel="stylesheet" />
 
                     <!-- scripts -->
                     <script src="static/themes/js/jquery-1.7.2.min.js"></script>
@@ -27,4 +28,5 @@
 
                     <!-- chart -->
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
                 </head>

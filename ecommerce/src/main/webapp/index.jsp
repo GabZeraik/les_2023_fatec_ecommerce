@@ -58,22 +58,6 @@
                                 });
                             });
                         });
-
-                        const usuario = () => {
-                            console.log("${usuario_logado}")
-                        }
-
-                        const produtos = () => {
-                            console.log("${produtos}")
-                        }
-
-                        const bandeiras = () => {
-                            console.log("${bandeiras}")
-                        }
-
-                        const carrinho = () => {
-                            console.log("${carrinho}")
-                        }
                     </script>
                 </body>
 

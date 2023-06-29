@@ -122,14 +122,6 @@
                                 interval: 2500
                             });
                         });
-
-                        const produtos = () => {
-                            console.log("${produtos}")
-                        }
-
-                        const produto = () => {
-                            console.log("${produtos}")
-                        }
                     </script>
                 </body>
 

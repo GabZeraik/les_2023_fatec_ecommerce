@@ -133,5 +133,4 @@ public class Produto extends EntidadeDominio {
 	public void setEstoque_mao(int estoque_mao) {
 		this.estoque_mao = estoque_mao;
 	}
-
 }

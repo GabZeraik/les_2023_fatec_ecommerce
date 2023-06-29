@@ -8,7 +8,7 @@ public class EntidadeDominio {
 	
 	protected int id;
 	protected Calendar dta_cadastro;
-	protected String json;
+	//protected String json;
 	
 	public EntidadeDominio() {
 		this.dta_cadastro = Calendar.getInstance();
@@ -36,18 +36,15 @@ public class EntidadeDominio {
 		this.dta_cadastro = calendar;
 	}
 	
-	public String getJson() {
-		return this.json;
-	}
-
-	public void setJson() {
-		this.json = "";
-		this.json = this.objetoToJson();
-	}
 
 	public String objetoToJson() {
 		Gson gson = new Gson();
 		String json = gson.toJson(this);
 		return json;
+	}
+	
+	@Override
+	public String toString() {
+		return this.objetoToJson();
 	}
 }

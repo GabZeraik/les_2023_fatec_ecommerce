@@ -83,7 +83,7 @@ public class FinalizarCompraViewHelper implements IViewHelper {
 		command = new ConsultarCommand();
 		Resultado resultado_usuario_logado = command.execute(cli);
 		cli = (Cliente) resultado_usuario_logado.getDados().get(0);
-		cli.setJson();	
+		//cli.setJson();	
 		
 		req.getSession().setAttribute("resultado", resultado_pedido);
 		req.getSession().setAttribute("carrinho", resultado_carrinho.getDados().get(0));
@@ -106,7 +106,7 @@ public class FinalizarCompraViewHelper implements IViewHelper {
 		}else if(!resultado.getDados().isEmpty()) {
 			//RETORNA O "LOGIN" DO CLIENTE
 			Cliente cliente = (Cliente) resultado.getDados().get(0);
-			cliente.setJson();
+			//cliente.setJson();
 			req.getSession().setAttribute("usuario_logado", cliente);
 			
 			//SE EXISTIR CARRINHO PARA A SESSAO, VINCULA AO CLIENTE
