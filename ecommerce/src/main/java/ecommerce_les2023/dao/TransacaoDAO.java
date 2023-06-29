@@ -1,5 +1,6 @@
 package ecommerce_les2023.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,13 +13,20 @@ import ecommerce_les2023.utils.Log;
 
 public class TransacaoDAO extends AbstractDAO {
 	
+	public TransacaoDAO(Connection conexao){
+		super(conexao, "transacoes", "tra_id");
+	}
+	
 	public TransacaoDAO() {
 		super("transacoes", "tra_id");
 	}
 
 	@Override
 	public void salvar(EntidadeDominio entidade) {
-		openConnection();
+		
+		if(this.acaoIndependente)
+			openConnection();
+		
 		PreparedStatement comandoSQL = null;
 		Transacao transacao = (Transacao) entidade;
 				
@@ -56,12 +64,14 @@ public class TransacaoDAO extends AbstractDAO {
 			}
 			e.printStackTrace();
 		}finally{
-			try {
-				comandoSQL.close();
-				conexao.close();
-				System.out.println("CONEXÃO FINALIZADA!");
-			} catch (SQLException e) {
-				e.printStackTrace();
+			if(ctrlTransaction){
+				try {
+					comandoSQL.close();
+					if(ctrlTransaction)
+						conexao.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

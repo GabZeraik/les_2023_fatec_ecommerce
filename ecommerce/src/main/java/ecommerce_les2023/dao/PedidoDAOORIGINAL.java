@@ -17,9 +17,9 @@ import ecommerce_les2023.modelo.PedidoTroca;
 import ecommerce_les2023.modelo.Transacao;
 import ecommerce_les2023.utils.Log;
 
-public class PedidoDAO extends AbstractDAO {
+public class PedidoDAOORIGINAL extends AbstractDAO {
 	
-	public PedidoDAO() {
+	public PedidoDAOORIGINAL() {
 		super("pedidos", "ped_id");
 	}
 
@@ -47,7 +47,8 @@ public class PedidoDAO extends AbstractDAO {
 			comandoSQL.setString(5, pedido.getModificado_por());
 			comandoSQL.setTimestamp(6, ts, pedido.getDta_cadastro());
 			comandoSQL.setInt(7, pedido.getCliente_id());
-					
+			
+						
 			comandoSQL.executeUpdate();
 			
 			conexao.commit();
@@ -57,32 +58,7 @@ public class PedidoDAO extends AbstractDAO {
 			if(keysTabela.next())
 				id = keysTabela.getInt(1);
 			pedido.setId(id);
-			
-			for (ItemPedido item : pedido.getItem_pedido()) {
-				item.setPedido_id(pedido.getId());
-				ItemPedidoDAO itemPedidoDAO = new ItemPedidoDAO(conexao);
-				itemPedidoDAO.ctrlTransaction = false;
-				itemPedidoDAO.acaoIndependente = false;
-				itemPedidoDAO.salvar(item);
-			}
-			
-			for (Transacao transacao : pedido.getTransacao()) {
-				transacao.setPedido_id(pedido.getId());
-				TransacaoDAO transacaoDAO = new TransacaoDAO(conexao);
-				transacaoDAO.ctrlTransaction = false;
-				transacaoDAO.acaoIndependente = false;
-				transacaoDAO.salvar(transacao);
-			}
-			if(pedido.getCupom_pedido() != null) {
-				for (Cupom cupom : pedido.getCupom_pedido()) {
-					cupom.setPedido_id(pedido.getId());
-					CupomDAO cupomDAO = new CupomDAO(conexao);
-					cupomDAO.ctrlTransaction = false;
-					cupomDAO.acaoIndependente = false;
-					cupomDAO.alterar(cupom);
-				}
-			}
-					
+						
 			System.out.println(new Log().gerarLog(pedido, "Cadastro"));
 			
 		} catch (SQLException e) {
@@ -96,6 +72,7 @@ public class PedidoDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
+				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -141,6 +118,7 @@ public class PedidoDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
+				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -225,6 +203,7 @@ public class PedidoDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
+				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

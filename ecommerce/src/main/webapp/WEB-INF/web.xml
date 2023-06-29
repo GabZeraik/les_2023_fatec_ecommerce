@@ -162,4 +162,9 @@
     <url-pattern>/ConsultarVendasGrafico</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/AlterarQuantidadeItemCarrinho</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

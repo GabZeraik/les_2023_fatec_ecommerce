@@ -45,7 +45,6 @@
                             <div class="span8">
                                 <div class="account pull-right">
                                     <ul class="user-menu">
-                                        <c:if test="${carrinho.id > 0 || carrinho != null}"><span>Seu carrinho expira às: <strong>${carrinho.expira_em}</strong></span></c:if>
                                         <li><a href="cart.jsp">Carrinho</a></li>
                                         <c:choose>
                                             <c:when test="${empty usuario_logado}">

@@ -17,11 +17,6 @@ public class ConexaoBD {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			conexaoBD = null;
-		}finally {
-			if(conexaoBD == null)
-				System.out.println("NÃO FOI POSSÍVEL CONECTAR!!!!");
-			else 
-				System.out.println("CONECTADO!!!!");
 		}
 		return conexaoBD;
 	}

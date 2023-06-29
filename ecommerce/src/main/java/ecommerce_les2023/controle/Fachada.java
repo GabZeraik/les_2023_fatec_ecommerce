@@ -38,9 +38,12 @@ import ecommerce_les2023.modelo.Transacao;
 import ecommerce_les2023.negocio.IStrategy;
 import ecommerce_les2023.negocio.VerificadorDigitosCpfStrategy;
 import ecommerce_les2023.negocio.VerificadorEmailCadastradoStrategy;
+import ecommerce_les2023.negocio.VerificadorEstoqueProdutoStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosClienteStrategy;
 import ecommerce_les2023.negocio.VerificadorDadosObrigatoriosEndereco;
 import ecommerce_les2023.negocio.VerificadorSenhaForte;
+import ecommerce_les2023.negocio.VerificadorValorNaoZeroCartaoStrategy;
+import ecommerce_les2023.negocio.VerificadorValorPagoPedidoStrategy;
 import ecommerce_les2023.utils.Resultado;
 
 public class Fachada implements IFachada {
@@ -60,6 +63,8 @@ public class Fachada implements IFachada {
 		List<IStrategy> alterarClienteStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> cadastrarEnderecoStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> cadastrarCartaoStrategy = new ArrayList<IStrategy>();
+		List<IStrategy> cadastrarPedidoStrategy = new ArrayList<IStrategy>();
+		List<IStrategy> cadastrarItemCarrinhoStrategy = new ArrayList<IStrategy>();
 		
 		//Aplicar regras de negócio para manter clientes
 		cadastrarClienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
@@ -69,6 +74,13 @@ public class Fachada implements IFachada {
 		
 		//Aplicar regras de negócio para manter enderecos
 		cadastrarEnderecoStrategy.add(new VerificadorDadosObrigatoriosEndereco());
+		
+		//Aplicar regras de negócio para pedidos
+		cadastrarPedidoStrategy.add(new VerificadorValorNaoZeroCartaoStrategy());
+		cadastrarPedidoStrategy.add(new VerificadorValorPagoPedidoStrategy());
+		
+		//Aplicar regras de negócio para carrinho
+		cadastrarItemCarrinhoStrategy.add(new VerificadorEstoqueProdutoStrategy());
 		
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
 		
@@ -81,6 +93,12 @@ public class Fachada implements IFachada {
 		
 		//Cartao
 		this.mapStrategies.put("Cadastrar" + Cartao.class.getName(), cadastrarCartaoStrategy);
+		
+		//Pedido
+		this.mapStrategies.put("Cadastrar" + Pedido.class.getName(), cadastrarPedidoStrategy);
+		
+		//ItemCarrinho
+		this.mapStrategies.put("Cadastrar" + ItemCarrinho.class.getName(), cadastrarItemCarrinhoStrategy);
 	}
 
 	//Cria os mapas de chave/valor para as respectivas classes, linkando a classe com seu DAO. Exemplo: classe Aluno/ AlunoDAO

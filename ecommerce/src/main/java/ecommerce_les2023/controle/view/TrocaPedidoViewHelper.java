@@ -6,6 +6,7 @@ import ecommerce_les2023.controle.AlterarCommand;
 import ecommerce_les2023.controle.ConsultarCommand;
 import ecommerce_les2023.controle.ICommand;
 import ecommerce_les2023.controle.SalvarCommand;
+import ecommerce_les2023.modelo.Cliente;
 import ecommerce_les2023.modelo.EntidadeDominio;
 import ecommerce_les2023.modelo.ItemPedido;
 import ecommerce_les2023.modelo.ItemTroca;
@@ -64,6 +65,12 @@ public class TrocaPedidoViewHelper implements IViewHelper {
 		pedido.setSituacao(pedido_situacao);
 		Resultado resultado_alteração_pedido = command.execute(pedido);
 		req.getSession().setAttribute("resultado", resultado_alteração_pedido);
+		
+		command = new ConsultarCommand();
+		Cliente cli = new Cliente();
+		cli.setId(pedido.getCliente_id());
+		Cliente cliente_atualizado = (Cliente) command.execute(cli).getDados().get(0);
+		req.getSession().setAttribute("usuario_logado", cliente_atualizado);
 		
 		return null;
 	}

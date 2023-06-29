@@ -21,13 +21,14 @@ import ecommerce_les2023.utils.Resultado;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class FinalizarCompraViewHelper implements IViewHelper {
+public class FinalizarCompraViewHelperORIGINAL implements IViewHelper {
 
 	@Override
 	public EntidadeDominio obterEntidade(HttpServletRequest req) {
 		Cliente cli = (Cliente) req.getSession().getAttribute("usuario_logado");
 		
 		String pedido_valor_total = req.getParameter("pedido_valor_total");
+		//String cupom_selecionado = req.getParameter("cupom_selecionado");
 		String pedido_situacao = "EM PROCESSAMENTO";
 		String[] pedido_cartoes_selecionados = req.getParameterValues("cartao_selecionado");
 		String[] pedido_cupons_selecionados = req.getParameterValues("cupom_selecionado");
@@ -39,57 +40,59 @@ public class FinalizarCompraViewHelper implements IViewHelper {
 		
 		Carrinho carrinho = (Carrinho) req.getSession().getAttribute("carrinho");
 		
+		//CADASTRA PEDIDO
+		ICommand command = new SalvarCommand();
 		Pedido pedido = new Pedido(Float.parseFloat(pedido_valor_total), pedido_situacao, null, null, cli.getId());
-				
-		//ADICIONA TRANSACOES AO PEDIDO
-		for (Map.Entry<String, String> set : mapCartaoValor.entrySet()) {
-			Transacao transacao = new Transacao(Integer.parseInt(set.getKey()), Float.parseFloat(set.getValue()), 0);
-			pedido.adicionaTransacao(transacao);
-		}
+		Resultado resultado_pedido = command.execute(pedido);
+		pedido = (Pedido) resultado_pedido.getDados().get(0);
 		
-		//ADICIONA ITENS AO PEDIDO
-		for(ItemCarrinho itemCarrinho : carrinho.getItens()) {
-			ItemPedido itemPedido = new ItemPedido(itemCarrinho.getQuantidade(), itemCarrinho.getPreco_unitario(), itemCarrinho.getProduto_id(), 0);
-			pedido.adicionaItemPedido(itemPedido);
-		}
-		
-		//ADICIONA CUPOM UTILIZADO
-		if(pedido_cupons_selecionados != null) {
-			for(String cupom_selecionado : pedido_cupons_selecionados) {
-				Cupom cupom = new Cupom();
-				cupom.setId(Integer.parseInt(cupom_selecionado));
-				cupom.setValido(0);
-				pedido.adicionaCupomPedido(cupom);
+		//CADASTRA TRANSACOES
+		if(resultado_pedido.getDados().size() > 0) {	
+			for (Map.Entry<String, String> set : mapCartaoValor.entrySet()) {
+				EntidadeDominio transacao = new Transacao(Integer.parseInt(set.getKey()), Float.parseFloat(set.getValue()), pedido.getId());
+				command.execute(transacao);
 			}
 		}
 		
-		//CADASTRA PEDIDO
-		ICommand command = new SalvarCommand();
-		Resultado resultado_pedido = command.execute(pedido);
-		if(resultado_pedido.getMensagem().contains("sucesso")) {
-			
-			req.getSession().setAttribute("pedido_realizado", resultado_pedido.getDados().get(0));
-			
-			//EXCLUI CARRINHO
-			command = new ExcluirCommand();
-			command.execute(carrinho);
-			
-			//CRIA NOVO CARRINHO
-			command = new SalvarCommand();
-			String carrinho_session_id = req.getSession().getId();
-			int carrinho_cliente_id = cli.getId();
-			carrinho = new Carrinho(carrinho_session_id, carrinho_cliente_id);
-			Resultado resultado_carrinho = command.execute(carrinho);
-			req.getSession().setAttribute("carrinho", resultado_carrinho.getDados().get(0));
-			
-			//ATUALIZA USUARIO LOGADO
-			command = new ConsultarCommand();
-			Resultado resultado_usuario_logado = command.execute(cli);
-			cli = (Cliente) resultado_usuario_logado.getDados().get(0);
-			req.getSession().setAttribute("usuario_logado", cli);
+		//CADASTRA ITENS PEDIDO
+		for(ItemCarrinho itemCarrinho : carrinho.getItens()) {
+			ItemPedido itemPedido = new ItemPedido(itemCarrinho.getQuantidade(), itemCarrinho.getPreco_unitario(), itemCarrinho.getProduto_id(), pedido.getId());
+			command.execute(itemPedido);
 		}
 		
+		//ALTERA CUPOM UTILIZADO
+		if(pedido_cupons_selecionados != null) {
+			for(String cupom_selecionado : pedido_cupons_selecionados) {
+				command = new AlterarCommand();
+				Cupom cupom = new Cupom();
+				cupom.setId(Integer.parseInt(cupom_selecionado));
+				cupom.setValido(0);
+				command.execute(cupom);
+			}
+		}
+		
+		
+		//EXCLUI CARRINHO
+		command = new ExcluirCommand();
+		command.execute(carrinho);
+		
+		//CRIA NOVO CARRINHO
+		command = new SalvarCommand();
+		String carrinho_session_id = req.getSession().getId();
+		int carrinho_cliente_id = cli.getId();
+		carrinho = new Carrinho(carrinho_session_id, carrinho_cliente_id);
+		Resultado resultado_carrinho = command.execute(carrinho);
+		
+		//ATUALIZA USUARIO LOGADO
+		command = new ConsultarCommand();
+		Resultado resultado_usuario_logado = command.execute(cli);
+		cli = (Cliente) resultado_usuario_logado.getDados().get(0);
+		//cli.setJson();	
+		
 		req.getSession().setAttribute("resultado", resultado_pedido);
+		req.getSession().setAttribute("carrinho", resultado_carrinho.getDados().get(0));
+		req.getSession().setAttribute("pedido_realizado", resultado_pedido.getDados().get(0));
+		req.getSession().setAttribute("usuario_logado", cli);
 		
 		return null;
 	}

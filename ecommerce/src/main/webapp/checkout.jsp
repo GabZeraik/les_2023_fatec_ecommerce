@@ -84,6 +84,7 @@
                     const formEntrega = document.querySelector('#div_endereco_entrega');
                     const btnContinuar = document.querySelector('#btn_continuar');
                     const formCartao = document.querySelector('#div_novo_cartao');
+                    const formAlterarQuantidadeItem = document.querySelector('#formAlterarQuantidadeItem');
 
                     const radioHandlerEndereco = (myRadio) => {
                         formEntrega.classList.toggle('hidden', myRadio.value.includes("endereco"));
@@ -94,12 +95,13 @@
                         formCartao.classList.toggle('hidden');
                     }
 
-                    const calculaValorTotalFinal = (valorCupomChecked) => {
+                    const calculaValorTotalFinal = () => {
                         //VALOR FINAL
                         let valorFinalCarrinho = 0;
                         let valorFinalCalculoPedido = 0;
                         let valorFrete = 0;
                         let valorCupom = 0;
+                        let cupons_selecionados = document.querySelectorAll('input[id^="selecionado_cupom"]');
 
                         //CARRINHO
                         valorFinalCarrinho = Number(span_sub_total.textContent.split("R$")[1].replace(',', '.'));
@@ -118,8 +120,8 @@
                         }
 
                         //CUPOM
-                        if (valorCupomChecked) {
-                            valorCupom = Number(valorCupomChecked);
+                        if (cupons_selecionados) {
+                            cupons_selecionados.forEach(elem => valorCupom += Number(elem.getAttribute('valor_cupom')));
                             valorFinalCalculoPedido = valorFinalCalculoPedido - valorCupom;
                             valorCupom = "-R$ " + valorCupom.toFixed(2);
                         } else {
@@ -132,21 +134,23 @@
                         input_valor_total_pedido_final.value = Number(valorFinalCalculoPedido.toFixed(2));
                     }
 
-                    let checkboxCuponsHandler = (checkbox) => {
-                        //SELECIONA O PRÓPRIO E DESSELECIONA OS OUTROS
-                        inputs_cupons_disponiveis.forEach(el => el.addEventListener("click", ev => {
-                            inputs_cupons_disponiveis.forEach(input => {
-                                if (input !== el) input.checked = false;
-                            })
-                        }))
+                    const checkboxCuponsHandler = (checkbox) => {
+                        const cupom_id = checkbox.id.split('_')[1];
+                        const id_selecionado = "selecionado_".concat(checkbox.id);
+                        const input_cupom = document.querySelector('#' + id_selecionado);
 
+                        //SELECIONA O PRÓPRIO E DESSELECIONA OS OUTROS
                         if (checkbox.checked) {
-                            calculaValorTotalFinal(checkbox.value);
-                            input_cupom_selecionado_form.value = Number(checkbox.id.split('_')[1]);
+                            if (!input_cupom) {
+                                div_cupom_selecionado_form.insertAdjacentHTML('afterbegin', "<input type='hidden' name='cupom_selecionado' valor_cupom='" + checkbox.value + "' value='" + cupom_id + "' id='" + id_selecionado + "'>");
+                            }
                         } else {
-                            calculaValorTotalFinal();
-                            input_cupom_selecionado_form.value = 0;
+                            if (input_cupom) {
+                                input_cupom.remove();
+                            }
                         }
+
+                        calculaValorTotalFinal();
                     }
 
                     const formAlteracao = document.querySelector('#editar_cadastro_cliente');
@@ -154,8 +158,8 @@
                     const container_enderecos_entrega = document.querySelector('.js-container-enderecos-entrega');
                     const cliente_id_inputs = document.querySelectorAll('input[name*="cliente_id"]');
                     const input_quantidade_cartoes_selecionados = document.querySelector('#input_quantidade_cartoes_selecionados');
-                    const json_resultado = JSON.parse('${usuario_logado.json}');
-                    const carrinho = JSON.parse('${carrinho.json}');
+                    const json_resultado = JSON.parse('${usuario_logado}');
+                    const carrinho = JSON.parse('${carrinho}');
                     const fretes = JSON.parse('${fretes}');
 
                     const span_sub_total = document.querySelector('#span_resumo_sub_total');
@@ -165,7 +169,7 @@
 
                     const form_finalizar = document.querySelector('#formFinalizarCompra');
                     const inputs_cupons_disponiveis = document.querySelectorAll('section.cupons_disponiveis input[type="checkbox"]');
-                    const input_cupom_selecionado_form = document.querySelector('#cupom_selecionado');
+                    const div_cupom_selecionado_form = document.querySelector('#cupom_selecionado');
                     const input_valor_total_pedido_final = document.querySelector('#valor_total_pedido_final');
 
 
@@ -232,6 +236,17 @@
 
                         document.querySelector('#formFinalizarCompra').submit();
                     }
+
+                    const alterarQuantidadeItemCarrinho = () => {
+                        let inputs = document.querySelectorAll('input[name="input_quantidade_item"]');
+                        inputs.forEach(input => {
+                            let input_form = document.querySelector("#alterado_" + input.id);
+                            if (input_form) input_form.setAttribute("value", input.value);
+                            else formAlterarQuantidadeItem.insertAdjacentHTML('afterbegin', "<input type='number' name='item_carrinho_" + input.getAttribute('data-item_id') + "' value='" + input.value + "' id='alterado_" + input.id + "'>");
+                        })
+                    }
+
+                    calculaValorTotalFinal();
                 </script>
 
                 </html>

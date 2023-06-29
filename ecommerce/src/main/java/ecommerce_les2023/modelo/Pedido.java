@@ -15,7 +15,7 @@ public class Pedido extends EntidadeDominio {
 	private int cliente_id;
 	private List<ItemPedido> item_pedido;
 	private List<Transacao> transacao;
-	private int cupom_id;
+	private List<Cupom> cupom_pedido;
 	private List<PedidoTroca> pedido_troca;
 
 	public Pedido(float valor_total, String situacao, String modificado_por, String ultima_atualizacao,
@@ -43,7 +43,6 @@ public class Pedido extends EntidadeDominio {
 		this.codigo = codigo;
 		this.situacao = situacao;
 		this.cliente_id = cliente_id;
-		
 	}
 	
 	public Pedido(String codigo) {
@@ -118,12 +117,12 @@ public class Pedido extends EntidadeDominio {
 		this.transacao = transacao;
 	}
 
-	public int getCupom_id() {
-		return cupom_id;
+	public List<Cupom> getCupom_pedido() {
+		return cupom_pedido;
 	}
 
-	public void setCupom_id(int cupom_id) {
-		this.cupom_id = cupom_id;
+	public void setCupom_pedido(List<Cupom> cupom_pedido) {
+		this.cupom_pedido = cupom_pedido;
 	}
 	
 	public String gerarCodigoUnico() {
@@ -143,6 +142,13 @@ public class Pedido extends EntidadeDominio {
 			this.transacao = new ArrayList<Transacao>();
 		}
 		this.transacao.add(transacao);
+	}
+	
+	public void adicionaCupomPedido(Cupom cupom) {
+		if(this.cupom_pedido == null) {
+			this.cupom_pedido = new ArrayList<Cupom>();
+		}
+		this.cupom_pedido.add(cupom);
 	}
 
 	public String getData_pedido() {

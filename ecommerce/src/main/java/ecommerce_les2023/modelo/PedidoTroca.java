@@ -116,14 +116,6 @@ public class PedidoTroca extends EntidadeDominio {
 		this.transacao = transacao;
 	}
 
-	public int getCupom_id() {
-		return cupom_id;
-	}
-
-	public void setCupom_id(int cupom_id) {
-		this.cupom_id = cupom_id;
-	}
-	
 	public String gerarCodigoUnico() {
 		UUID codigo_unico = UUID.randomUUID();
 		return codigo_unico.toString();
@@ -155,6 +147,14 @@ public class PedidoTroca extends EntidadeDominio {
 		for(ItemTroca item : this.item_troca) {
 			this.valor_total += (item.getPreco_unitario() * item.getQuantidade());
 		}
+	}
+
+	public int getCupom_id() {
+		return cupom_id;
+	}
+
+	public void setCupom_id(int cupom_id) {
+		this.cupom_id = cupom_id;
 	}
 	
 }

@@ -61,7 +61,6 @@ public class CarrinhoDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
-				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -136,7 +135,6 @@ public class CarrinhoDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
-				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -196,7 +194,6 @@ public class CarrinhoDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
-				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

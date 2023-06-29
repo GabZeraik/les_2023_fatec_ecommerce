@@ -58,7 +58,6 @@ public class ProdutoDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
-				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -71,8 +70,7 @@ public class ProdutoDAO extends AbstractDAO {
 		PreparedStatement comandoSQL = null;
 		List<EntidadeDominio> produtos = new ArrayList<EntidadeDominio>();
 		Produto prod = (Produto) entidade;
-		
-		System.out.println();
+	
 		try {
 			this.conexao.setAutoCommit(false);
 			
@@ -111,7 +109,6 @@ public class ProdutoDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
-				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

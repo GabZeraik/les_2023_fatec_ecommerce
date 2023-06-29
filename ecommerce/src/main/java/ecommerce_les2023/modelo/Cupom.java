@@ -6,6 +6,7 @@ public class Cupom extends EntidadeDominio{
 	private float valor;
 	private String tipo;
 	private int cliente_id;
+	private int pedido_id;
 	private int valido;
 	
 	public Cupom() {
@@ -20,6 +21,16 @@ public class Cupom extends EntidadeDominio{
 		this.valido = valido;
 	}
 	
+	public Cupom(int id, String codigo, float valor, String tipo, int cliente_id, int pedido_id, int valido) {
+		this.id = id;
+		this.codigo = codigo;
+		this.valor = valor;
+		this.tipo = tipo;
+		this.cliente_id = cliente_id;
+		this.pedido_id = pedido_id;
+		this.valido = valido;
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -51,5 +62,13 @@ public class Cupom extends EntidadeDominio{
 
 	public void setValido(int valido) {
 		this.valido = valido;
+	}
+
+	public int getPedido_id() {
+		return pedido_id;
+	}
+
+	public void setPedido_id(int pedido_id) {
+		this.pedido_id = pedido_id;
 	}
 }

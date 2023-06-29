@@ -26,7 +26,7 @@ public class ItemCarrinhoViewHelper implements IViewHelper {
 		String item_produto_pro_id = req.getParameter("item_produto_id");
 		String item_fk_id = req.getParameter(item_tipo.concat("_id"));
 		String item_id = req.getParameter("item_id");
-		
+				
 		if(item_fk_id.equals("") || item_fk_id == null) {
 			EntidadeDominio carrinho;
 			
@@ -50,20 +50,12 @@ public class ItemCarrinhoViewHelper implements IViewHelper {
 			item.setId(Integer.parseInt(item_id));
 		}
 		
-		//DAR BAIXA NO ESTOQUE MÃO DO PRODUTO
-		ICommand command = new ConsultarCommand();
-		Produto produto_baixa_estoque = new Produto();
-		produto_baixa_estoque.setId(Integer.parseInt(item_produto_pro_id));
-		Produto produto_final = (Produto) command.execute(produto_baixa_estoque).getDados().get(0);
-		command = new AlterarCommand();
-		produto_final.setEstoque_mao(produto_final.getEstoque_mao() - Integer.parseInt(item_quantidade));
-		command.execute(produto_final);
-		
 		return item;
 	}
 	
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest req, HttpServletResponse resp) {
+		ItemCarrinho item_adicionado = (ItemCarrinho) resultado.getDados().get(0);
 		
 		//RETORNA O CARRINHO ATUALIZADO
 		ICommand command = new ConsultarCommand();
@@ -71,10 +63,24 @@ public class ItemCarrinhoViewHelper implements IViewHelper {
 		Resultado resultado_carrinho = command.execute(carrinho);
 		
 		req.getSession().setAttribute("carrinho", resultado_carrinho.getDados().get(0));
-			
+		
 		//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
 		try {
-			resp.sendRedirect("cart.jsp");
+			if(!resultado.getMensagem().contains("sucesso")) {
+				req.getSession().setAttribute("resultado", resultado);
+				resp.sendRedirect("resultado.jsp");
+			}
+			else {
+				//DAR BAIXA NO ESTOQUE MÃO DO PRODUTO
+				command = new ConsultarCommand();
+				Produto produto_baixa_estoque = new Produto();
+				produto_baixa_estoque.setId(item_adicionado.getProduto_id());
+				Produto produto_final = (Produto) command.execute(produto_baixa_estoque).getDados().get(0);
+				command = new AlterarCommand();
+				produto_final.setEstoque_mao(produto_final.getEstoque_mao() - item_adicionado.getQuantidade());
+				command.execute(produto_final);
+				resp.sendRedirect("cart.jsp");
+			}
 			return;
 		} catch (IOException e) {
 			e.printStackTrace();

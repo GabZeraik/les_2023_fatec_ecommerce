@@ -52,7 +52,8 @@ CREATE TABLE cupons (
     cup_valor       NUMERIC(10,2),
     cup_tipo  		VARCHAR(30),
     cup_valido      INTEGER NOT NULL,
-    clientes_cli_id INTEGER
+    clientes_cli_id INTEGER,
+    pedidos_ped_id  INTEGER
 );
 
 ALTER TABLE cupons ADD CONSTRAINT cupons_pk PRIMARY KEY ( cup_id );
@@ -106,7 +107,6 @@ CREATE TABLE pedidos (
     ped_situacao           VARCHAR(50),
     ped_modificado_por     VARCHAR(150),
     ped_ultima_atualizacao DATE,
-    cupons_cup_id          INTEGER
     clientes_cli_id        INTEGER NOT NULL
 );
 
@@ -142,8 +142,6 @@ CREATE TABLE carrinhos (
 );
 
 ALTER TABLE carrinhos ADD CONSTRAINT carrinhos_pk PRIMARY KEY ( shop_id );
-ALTER TABLE carrinhos
-    ADD COLUMN shop_expira_em time with time zone NOT NULL DEFAULT (now() - '00:10:00'::interval);
 
 CREATE TABLE itens_carrinhos (
     item_id             SERIAL,
@@ -228,6 +226,10 @@ ALTER TABLE cupons
     ADD CONSTRAINT cupons_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
 
+ALTER TABLE cupons
+    ADD CONSTRAINT cupons_pedidos_fk FOREIGN KEY ( pedidos_ped_id )
+        REFERENCES pedidos ( ped_id ) ON DELETE CASCADE;
+
 ALTER TABLE enderecos
     ADD CONSTRAINT enderecos_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
@@ -255,10 +257,6 @@ ALTER TABLE itens_carrinhos
 ALTER TABLE pedidos
     ADD CONSTRAINT pedidos_clientes_fk FOREIGN KEY ( clientes_cli_id )
         REFERENCES clientes ( cli_id ) ON DELETE CASCADE;
-
-ALTER TABLE pedidos
-    ADD CONSTRAINT pedidos_cupom_fk FOREIGN KEY ( cupons_cup_id )
-        REFERENCES cupons ( cup_id );
 
 ALTER TABLE carrinhos
     ADD CONSTRAINT carrinhos_clientes_fk FOREIGN KEY ( clientes_cli_id )

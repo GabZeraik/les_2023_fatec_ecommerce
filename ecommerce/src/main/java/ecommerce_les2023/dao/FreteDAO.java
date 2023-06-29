@@ -61,7 +61,6 @@ public class FreteDAO extends AbstractDAO {
 			try {
 				comandoSQL.close();
 				conexao.close();
-				System.out.println("CONEXÃO FINALIZADA!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

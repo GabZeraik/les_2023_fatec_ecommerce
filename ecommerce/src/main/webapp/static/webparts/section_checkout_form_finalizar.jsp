@@ -11,7 +11,9 @@
                                 <button class="btn" type="button"><a href="index.jsp">Continuar comprando</a></button>
                                 <input type="hidden" name="operacao" value="FINALIZAR">
                                 <input type="hidden" name="pedido_valor_total" value="" id="valor_total_pedido_final">
-                                <input type="hidden" name="cupom_selecionado" value="" id="cupom_selecionado">
+                                <div id="cupom_selecionado">
+
+                                </div>
                                 <button class="btn btn-inverse right" type="button" form="formFinalizarCompra" id="btnFinalizarCompra" onclick="submitFormulario(this)">Finalizar Compra</button>
                             </form>
                         </div>
