@@ -50,13 +50,11 @@
                         });
 
                         const formAlterarQuantidadeItem = document.querySelector('#formAlterarQuantidadeItem');
-                        const alterarQuantidadeItemCarrinho = () => {
-                            let inputs = document.querySelectorAll('input[name="input_quantidade_item"]');
-                            inputs.forEach(input => {
-                                let input_form = document.querySelector("#alterado_" + input.id);
-                                if (input_form) input_form.setAttribute("value", input.value);
-                                else formAlterarQuantidadeItem.insertAdjacentHTML('afterbegin', "<input type='number' name='item_carrinho_" + input.getAttribute('data-item_id') + "' value='" + input.value + "' id='alterado_" + input.id + "'>");
-                            })
+                        const alterarQuantidadeItemCarrinho = (input) => {
+                            let input_form = document.querySelector("#alterado_" + input.id);
+                            if (input_form) input_form.setAttribute("value", input.value);
+                            else formAlterarQuantidadeItem.insertAdjacentHTML('afterbegin', "<input type='number' name='item_carrinho_" + input.getAttribute('data-item_id') + "' value='" + input.value + "' id='alterado_" + input.id + "'>");
+                            formAlterarQuantidadeItem.submit();
                         }
                     </script>
                 </body>

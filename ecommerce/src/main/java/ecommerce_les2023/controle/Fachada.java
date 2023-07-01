@@ -65,6 +65,7 @@ public class Fachada implements IFachada {
 		List<IStrategy> cadastrarCartaoStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> cadastrarPedidoStrategy = new ArrayList<IStrategy>();
 		List<IStrategy> cadastrarItemCarrinhoStrategy = new ArrayList<IStrategy>();
+		List<IStrategy> alterarItemCarrinhoStrategy = new ArrayList<IStrategy>();
 		
 		//Aplicar regras de negócio para manter clientes
 		cadastrarClienteStrategy.add(new VerificadorDadosObrigatoriosClienteStrategy());
@@ -81,6 +82,7 @@ public class Fachada implements IFachada {
 		
 		//Aplicar regras de negócio para carrinho
 		cadastrarItemCarrinhoStrategy.add(new VerificadorEstoqueProdutoStrategy());
+		alterarItemCarrinhoStrategy.add(new VerificadorEstoqueProdutoStrategy());
 		
 		this.mapStrategies = new HashMap<String, List<IStrategy>>();
 		
@@ -99,6 +101,7 @@ public class Fachada implements IFachada {
 		
 		//ItemCarrinho
 		this.mapStrategies.put("Cadastrar" + ItemCarrinho.class.getName(), cadastrarItemCarrinhoStrategy);
+		this.mapStrategies.put("Alterar" + ItemCarrinho.class.getName(), alterarItemCarrinhoStrategy);
 	}
 
 	//Cria os mapas de chave/valor para as respectivas classes, linkando a classe com seu DAO. Exemplo: classe Aluno/ AlunoDAO

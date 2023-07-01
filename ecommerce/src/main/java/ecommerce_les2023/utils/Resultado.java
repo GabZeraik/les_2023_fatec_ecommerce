@@ -110,12 +110,14 @@ public class Resultado {
 	}
 
 	public void setJson_dados() {
-		this.json_dados = "[";
-		for(int i = 0; i < this.dados.size(); i++){
-			if(i != this.dados.size() - 1) {
-				this.json_dados += this.dados.get(i).objetoToJson() + ',';
-			}else this.json_dados += this.dados.get(i).objetoToJson();
+		if(this.dados != null) {
+			this.json_dados = "[";
+			for(int i = 0; i < this.dados.size(); i++){
+				if(i != this.dados.size() - 1) {
+					this.json_dados += this.dados.get(i).objetoToJson() + ',';
+				}else this.json_dados += this.dados.get(i).objetoToJson();
+			}
+			this.json_dados += "]";
 		}
-		this.json_dados += "]";
 	}
 }

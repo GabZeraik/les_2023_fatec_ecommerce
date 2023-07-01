@@ -43,7 +43,7 @@
                                                 <a href="ConsultarProduto?operacao=CONSULTAR&pro_id=${item.produto_id}" target="_blank"><img alt="" src="static/themes/images/camiseta.png" class="thumbnails small"></a>
                                             </td>
                                             <td>${item.nome}</td>
-                                            <td><input type="number" value="${item.quantidade}" min="1" class="input-mini" name="input_quantidade_item" id="input_quantidade_item_${item.id}" data-item_id="${item.id}" onchange="alterarQuantidadeItemCarrinho()"></td>
+                                            <td><input type="number" value="${item.quantidade}" min="1" class="input-mini" name="input_quantidade_item" id="input_quantidade_item_${item.id}" data-item_id="${item.id}" onchange="alterarQuantidadeItemCarrinho(this)"></td>
                                             <td>R$${fn:replace(item.preco_unitario, '.', ',')}</td>
                                             <c:set var="valor_unitario_item">
                                                 <fmt:formatNumber type="number" maxFractionDigits="2" value="${item.preco_unitario * item.quantidade}" />

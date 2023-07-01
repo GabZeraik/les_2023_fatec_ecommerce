@@ -72,7 +72,8 @@ public class Controller extends HttpServlet{
 		
 		mapViewHelpers.put("/ecommerce_les/ConsultarVendasGrafico", new VendasGraficoViewHelper());
 		
-		mapViewHelpers.put("/ecommerce_les/ConsultarVendasGrafico", new AlterarQuantidadeItemCarrinhoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/AlterarQuantidadeItemCarrinho", new AlterarQuantidadeItemCarrinhoViewHelper());
+		mapViewHelpers.put("/ecommerce_les/AlterarQuantidadeEstoque", new AlterarQuantidadeEstoque());
 	}
 	
 	@Override
@@ -154,6 +155,10 @@ public class Controller extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		EntidadeDominio entidade = null;
+		ICommand commandRequisitado = null;
+		Resultado resultado = null;
+		
 		//Obtém a operação realizada, como parametro da requisição
 		String operacaoForm = req.getParameter("operacao");
 		
@@ -194,14 +199,34 @@ public class Controller extends HttpServlet{
 			return;
 		}
 		
+		//ALTERAR QUANTIDADE ITEM CARRINHO
+		if(uriDeOrigem.contains("AlterarQuantidadeItemCarrinho")) {
+			entidade = viewHelperRequisitada.obterEntidade(req);
+			
+			resultado = mapCommands.get(operacaoForm).execute(entidade);
+			
+			//DAR BAIXA NO ESTOQUE DO PRODUTO
+			if(resultado.isSucesso()) {
+				uriDeOrigem = "/ecommerce_les/AlterarQuantidadeEstoque";
+				IViewHelper viewHelperAux = mapViewHelpers.get(uriDeOrigem);
+				entidade = viewHelperAux.obterEntidade(req);
+				mapCommands.get(operacaoForm).execute(entidade);
+			}
+		
+			viewHelperRequisitada.setView(resultado, req, resp);
+			
+			getServletContext().setAttribute("produtos", this.atualizaProdutos());
+			return;
+		}
+		
 		//Cria entidade da viewHelper específica
-		EntidadeDominio entidade = viewHelperRequisitada.obterEntidade(req);
+		entidade = viewHelperRequisitada.obterEntidade(req);
 				
 		//Obtém o command específico de acordo com o parametro (tipo) operacao do form
-		ICommand commandRequisitado = mapCommands.get(operacaoForm);
+		commandRequisitado = mapCommands.get(operacaoForm);
 		
 		//Executa o command passando o objeto (entidade) para realizar a operacao
-		Resultado resultado = commandRequisitado.execute(entidade);
+		resultado = commandRequisitado.execute(entidade);
 		
 		viewHelperRequisitada.setView(resultado, req, resp);
 	}

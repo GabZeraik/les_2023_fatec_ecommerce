@@ -66,7 +66,7 @@ public class ItemCarrinhoViewHelper implements IViewHelper {
 		
 		//Atribui mensagem de sucesso à página e REDIRECIONA para home para não alterar o estado do servidor
 		try {
-			if(!resultado.getMensagem().contains("sucesso")) {
+			if(!resultado.isSucesso()) {
 				req.getSession().setAttribute("resultado", resultado);
 				resp.sendRedirect("resultado.jsp");
 			}
@@ -77,7 +77,9 @@ public class ItemCarrinhoViewHelper implements IViewHelper {
 				produto_baixa_estoque.setId(item_adicionado.getProduto_id());
 				Produto produto_final = (Produto) command.execute(produto_baixa_estoque).getDados().get(0);
 				command = new AlterarCommand();
-				produto_final.setEstoque_mao(produto_final.getEstoque_mao() - item_adicionado.getQuantidade());
+				if(req.getRequestURI().contains("ExcluirItemCarrinho")) {
+					produto_final.setEstoque_mao(produto_final.getEstoque_mao() + item_adicionado.getQuantidade());
+				}else produto_final.setEstoque_mao(produto_final.getEstoque_mao() - item_adicionado.getQuantidade());
 				command.execute(produto_final);
 				resp.sendRedirect("cart.jsp");
 			}
